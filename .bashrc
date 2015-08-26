@@ -1,5 +1,25 @@
 # Git Bash
 PS1='\[\033]0;Git Bash: \w\007\]\[\033[32m\]\h \[\033[33m\]\W\[\033[36m\]`__git_ps1`\[\033[0m\]\n$'
 
+# Hide useless folders
+alias ls='ls --ignore={\
+.VirtualBox*,\
+.IdeaIC14*,\
+navdb.csv,\
+NTUSER*,\
+ntuser*,\
+AppData*,\
+Application\ Data*,\
+Local\ Settings*,\
+My\ Documents*,\
+NetHood*,\
+PrintHood*,\
+Recent*,\
+SendTo*,\
+Templates*,\
+Cookies*,\
+OneDrive*,\
+Thumbs.db,\
+「开始」菜单*}'
 alias ll="ls -l"
 alias la="ls -al"
