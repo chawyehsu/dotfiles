@@ -1,0 +1,47 @@
+[user]
+  name = h404bi
+  email = h404bi@gmail.com
+
+[alias]
+  remotes = remote -v
+  unstage = reset HEAD
+  clonere = clone --recursive
+  last = log -1 HEAD
+  brs = branch -a
+  cim = commit -m
+  cob = checkout -b
+  lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
+  st = status
+  br = branch
+  ci = commit
+  co = checkout
+  df = diff
+
+[branch]
+  autosetuprebase = always
+
+[core]
+  quotepath = false
+  autocrlf = true
+  safecrlf = false
+  editor = vim
+
+[i18n]
+  logoutputencoding = utf-8
+
+[i18n "commit"]
+  encoding = utf-8
+
+[gui]
+  encoding = utf-8
+
+# URL shorthands
+[url "git@github.com:"]
+  insteadOf = "gh:"
+  pushInsteadOf = "github:"
+  pushInsteadOf = "git://github.com/"
+
+[url "git@gist.github.com:"]
+  insteadOf     = "gist:"
+  pushInsteadOf = "gist:"
+  pushInsteadOf = "git://gist.github.com/"
