@@ -2,7 +2,7 @@
 PS1='\[\033]0;Git Bash: \w\007\]\[\033[32m\]\h \[\033[33m\]\W\[\033[36m\]`__git_ps1`\[\033[0m\]\n$'
 
 # Hide useless folders
-alias ls='ls --ignore={\
+alias ls='ls --color=auto --ignore={\
 .VirtualBox*,\
 .IdeaIC14*,\
 navdb.csv,\
@@ -20,6 +20,10 @@ Templates*,\
 Cookies*,\
 OneDrive*,\
 Thumbs.db,\
+desktop.ini,\
 「开始」菜单*}'
-alias ll="ls -l"
-alias la="ls -al"
+alias ll='ls -lhF'
+alias la='ll -A'
+
+# Export
+export python3='pyhton'
