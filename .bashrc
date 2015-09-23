@@ -24,6 +24,8 @@ desktop.ini,\
 「开始」菜单*}'
 alias ll='ls -lhF'
 alias la='ll -A'
+alias open='explorer'
+alias here='open .'
 
 # Export
 export python3='pyhton'
