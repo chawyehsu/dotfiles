@@ -29,13 +29,16 @@ desktop.ini,\
 alias ll='ls -lhF'
 alias la='ll -A'
 
+# Open explorer
 alias open='explorer'
 alias here='open .'
 
+# PYTHON
+alias py='winpty py'
+alias python='py'
+alias python3='py -3'
+#alias py3='python3'
+
+# JAVA
 alias java7='$JRE7_HOME/java'
-
-alias python='winpty python'
-alias python3='winpty python3'
-
-# for gradle
 alias initJavaProject='mkdir -p src/main/{java,resources} src/test/{java,resources}'
