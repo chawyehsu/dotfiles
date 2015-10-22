@@ -1,48 +1,49 @@
 [user]
-  name = h404bi
-  email = h404bi@gmail.com
+    name = h404bi
+    email = h404bi@gmail.com
 
 [alias]
-  remotes = remote -v
-  unstage = reset HEAD
-  last = log -1 HEAD
-  brs = branch -a
-  cim = commit -m
-  clb = clone -b
-  clr = clone --recursive
-  cob = checkout -b
-  lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
-  st = status
-  br = branch
-  ci = commit
-  co = checkout
-  df = diff
+    remotes = remote -v
+    unstage = reset HEAD
+    last = log -1 HEAD
+    brs = branch -a
+    cim = commit -m
+    clb = clone -b
+    clr = clone --recursive
+    cob = checkout -b
+    lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
+    st = status
+    br = branch
+    ci = commit
+    co = checkout
+    df = diff
 
+# Always git pull --rebase
 [branch]
-  autosetuprebase = always
+    autosetuprebase = always
 
 [core]
-  quotepath = false
-  autocrlf = true
-  safecrlf = false
-  editor = vim
+    quotepath = false
+    safecrlf = false
+    editor = vim
+    autocrlf = input
 
 [i18n]
-  logoutputencoding = utf-8
+    logoutputencoding = utf-8
 
 [i18n "commit"]
-  encoding = utf-8
+    encoding = utf-8
 
 [gui]
-  encoding = utf-8
+    encoding = utf-8
 
 # URL shorthands
 [url "git@github.com:"]
-  insteadOf = "gh:"
-  pushInsteadOf = "github:"
-  pushInsteadOf = "git://github.com/"
+    insteadOf = "gh:"
+    pushInsteadOf = "github:"
+    pushInsteadOf = "git://github.com/"
 
 [url "git@gist.github.com:"]
-  insteadOf     = "gist:"
-  pushInsteadOf = "gist:"
-  pushInsteadOf = "git://gist.github.com/"
+    insteadOf     = "gist:"
+    pushInsteadOf = "gist:"
+    pushInsteadOf = "git://gist.github.com/"
