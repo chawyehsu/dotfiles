@@ -31,6 +31,10 @@ alias la='ll -A'
 alias open='explorer'
 alias here='open .'
 
+#===== Git alias =====
+alias gdf='git diff'
+alias gst='git status'
+
 #===========================
 #===== PYTHON ENV =====
 # If we set PY_PYTHON=3, then `py` will use Python3 as the default Python
@@ -38,8 +42,6 @@ alias here='open .'
 # Because in Mintty terminal we use UTF-8 so set PYTHONIOENCODING to utf-8
 export PYTHONIOENCODING=utf-8
 alias py='winpty py'
-alias python='py'
-alias python3='py -3'
 
 #===== JAVA ENV =====
 export JRE7_HOME='/d/usr/Java/jre1.7.0_79/bin'
