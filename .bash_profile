@@ -1,12 +1,17 @@
-# Correct Timezone and date
+# correct timezone and date
 export TZ=UTC-8
 
-# source the users bashrc if it exists
-if [ -f "${HOME}/.bashrc" ] ; then
-  source "${HOME}/.bashrc"
+# auto startup ssh-agent
+if [ -f "${HOME}/.pre-script/ssh-agent.run" ] ; then
+  source "${HOME}/.pre-script/ssh-agent.run"
 fi
 
-# Auto-launching ssh-agent
-if [ -f "${HOME}/.autossh" ] ; then
-  source "${HOME}/.autossh"
+# export ~/.solarized-dark.dircolors
+if [ -f "${HOME}/.pre-script/solarized-dark.dircolorsdb" ] ; then
+  eval `dircolors ${HOME}/.pre-script/solarized-dark.dircolorsdb`
+fi
+
+# source ~/.bashrc
+if [ -f "${HOME}/.bashrc" ] ; then
+  source "${HOME}/.bashrc"
 fi

@@ -1,5 +1,5 @@
-## H404bi's dotfiles (Windows)
+## h404bi's dotfiles (Windows)
 
-##### Mintty terminal style
+##### Git Bash mintty terminal with solarized style
 ![mintty-style](doc/mintty-style.png)
 
