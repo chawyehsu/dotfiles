@@ -1,0 +1,4 @@
+#!/bin/sh
+
+winpty py -m pydoc "$@"
+
