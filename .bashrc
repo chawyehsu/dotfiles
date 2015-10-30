@@ -39,6 +39,12 @@ alias gst='git status'
 #===== PYTHON ENV =====
 # If we set PY_PYTHON=3, then `py` will use Python3 as the default Python
 # export PY_PYTHON=3
+# via http://hackercodex.com/guide/python-development-environment-on-mac-osx/
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+gpip(){
+    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
 # Because in Mintty terminal we use UTF-8 so set PYTHONIOENCODING to utf-8
 export PYTHONIOENCODING=utf-8
 alias py='winpty py'
