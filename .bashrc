@@ -48,8 +48,6 @@ gpip(){
 gpip3(){
     PIP_REQUIRE_VIRTUALENV="" winpty pip3 "$@"
 }
-# Because in Mintty terminal we use UTF-8 so set PYTHONIOENCODING to utf-8
-export PYTHONIOENCODING=utf-8
 alias py='winpty py'
 
 #===== JAVA ENV =====
