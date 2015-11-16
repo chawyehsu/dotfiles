@@ -43,10 +43,10 @@ alias gst='git status'
 # pip should only run if there is a virtualenv currently activated
 export PIP_REQUIRE_VIRTUALENV=true
 gpip(){
-    PIP_REQUIRE_VIRTUALENV="" pip "$@"
+    PIP_REQUIRE_VIRTUALENV="" winpty pip "$@"
 }
 gpip3(){
-    PIP_REQUIRE_VIRTUALENV="" pip3 "$@"
+    PIP_REQUIRE_VIRTUALENV="" winpty pip3 "$@"
 }
 # Because in Mintty terminal we use UTF-8 so set PYTHONIOENCODING to utf-8
 export PYTHONIOENCODING=utf-8
