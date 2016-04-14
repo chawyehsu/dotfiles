@@ -37,6 +37,7 @@ SendTo*,\
 Templates*,\
 Cookies*,\
 OneDrive*,\
+3D\ Objects,\
 Thumbs.db,\
 desktop.ini,\
 「开始」菜单*}'
