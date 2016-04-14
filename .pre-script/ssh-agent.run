@@ -39,8 +39,8 @@ case "$-" in
       agent_load_env
   fi
 
-  # if your keys are not stored in ~/.ssh/id_rsa or ~/.ssh/id_dsa, you'll need
-  # to paste the proper path after ssh-add
+  # if your keys are not stored in ~/.ssh/id_rsa or ~/.ssh/id_dsa,
+  # you'll need to paste the proper path after ssh-add
   if ! agent_is_running; then
       agent_start
       ssh-add ~/.ssh/*.pri >/dev/null 2>&1
@@ -51,3 +51,4 @@ case "$-" in
   unset env
 ;;
 esac
+
