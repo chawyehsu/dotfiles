@@ -1,13 +1,12 @@
-##############################################################
+
 # Dark 256 color solarized theme for the color GNU ls utility.
 # Used and tested with dircolors (GNU coreutils) 8.5
 #
 # @author  {@link http://sebastian.tramp.name Sebastian Tramp}
-# @license http://sam.zoy.org/wtfpl/
-#     Do What The Fuck You Want To Public License (WTFPL)
+# @license http://sam.zoy.org/wtfpl/  Do What The Fuck You Want To Public License (WTFPL)
 #
-# More Information at:
-#     https://github.com/seebi/dircolors-solarized
+# More Information at
+# https://github.com/seebi/dircolors-solarized
 
 # Term Section
 TERM Eterm
@@ -68,6 +67,8 @@ TERM st
 TERM st-meta
 TERM st-256color
 TERM st-meta-256color
+TERM tmux
+TERM tmux-256color
 TERM vt100
 TERM xterm
 TERM xterm-16color
@@ -212,12 +213,17 @@ EXEC 00;38;5;64
 .yml             00;38;5;245
 .cfg             00;38;5;245
 .conf            00;38;5;245
+.h               00;38;5;245
+.hpp             00;38;5;245
 .c               00;38;5;245
 .cpp             00;38;5;245
+.cxx             00;38;5;245
 .cc              00;38;5;245
+.objc            00;38;5;245
 .sqlite          00;38;5;245
 .go              00;38;5;245
 .sql             00;38;5;245
+.csv             00;38;5;245
 
 # "unimportant" files as logs and backups (base01)
 .log        00;38;5;240
@@ -252,6 +258,7 @@ EXEC 00;38;5;64
 .mp3    00;38;5;166
 .mpc    00;38;5;166
 .ogg    00;38;5;166
+.opus   00;38;5;166
 .ra     00;38;5;166
 .wav    00;38;5;166
 .m4a    00;38;5;166
