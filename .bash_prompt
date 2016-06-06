@@ -21,6 +21,8 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # setup prompt
 function set_bash_prompt() {
   set_virtualenv
-  PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}$(__git_ps1)${RESET}${VIRTUALENV}\n\$ "
+  PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}"
+  PS1="$PS1"'`__git_ps1`'
+  PS1="$PS1${RESET}${VIRTUALENV}\n\$ "
 }
 PROMPT_COMMAND=set_bash_prompt
