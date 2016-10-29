@@ -23,6 +23,7 @@
     autosetuprebase = always
 
 [core]
+    excludesfile = ~/.gitignore_global
     quotepath = false
     safecrlf = false
     editor = vim
