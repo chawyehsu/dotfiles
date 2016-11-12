@@ -1,4 +1,7 @@
+# correct TimeZone
 export TZ=UTC-8
+# force enable node.js color
+export FORCE_COLOR=true
 # auto startup ssh-agent:
 source "${HOME}/.ssh/ssh-agent.run"
 # Solarized color theme for ls command:

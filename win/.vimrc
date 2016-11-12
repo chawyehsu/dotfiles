@@ -39,4 +39,4 @@ set t_Co=256
 let g:rehash256 = 1
 
 " 高亮配色
-colorscheme solarized
+colorscheme base16-solarized-dark
