@@ -1,0 +1,24 @@
+export LC_CTYPE=zh_CN.UTF-8
+export LANG=en_US.UTF-8
+export TZ=UTC-8
+# force enable node color, cf. https://github.com/chalk/chalk#chalksupportscolor
+export FORCE_COLOR=true
+
+case "${OSTYPE}" in
+  darwin*)
+    # OSX default PATH:
+    #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+    # Add Homebrew super formulae to PATH:
+    export PATH="/usr/local/sbin:$PATH"
+    ;;
+esac
+
+# `ls` command colorscheme, macOS need GNU ls (brew install coreutils)
+command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
+eval "$(gdircolors -b ${HOME}/.dircolorsdb)"
+
+
+for file in ${HOME}/.dotfiles/home/misc/{aliases, prompt, ssh-agent, extra}.bash; do
+  [ -r "$file" ] && source "$file"
+done
+unset file

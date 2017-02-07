@@ -1,11 +1,13 @@
 ## dotfiles
 
-just a simple, uniform terminal style.
+**under refactoring**
 
-##### win: Git Bash mintty terminal
+yet a simple, uniform terminal style, for macOS, Windows(Git-Bash), and Linux.
 
-![win](doc/win.png)
+### iTerm2 (macOS)
 
-##### osx: iTerm2 terminal
+![macOS](doc/iTerm2.png)
 
-![win](doc/osx.png)
+### Git Bash Mintty (Windows)
+
+![Windows](doc/Mintty.png)
