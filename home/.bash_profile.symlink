@@ -1,4 +1,3 @@
-export LC_CTYPE=zh_CN.UTF-8
 export LANG=en_US.UTF-8
 export TZ=UTC-8
 # force enable node color, cf. https://github.com/chalk/chalk#chalksupportscolor
