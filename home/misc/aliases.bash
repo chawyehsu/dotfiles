@@ -1,4 +1,4 @@
-local lsoption="-F --show-control-chars --group-directories-first --color=auto"
+lsoption="-F --show-control-chars --group-directories-first --color=auto"
 case "${OSTYPE}" in
   darwin*)
     alias ls="gls ${lsoption}"
