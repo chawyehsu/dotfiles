@@ -1,12 +1,15 @@
-# bash-completion:
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  source $(brew --prefix)/etc/bash_completion
-fi
+case "${OSTYPE}" in
+  darwin*)
+    # bash-completion:
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      source $(brew --prefix)/etc/bash_completion
+    fi
 
-# nvm (node):
-export NVM_DIR="${HOME}/.nvm"
-source "$(brew --prefix nvm)/nvm.sh"
-
+    # nvm (node):
+    export NVM_DIR="${HOME}/.nvm"
+    source "$(brew --prefix nvm)/nvm.sh"
+    ;;
+esac
 
 # pyenv, pyenv-virtualenv (python):
 if which pyenv >/dev/null; then
