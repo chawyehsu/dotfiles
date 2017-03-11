@@ -17,7 +17,7 @@ command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 eval "$(gdircolors -b ${HOME}/.dircolorsdb)"
 
 
-for file in ${HOME}/.dotfiles/home/misc/{aliases,prompt,ssh-agent,extra}.bash; do
+for file in ${HOME}/.dotfiles/home/misc/{exports,aliases,prompt,ssh-agent,extra}.bash; do
   [ -r "$file" ] && source "$file"
 done
 unset file
