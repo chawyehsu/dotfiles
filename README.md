@@ -2,7 +2,7 @@
 
 **under refactoring**
 
-yet a simple, uniform terminal style, for macOS, Windows(Git-Bash), and Linux.
+yet a simple, uniform terminal style, for macOS, Windows, and Linux.
 
 ### iTerm2 (macOS)
 
@@ -11,3 +11,7 @@ yet a simple, uniform terminal style, for macOS, Windows(Git-Bash), and Linux.
 ### Git Bash Mintty (Windows)
 
 ![Windows](doc/Mintty.png)
+
+### Powershell with [Scoop](https://github.com/lukesampson/scoop) on [Cmder](https://github.com/cmderdev/cmder) (Windows)
+
+![Powershell_with_Scoop_on_Cmder](doc/Powershell_with_Scoop_on_Cmder.png)
