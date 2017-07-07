@@ -1,0 +1,5 @@
+﻿{
+    "proxy":  "127.0.0.1:1080",
+    "SCOOP_BRANCH":  "master",
+    "SCOOP_REPO":  "https://github.com/lukesampson/scoop"
+}
