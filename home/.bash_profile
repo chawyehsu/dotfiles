@@ -96,13 +96,7 @@ alias l="ls"
 # Aliases only useful on Git-Bash(Windows)
 case "$OSTYPE" in
   darwin*)
-    # Windows CMD use cls command, add it macOS.
-    alias cls="clear"
     alias here="open ."
-    ;;
-  linux*)
-    # Windows CMD use cls command, add it to Linux.
-    alias cls="clear"
     ;;
   msys*)
     alias ipconfig="winpty ipconfig"
@@ -125,8 +119,11 @@ alias :q="exit"
 alias ..="cd .."
 alias ...="cd ../.."
 alias gdf="git diff"
+alias glg="git lg"
 alias gst="git status"
 alias ip="curl ip.gs"
+# Sometimes I use CMD/PowerShell, which use cls command.
+alias cls="clear"
 
 
 ##################

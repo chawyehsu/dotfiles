@@ -23,9 +23,7 @@ set number
 set encoding=utf-8
 set cursorline
 set noswapfile
-" 不设定在插入状态无法用退格键和 Delete 键删除回车符
 set backspace=indent,eol,start 
-" 把当前行的对齐格式应用到下一行
 set autoindent
 set smartindent
 set shiftwidth=4
@@ -33,6 +31,10 @@ set expandtab
 set tabstop=4
 set t_Co=256
 set laststatus=2
+" Gvim
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+set guifont=Monaco,Consolas
 set background=dark
 " base16 colorscheme (cf. https://github.com/chriskempson/base16-vim)
 colorscheme base16-tomorrow-night
@@ -43,4 +45,3 @@ let g:airline_powerline_fonts=1
 "let g:airline#extensions#tabline#enabled=1
 "let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#whitespace#enabled=0
-
