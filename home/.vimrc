@@ -31,10 +31,6 @@ set expandtab
 set tabstop=4
 set t_Co=256
 set laststatus=2
-" Gvim
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-set guifont=Monaco,Consolas
 set background=dark
 " base16 colorscheme (cf. https://github.com/chriskempson/base16-vim)
 colorscheme base16-tomorrow-night
@@ -45,3 +41,4 @@ let g:airline_powerline_fonts=1
 "let g:airline#extensions#tabline#enabled=1
 "let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#whitespace#enabled=0
+
