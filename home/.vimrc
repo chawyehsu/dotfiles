@@ -21,6 +21,7 @@ syntax on
 set hlsearch
 set number
 set encoding=utf-8
+set cursorcolumn
 set cursorline
 set noswapfile
 set backspace=indent,eol,start 
