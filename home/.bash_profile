@@ -142,17 +142,18 @@ function set_bash_prompt() {
   local   WHITE="\[\033[0;37m\]"
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
-  # Python virtualenv state
+  # Python virtualenv state; conda-envs will handle itself.
   if [ -z "${VIRTUAL_ENV}" ]; then
     VIRTUALENV=""
   else
     VIRTUALENV=" ${BLUE}[$(basename ${VIRTUAL_ENV})]${RESET}"
   fi
-  PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}"
-  PS1="$PS1$(__git_ps1)"
-  PS1="$PS1${RESET}${VIRTUALENV}\n\$ "
+  # PS1 command substitution issue with newline:
+  #   https://stackoverflow.com/questions/33220492/
+  #   https://stackoverflow.com/questions/21517281/
+  PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
 }
-PROMPT_COMMAND=set_bash_prompt
+set_bash_prompt
 
 
 ##########################
@@ -171,12 +172,6 @@ case "$OSTYPE" in
     fi
     ;;
 esac
-# Restricting pip to virtual environments:
-# cf. https://hackercodex.com/guide/python-development-environment-on-mac-osx/
-export PIP_REQUIRE_VIRTUALENV=true
-gpip() {
-  PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
 # pyenv, pyenv-virtualenv:
 if command -v pyenv >/dev/null 2>&1; then
   eval "$(pyenv init -)";
