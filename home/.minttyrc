@@ -11,9 +11,9 @@ BoldAsFont=no
 Charset=UTF-8
 FontHeight=12
 BellFlash=no
-Columns=87
+Columns=76
 Locale=C
-Rows=25
+Rows=20
 
 # via https://github.com/iamthad/base16-mintty
 ForegroundColour=197,200,198
