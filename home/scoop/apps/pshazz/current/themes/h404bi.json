@@ -1,0 +1,15 @@
+﻿{
+	"plugins": [ "git", "ssh", "z", "aliases" ],
+	"prompt": [
+		[ "green",   "", "$hostname" ],
+		[ "yellow",  "", " $dir" ],
+		[ "cyan",    "", " $git_lbracket$git_branch" ],
+		[ "cyan",    "", " $git_dirty" ],
+		[ "cyan",    "", "$git_rbracket"],
+		[ "",        "", "`n$" ]
+	],
+	"git": {
+		"prompt_lbracket": "(",
+		"prompt_rbracket": ")"
+	}
+}
