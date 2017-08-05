@@ -1,11 +1,11 @@
-﻿{
+{
 	"plugins": [ "git", "ssh", "z", "aliases" ],
 	"prompt": [
-		[ "green",   "", "$hostname" ],
-		[ "yellow",  "", " $dir" ],
-		[ "cyan",    "", " $git_lbracket$git_branch" ],
-		[ "cyan",    "", " $git_dirty" ],
-		[ "cyan",    "", "$git_rbracket"],
+		[ "darkgreen",   "", "$hostname" ],
+		[ "darkyellow",  "", " $dir" ],
+		[ "darkcyan",    "", " $git_lbracket$git_branch" ],
+		[ "darkcyan",    "", " $git_dirty" ],
+		[ "darkcyan",    "", "$git_rbracket"],
 		[ "",        "", "`n$" ]
 	],
 	"git": {
