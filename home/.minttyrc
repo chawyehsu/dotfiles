@@ -1,6 +1,9 @@
-FontSmoothing=partial
+OpaqueWhenFocused=no
 Term=xterm-256color
+FontSmoothing=full
 BoldAsColour=yes
+AllowBlinking=no
+CursorBlinks=no
 CursorType=block
 Font=MonacoYaHei
 PgUpDnScroll=yes
