@@ -1,17 +1,13 @@
-## dotfiles
+<h1 align="center">Dotfiles</h1>
 
-**under refactoring**
+yet a simple, uniform terminal style and dotfiles, for macOS, Windows, and Linux.
 
-yet a simple, uniform terminal style, for macOS, Windows, and Linux.
+Spotlight
+---------
 
-### iTerm2 (macOS)
+See [spotlight.md](docs/spotlight.md) for screenshots.
 
-![macOS](docs/iTerm2.png)
+License
+-------
 
-### Git Bash Mintty (Windows)
-
-![Windows](docs/Mintty.png)
-
-### Powershell with [Scoop](https://github.com/lukesampson/scoop) on [Cmder](https://github.com/cmderdev/cmder) (Windows)
-
-![Powershell_with_Scoop_on_Cmder](docs/Powershell_with_Scoop_on_Cmder.png)
+[h404bi](https://github.com/h404bi)'s dotfiles, is under the [WTFPL](http://www.wtfpl.net/) License.
