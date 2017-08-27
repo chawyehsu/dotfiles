@@ -87,7 +87,7 @@ case "$OSTYPE" in
     ;;
   msys*)
     # There are too many unconcerned files and directories in Windows users home, ignore them.
-    alias ls="ls $lsoption --ignore={navdb.csv,NTUSER*,ntuser*,Application\ Data,Local\ Settings,My\ Documents,NetHood,PrintHood,Recent,SendTo,Templates,Cookies,3D\ Objects,Thumbs.db,desktop.ini,「开始」菜单}"
+    alias ls="ls $lsoption --ignore={navdb.csv,NTUSER*,ntuser*,Application\ Data,Local\ Settings,My\ Documents,NetHood,PrintHood,Recent,SendTo,Templates,Cookies,3D\ Objects,Thumbs.db,desktop.ini,Start\ Menu,「开始」菜单}"
     ;;
 esac
 alias ll="ls -lh"
