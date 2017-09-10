@@ -1,5 +1,5 @@
 <p align="center">
-  ![logo](docs/logo.jpg)
+  <img src="docs/logo.jpg" />
 </p>
 <h1 align="center">Dotfiles</h1>
 
