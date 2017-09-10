@@ -1,3 +1,6 @@
+<p align="center">
+  ![logo](docs/logo.jpg)
+</p>
 <h1 align="center">Dotfiles</h1>
 
 yet a simple, uniform terminal style and dotfiles, for macOS, Windows, and Linux.
