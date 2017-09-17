@@ -121,7 +121,7 @@ alias ...="cd ../.."
 alias gdf="git diff"
 alias glg="git lg"
 alias gst="git status"
-alias ip="curl -s ip.gs"
+alias ip="curl -s ip.sb"
 # Sometimes I use CMD/PowerShell, which use cls command.
 alias cls="clear"
 
