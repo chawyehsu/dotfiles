@@ -24,12 +24,6 @@ export TZ=UTC-8
 export FORCE_COLOR=true
 # Show git dirty state
 export GIT_PS1_SHOWDIRTYSTATE=1
-case "$OSTYPE" in
-  linux*)
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    ;;
-esac
 
 
 ########################################
@@ -172,15 +166,3 @@ case "$OSTYPE" in
     fi
     ;;
 esac
-# pyenv, pyenv-virtualenv:
-if command -v pyenv >/dev/null 2>&1; then
-  eval "$(pyenv init -)";
-  # cf. https://github.com/yyuu/pyenv/issues/106#issuecomment-94921352
-  if command -v brew >/dev/null 2>&1; then
-    alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-  fi
-fi
-if command -v pyenv-virtualenv-init >/dev/null 2>&1; then
-  eval "$(pyenv virtualenv-init -)";
-fi
-
