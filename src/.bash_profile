@@ -118,6 +118,7 @@ alias gst="git status"
 alias ip="curl -s ip.sb"
 # Sometimes I use CMD/PowerShell, which use cls command.
 alias cls="clear"
+alias ss="all_proxy=socks5://127.0.0.1:1080"
 
 
 ##################
