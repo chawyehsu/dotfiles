@@ -11,10 +11,15 @@
 ###################
 case "$OSTYPE" in
   darwin*)
-    # OSX default PATH:
+    # macOS default PATH:
     #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
     # Add Homebrew super formulae to PATH:
     export PATH="/usr/local/sbin:$PATH"
+    # Add Miniconda3 to PATH on macOS:
+    export PATH="/usr/local/miniconda3/bin:$PATH"
+    # Then stop `brew doctor` from complaining about scripts
+    # https://github.com/yyuu/pyenv/issues/106#issuecomment-94921352
+    alias brew="env PATH=${PATH//usr\/local\/miniconda3\/bin:/} brew"
     ;;
 esac
 export LANG=en_US.UTF-8
