@@ -66,7 +66,7 @@ fi
 #####################
 #     Dircolors     #
 #####################
-# NOTICE: macOS require GNU gdircolors command, run `brew install coreutils` to install.
+# macOS require GNU gdircolors command, install with `brew install coreutils`.
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 test -f "$HOME/.dircolorsdb" && eval "$(gdircolors -b $HOME/.dircolorsdb)"
 
@@ -78,7 +78,7 @@ lsoption="-F --show-control-chars --group-directories-first --color=auto"
 # Make 3 systems' ls command uniform
 case "$OSTYPE" in
   darwin*)
-    # NOTICE: macOS require GNU gls command, run `brew install coreutils` to install.
+    # macOS require GNU gls command, install with `brew install coreutils`.
     alias ls="gls $lsoption"
     ;;
   linux*)
@@ -89,6 +89,8 @@ case "$OSTYPE" in
     alias ls="ls $lsoption --ignore={navdb.csv,NTUSER*,ntuser*,Application\ Data,Local\ Settings,My\ Documents,NetHood,PrintHood,Recent,SendTo,Templates,Cookies,3D\ Objects,Thumbs.db,desktop.ini,Start\ Menu,「开始」菜单}"
     ;;
 esac
+unset lsoption
+
 alias ll="ls -lh"
 alias la="ll -A"
 alias l="ls"
@@ -162,10 +164,10 @@ set_bash_prompt
 case "$OSTYPE" in
   darwin*)
     # bash-completion:
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      . $(brew --prefix)/etc/bash_completion
-    fi
-    # Node nvm:
+    [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+    # rbenv:
+    command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+    # nvm:
     if [ -f $(brew --prefix nvm)/nvm.sh ]; then
       export NVM_DIR="$HOME/.nvm"
       . "$(brew --prefix nvm)/nvm.sh"
