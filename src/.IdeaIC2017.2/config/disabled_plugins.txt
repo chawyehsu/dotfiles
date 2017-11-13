@@ -1,0 +1,12 @@
+AntSupport
+CVS
+Coverage
+DevKit
+Subversion
+TestNG-J
+XPathView
+XSLT-Debugger
+com.intellij.uiDesigner
+hg4idea
+org.jetbrains.android
+org.jetbrains.plugins.javaFX
