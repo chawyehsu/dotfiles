@@ -2,7 +2,7 @@
 #  Core Requirements:
 #    Windows: Git-Bash, Scoop, MonacoYaHei
 #      macOS: Homebrew, coreutils
-#      Linux: 
+#      Linux:
 #######################################################
 
 
@@ -21,6 +21,9 @@ case "$OSTYPE" in
     # https://github.com/yyuu/pyenv/issues/106#issuecomment-94921352
     alias brew="env PATH=${PATH//usr\/local\/miniconda3\/bin:/} brew"
     ;;
+  linux*)
+    # Add Miniconda3 to PATH on Linux:
+    export PATH="$HOME/miniconda3/bin:$PATH"
 esac
 export LANG=en_US.UTF-8
 export TZ=UTC-8
@@ -101,7 +104,7 @@ case "$OSTYPE" in
     ;;
   msys*)
     alias ipconfig="winpty ipconfig"
-    # Add ifconfig to Windows. 
+    # Add ifconfig to Windows.
     alias ifconfig="ipconfig"
     alias nslookup="winpty nslookup"
     alias ping="winpty ping"
