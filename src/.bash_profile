@@ -23,7 +23,9 @@ case "$OSTYPE" in
     ;;
   linux*)
     # Add Miniconda3 to PATH on Linux:
-    export PATH="$HOME/miniconda3/bin:$PATH"
+    if [[ -d $HOME/miniconda3 ]]; then
+      export PATH="$HOME/miniconda3/bin:$PATH"
+    fi
 esac
 export LANG=en_US.UTF-8
 export TZ=UTC-8
