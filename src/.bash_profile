@@ -34,6 +34,9 @@ export TZ=UTC-8
 export FORCE_COLOR=true
 # Show git dirty state
 export GIT_PS1_SHOWDIRTYSTATE=1
+# pipenv exports
+export PIPENV_DEFAULT_PYTHON_VERSION=3
+export PIPENV_SHELL_FANCY=1
 
 
 ########################################
