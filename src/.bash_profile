@@ -20,11 +20,19 @@ case "$OSTYPE" in
     # Then stop `brew doctor` from complaining about scripts
     # https://github.com/yyuu/pyenv/issues/106#issuecomment-94921352
     alias brew="env PATH=${PATH//usr\/local\/miniconda3\/bin:/} brew"
+    # Add ~/.local/bin to PATH:
+    if [[ -d $HOME/.local/bin ]]; then
+      export PATH="$HOME/.local/bin:$PATH"
+    fi
     ;;
   linux*)
     # Add Miniconda3 to PATH on Linux:
     if [[ -d $HOME/miniconda3 ]]; then
       export PATH="$HOME/miniconda3/bin:$PATH"
+    fi
+    # Add ~/.local/bin to PATH:
+    if [[ -d $HOME/.local/bin ]]; then
+      export PATH="$HOME/.local/bin:$PATH"
     fi
 esac
 export LANG=en_US.UTF-8
