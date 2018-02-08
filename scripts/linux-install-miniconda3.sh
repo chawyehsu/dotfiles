@@ -10,6 +10,8 @@ if [[ ! -d $HOME/miniconda3 ]]; then
   fi
   bash /tmp/miniconda3.sh -b -p $HOME/miniconda3
   export PATH="$HOME/miniconda3/bin:$PATH"
+  echo "Miniconda3 installed in '$HOME/miniconda3'."
+  echo "You should add '$HOME/miniconda3' into your PATH to use conda."
 else
   echo "Miniconda3 has installed in '$HOME/miniconda3'."
 fi
