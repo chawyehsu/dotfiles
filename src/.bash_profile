@@ -27,7 +27,9 @@ case "$OSTYPE" in
     ;;
   linux*)
     # Add Miniconda3 to PATH on Linux:
-    if [[ -d $HOME/miniconda3 ]]; then
+    if [[ -d /usr/local/miniconda3 ]]; then
+      export PATH="/usr/local/miniconda3/bin:$PATH"
+    elif [[ -d $HOME/miniconda3 ]]; then
       export PATH="$HOME/miniconda3/bin:$PATH"
     fi
     # Add ~/.local/bin to PATH:
