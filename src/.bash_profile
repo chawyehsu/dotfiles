@@ -185,10 +185,5 @@ case "$OSTYPE" in
     [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
     # rbenv:
     command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
-    # nvm:
-    if [ -f $(brew --prefix nvm)/nvm.sh ]; then
-      export NVM_DIR="$HOME/.nvm"
-      . "$(brew --prefix nvm)/nvm.sh"
-    fi
     ;;
 esac
