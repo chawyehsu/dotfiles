@@ -47,6 +47,9 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # pipenv exports
 export PIPENV_DEFAULT_PYTHON_VERSION=3
 export PIPENV_SHELL_FANCY=1
+if [[ "$TERM" == "xterm" ]]; then
+  export TERM=xterm-256color
+fi
 
 
 ########################################
