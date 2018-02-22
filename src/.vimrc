@@ -24,7 +24,7 @@ set encoding=utf-8
 set cursorcolumn
 set cursorline
 set noswapfile
-set backspace=indent,eol,start 
+set backspace=indent,eol,start
 set autoindent
 set smartindent
 set shiftwidth=4
@@ -41,7 +41,5 @@ colorscheme base16-tomorrow-night
 "   cf. https://github.com/vim-airline/vim-airline/pull/948#issuecomment-193491975
 let g:airline_theme='base16'
 let g:airline_powerline_fonts=1
-"let g:airline#extensions#tabline#enabled=1
-"let g:airline#extensions#tabline#buffer_nr_show=1
 let g:airline#extensions#whitespace#enabled=0
-
+let g:airline_section_z='per:%p%% col:%c'
