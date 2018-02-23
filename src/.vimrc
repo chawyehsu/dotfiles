@@ -12,6 +12,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'chriskempson/base16-vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'editorconfig/editorconfig-vim'
 " Plugins end
 call vundle#end()            " required
 filetype plugin indent on    " required
