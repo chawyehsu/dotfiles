@@ -1,0 +1,11 @@
+EditorConfig.EditorConfig
+kalitaalexey.vscode-rust
+ms-python.python
+ms-vscode.Theme-TomorrowKit
+octref.vetur
+rafaelmaiolla.diff
+robertohuertasm.vscode-icons
+searKing.preview-vscode
+sysoev.language-stylus
+Tyriar.sort-lines
+zhutian.swig
