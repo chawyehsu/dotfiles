@@ -1,10 +1,14 @@
+bungcip.better-toml
 EditorConfig.EditorConfig
-kalitaalexey.vscode-rust
+formulahendry.auto-close-tag
+formulahendry.code-runner
 ms-python.python
+ms-vscode.PowerShell
 ms-vscode.Theme-TomorrowKit
 octref.vetur
 rafaelmaiolla.diff
 robertohuertasm.vscode-icons
+rust-lang.rust
 searKing.preview-vscode
 sysoev.language-stylus
 Tyriar.sort-lines
