@@ -4,3 +4,6 @@ channels:
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
   - conda-forge
 show_channel_urls: yes
+proxy_servers:
+  http: none
+  https: none
