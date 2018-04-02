@@ -1,9 +1,10 @@
 channels:
-  - defaults
-  - conda-forge
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
   - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-show_channel_urls: yes
+  - defaults
+  - conda-forge
+show_channel_urls: true
 proxy_servers:
   http: none
   https: none
