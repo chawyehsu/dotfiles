@@ -1,0 +1,10 @@
+{
+    "window.newWindowDimensions": "inherit",
+    "workbench.startupEditor": "none",
+    "workbench.iconTheme": "vscode-icons",
+    "editor.rulers": [
+        80,
+        120
+    ]
+}
+
