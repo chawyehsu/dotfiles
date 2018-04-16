@@ -143,7 +143,7 @@ alias ...="cd ../.."
 alias gdf="git diff"
 alias glg="git lg"
 alias gst="git status"
-alias ip="curl -s ip.sb"
+alias ip="curl -s https://api.ip.sb/ip"
 # Sometimes I use CMD/PowerShell, which use cls command.
 alias cls="clear"
 alias ss="all_proxy=socks5://127.0.0.1:1080"
