@@ -1,14 +1,14 @@
 {
 	"plugins": [ "git", "ssh", "z", "aliases", "virtualenv" ],
 	"prompt": [
-		[ "darkgreen",   "", "$hostname" ],
-		[ "darkcyan",    "", " $dir" ],
-		[ "darkyellow",  "", " $git_lbracket$git_branch" ],
-		[ "darkyellow",  "", " $git_dirty" ],
-		[ "darkyellow",  "", "$git_rbracket"],
-		[ "darkcyan",  "", " $virtualenv_lbracket$virtualenv"],
-		[ "darkcyan",  "", "$virtualenv_rbracket"],
-		[ "",            "", "`n$" ]
+		[ "darkgreen",  "", "$hostname" ],
+		[ "darkcyan",   "", " $dir" ],
+		[ "darkyellow", "", " $git_lbracket$git_branch" ],
+		[ "darkyellow", "", " $git_dirty" ],
+		[ "darkyellow", "", "$git_rbracket"],
+		[ "yellow",     "", " $virtualenv_lbracket$virtualenv"],
+		[ "yellow",     "", "$virtualenv_rbracket"],
+		[ "",           "", "`n$" ]
 	],
 	"git": {
 		"prompt_lbracket": "(",
