@@ -12,6 +12,7 @@ Usage
 $ git clone https://github.com/h404bi/dotfiles ~/.dotfiles
 $ cd ~/.dotfiles/script && bash copy-basic-files.sh
 $ bash install-vim-vundle.sh
+$ cat vscode-ext-list.txt | xargs -L 1 code --install-extension
 ...
 ```
 
