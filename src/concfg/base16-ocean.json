@@ -16,7 +16,7 @@
 	"yellow":       "#65737e",
 	"white":        "#dfe1e8",
 
-    "screen_colors": "white,black",
+	"screen_colors": "white,black",
 	"popup_colors":  "dark_magenta,gray",
 
 	"font_face":      "XHei WP Mono",
