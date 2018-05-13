@@ -6,8 +6,8 @@
 		[ "darkyellow", "", " $git_lbracket$git_branch" ],
 		[ "darkyellow", "", " $git_dirty" ],
 		[ "darkyellow", "", "$git_rbracket"],
-		[ "yellow",     "", " $virtualenv_lbracket$virtualenv"],
-		[ "yellow",     "", "$virtualenv_rbracket"],
+		[ "darkyellow",     "", " $virtualenv_lbracket$virtualenv"],
+		[ "darkyellow",     "", "$virtualenv_rbracket"],
 		[ "",           "", "`n$" ]
 	],
 	"git": {
