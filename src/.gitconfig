@@ -3,6 +3,7 @@
     email = h404bi@gmail.com
 
 [alias]
+    aliases = config --get-regexp alias
     remotes = remote -v
     unstage = reset HEAD
     last = log -1 HEAD
@@ -11,6 +12,7 @@
     clb = clone -b
     clr = clone --recursive
     cob = checkout -b
+    tags = tag -l
     lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
     st = status
     br = branch
@@ -24,10 +26,15 @@
 
 [core]
     excludesfile = ~/.gitignore_global
+    trustctime = false
     quotepath = false
     safecrlf = false
     editor = vim
     autocrlf = input
+    untrackedCache = true
+
+[credential]
+    helper = manager
 
 [i18n]
     logoutputencoding = utf-8
