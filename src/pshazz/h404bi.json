@@ -1,21 +1,27 @@
 {
-	"plugins": [ "git", "ssh", "z", "aliases", "virtualenv" ],
-	"prompt": [
-		[ "darkgreen",  "", "$hostname" ],
-		[ "darkcyan",   "", " $dir" ],
-		[ "darkyellow", "", " $git_lbracket$git_branch" ],
-		[ "darkyellow", "", " $git_dirty" ],
-		[ "darkyellow", "", "$git_rbracket"],
-		[ "darkyellow",     "", " $virtualenv_lbracket$virtualenv"],
-		[ "darkyellow",     "", "$virtualenv_rbracket"],
-		[ "",           "", "`n$" ]
-	],
-	"git": {
-		"prompt_lbracket": "(",
-		"prompt_rbracket": ")"
-	},
-	"virtualenv": {
-		"prompt_lbracket": "[",
-		"prompt_rbracket": "]"
-	}
+    "plugins": [
+        "aliases",
+        "git",
+        "ssh",
+        "virtualenv",
+        "z"
+    ],
+    "prompt": [
+        [ "darkgreen",  "", "$hostname" ],
+        [ "darkcyan",   "", " $dir" ],
+        [ "darkyellow", "", " $git_lbracket$git_branch" ],
+        [ "darkyellow", "", " $git_dirty" ],
+        [ "darkyellow", "", "$git_rbracket"],
+        [ "darkyellow", "", " $virtualenv_lbracket$virtualenv"],
+        [ "darkyellow", "", "$virtualenv_rbracket"],
+        [ "",           "", "`n$" ]
+    ],
+    "git": {
+        "prompt_lbracket": "(",
+        "prompt_rbracket": ")"
+    },
+    "virtualenv": {
+        "prompt_lbracket": "[",
+        "prompt_rbracket": "]"
+    }
 }
