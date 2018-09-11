@@ -1,11 +1,5 @@
 {
-    "plugins": [
-        "aliases",
-        "git",
-        "ssh",
-        "virtualenv",
-        "z"
-    ],
+    "plugins": [ "aliases", "git", "ssh", "virtualenv", "z" ],
     "prompt": [
         [ "darkgreen",  "", "$hostname" ],
         [ "darkcyan",   "", " $dir" ],
@@ -23,5 +17,12 @@
     "virtualenv": {
         "prompt_lbracket": "[",
         "prompt_rbracket": "]"
+    },
+    "aliases": {
+        "rm": [ "help", "man", "where" ],
+        "add": {
+            "help($name)": "get-help $name -detailed",
+            "man": "help"
+        }
     }
 }
