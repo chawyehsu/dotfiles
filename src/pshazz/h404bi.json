@@ -17,12 +17,5 @@
     "virtualenv": {
         "prompt_lbracket": "[",
         "prompt_rbracket": "]"
-    },
-    "aliases": {
-        "rm": [ "help", "man", "where" ],
-        "add": {
-            "help($name)": "get-help $name -detailed",
-            "man": "help"
-        }
     }
 }
