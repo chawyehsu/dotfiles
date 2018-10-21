@@ -33,9 +33,6 @@
     autocrlf = input
     untrackedCache = true
 
-[credential]
-    helper = manager
-
 [i18n]
     logoutputencoding = utf-8
 
