@@ -10,9 +10,20 @@
     λ <PostPrompt> |
 #>
 
-[ScriptBlock]$PrePrompt = {}
-[ScriptBlock]$PostPrompt = {}
-[ScriptBlock]$CmderPrompt = {}
-[ScriptBlock]$Prompt = {}
+[ScriptBlock]$PrePrompt = {
+
+}
+
+[ScriptBlock]$PostPrompt = {
+
+}
+
+[ScriptBlock]$CmderPrompt = {
+
+}
+
+[ScriptBlock]$Prompt = {
+    
+}
 
 ## <Continue to add your own>
