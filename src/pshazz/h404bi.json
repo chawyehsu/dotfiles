@@ -8,7 +8,7 @@
         [ "darkyellow", "", "$git_rbracket"],
         [ "darkyellow", "", " $virtualenv_lbracket$virtualenv"],
         [ "darkyellow", "", "$virtualenv_rbracket"],
-        [ "",           "", "`n$" ]
+        [ "green",      "", "`n$" ]
     ],
     "git": {
         "prompt_lbracket": "(",
