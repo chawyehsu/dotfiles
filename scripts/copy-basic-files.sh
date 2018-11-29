@@ -1,9 +1,9 @@
 #!/bin/bash
-cp ~/.dotfiles/src/.bash_profile ~/
-cp ~/.dotfiles/src/.dircolorsdb ~/
-cp ~/.dotfiles/src/.gitconfig ~/
-cp ~/.dotfiles/src/.gitignore_global ~/
-cp ~/.dotfiles/src/.gitconfig ~/
-cp ~/.dotfiles/src/.inputrc ~/
-cp ~/.dotfiles/src/.npmrc ~/
-cp ~/.dotfiles/src/.vimrc ~/
+
+. ./include/color.sh
+
+# setup basic usage
+if [[ -d $HOME/.dotfiles ]]; then
+  cp $HOME/.dotfiles/src/.{bash_logout,bash_profile,bashrc,dircolorsdb,gitconfig,gitignore_global,inputrc,npmrc,vimrc} $HOME
+  echo "${CSUCCESS}Done.${CEND}"
+fi
