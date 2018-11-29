@@ -190,7 +190,7 @@ case "$OSTYPE" in
     command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
     ;;
   linux*)
-    # bash-completion (Arch Linux):
+    # git-prompt (Arch Linux):
     [ -f /usr/share/git/completion/git-prompt.sh ] && . /usr/share/git/completion/git-prompt.sh
     ;;
 esac
