@@ -1,6 +1,6 @@
 #######################################################
 #  Core Requirements:
-#    Windows: Git-Bash, Scoop, MonacoYaHei
+#    Windows: Git-Bash, Scoop
 #      macOS: Homebrew, coreutils
 #      Linux:
 #######################################################
@@ -143,7 +143,7 @@ alias ...="cd ../.."
 alias gdf="git diff"
 alias glg="git lg"
 alias gst="git status"
-alias ip="curl -s https://api.ip.sb/ip"
+alias wanip="curl -s https://api.ip.sb/ip"
 # Sometimes I use CMD/PowerShell, which use cls command.
 alias cls="clear"
 alias ss="all_proxy=socks5://127.0.0.1:1080"
@@ -188,5 +188,9 @@ case "$OSTYPE" in
     [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
     # rbenv:
     command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+    ;;
+  linux*)
+    # bash-completion (Arch Linux):
+    [ -f /usr/share/git/completion/git-prompt.sh ] && . /usr/share/git/completion/git-prompt.sh
     ;;
 esac
