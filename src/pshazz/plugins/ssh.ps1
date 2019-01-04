@@ -31,14 +31,15 @@ function agent_load_env () {
 }
 
 function agent_start () {
-    $script = ssh-agent
-
     # translate bash script to powershell
-    $script = $script -creplace '([A-Z_]+)=([^;]+).*', '$$env:$1="$2"' `
+    $output = ssh-agent `
+        -creplace '([A-Z_]+)=([^;]+).*', '$$env:$1="$2"' `
         -creplace 'echo ([^;]+);', 'Write-Output "$1"' `
-        -creplace 'export ([^;]+);', ''
+        -creplace 'export ([^;]+);', '' `
+        -creplace '/tmp/', '$env:TEMP\' `
+        -creplace '/', '\'
 
-    $script > $envfile
+    $output > $envfile
     . $envfile > $null
 }
 
@@ -51,6 +52,10 @@ function pshazz:ssh:init {
     agent_load_env
 
     if (!(agent_is_running)) {
+        # Removing old ssh-agent sockets
+        Get-ChildItem "$env:TEMP/ssh-??????*" | ForEach-Object {
+            Remove-Item $_ -ErrorAction Stop -Recurse -Force
+        }
         agent_start
         ssh-add
     } elseif (!(agent_has_keys)) {
