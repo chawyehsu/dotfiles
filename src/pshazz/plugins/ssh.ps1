@@ -6,7 +6,7 @@
 #       win32-openssh doesn't need this, it runs as system service.
 $agentEnvFile = "$env:USERPROFILE/.ssh/agent.env.ps1"
 
-function Import-AgentEnv () {
+function Import-AgentEnv() {
     if (Test-Path $agentEnvFile) {
         # Source the agent env file
         . $agentEnvFile | Out-Null
