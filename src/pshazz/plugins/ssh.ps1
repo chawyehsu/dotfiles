@@ -105,7 +105,7 @@ function Start-NativeSshAgent([switch]$Verbose) {
             Set-Service "ssh-agent" -StartupType 'Manual'
         }
         else {
-            Write-Error "The ssh-agent service is disabled. Please start the service and try again."
+            Write-Error "The ssh-agent service is disabled. Please enable the service and try again."
             # Exit with true so Start-SshAgent doesn't try to do any other work.
             return $true
         }
