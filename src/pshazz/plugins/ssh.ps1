@@ -1,64 +1,187 @@
-# based on script from here:
+# Based on scripts from here:
 # https://help.github.com/articles/working-with-ssh-key-passphrases#platform-windows
+# https://github.com/dahlbyk/posh-sshell
 
-# Note: $env:USERPROFILE/.ssh/environment should not be used, as it
-#       already has a different purpose in SSH.
-$envfile = "$env:USERPROFILE/.ssh/agent.env.ps1"
+# Note: the agent env file is for non win32-openssh (like, cygwin/msys openssh),
+#       win32-openssh doesn't need this, it runs as system service.
+$agentEnvFile = "$env:USERPROFILE/.ssh/agent.env.ps1"
 
-try { Get-Command ssh-agent -ea stop > $null } catch { return }
-
-# Note: Don't bother checking SSH_AGENT_PID. It's not used
-#       by SSH itself, and it might even be incorrect
-#       (for example, when using agent-forwarding over SSH).
-function agent_is_running () {
-    if ($env:SSH_AUTH_SOCK) {
-        # ssh-add returns:
-        #   0 = agent running, has keys
-        #   1 = agent running, no keys
-        #   2 = agent not running
-        ssh-add -l 2>&1 > $null; $lastexitcode -ne 2
-    } else {
-        $false
+function Import-AgentEnv () {
+    if (Test-Path $agentEnvFile) {
+        # Source the agent env file
+        . $agentEnvFile | Out-Null
     }
 }
 
-function agent_has_keys () {
-    ssh-add -l 2>&1 > $null; $lastexitcode -eq 0
+# Retrieve the current SSH agent PID (or zero).
+# Can be used to determine if there is a running agent.
+function Get-SshAgent() {
+    $agentPid = $env:SSH_AGENT_PID
+    if ($agentPid) {
+        $sshAgentProcess = Get-Process | Where-Object {
+            ($_.Id -eq $agentPid) -and ($_.Name -eq 'ssh-agent')
+        }
+        if ($null -ne $sshAgentProcess) {
+            return $agentPid
+        }
+        else {
+            # Remove SSH_AGENT_PID and SSH_AUTH_SOCK which is unvalaible
+            $env:SSH_AGENT_PID = $null
+            $env:SSH_AUTH_SOCK = $null
+            if (Test-Path $agentEnvFile) {
+                Remove-Item $agentEnvFile
+            }
+        }
+    }
+
+    return 0
 }
 
-function agent_load_env () {
-    if (Test-Path $envfile) { . $envfile > $null }
+function Add-SshKey([switch]$Verbose) {
+    # Check to see if any keys have been added. Only add keys if it's empty.
+    (& ssh-add -l) | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        # Keys have already been added
+        if ($Verbose) {
+            Write-Host "Keys have already been added to the ssh agent."
+        }
+        return
+    }
+
+    # Run ssh-add, add the keys
+    & ssh-add
 }
 
-function agent_start () {
-    # translate bash script to powershell
-    $output = ssh-agent `
+function Test-Administrator {
+    # PowerShell 5.x only runs on Windows so use .NET types to determine isAdminProcess
+    # Or if we are on v6 or higher, check the $IsWindows pre-defined variable.
+    if (($PSVersionTable.PSVersion.Major -le 5) -or $IsWindows) {
+        $currentUser = [Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())
+        return $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    }
+
+    # Must be Linux or OSX, so use the id util. Root has userid of 0.
+    return 0 -eq (id -u)
+}
+
+function Get-NativeSshAgent() {
+    # Only works on Windows. PowerShell < 6 must be Windows PowerShell,
+    # $IsWindows is defined in PS Core.
+    if (($PSVersionTable.PSVersion.Major -lt 6) -or $IsWindows) {
+        # Native Windows ssh-agent service
+        $service = Get-Service "ssh-agent" -ErrorAction Ignore
+        # Native ssh.exe binary version must include "OpenSSH"
+        $nativeSsh = Get-Command "ssh" -ErrorAction Ignore `
+            | ForEach-Object FileVersionInfo `
+            | Where-Object ProductVersion -match OpenSSH
+        
+        if ($nativeSsh) {
+            if ($service) {
+                return $service
+            } else {
+                Write-Error "You have Win32-OpenSSH binaries installed but missed the ssh-agent service. Please fix it."
+                # Stop any other work.
+                exit 1
+            }
+        }
+    }
+}
+
+function Start-NativeSshAgent([switch]$Verbose) {
+    $service = Get-NativeSshAgent
+
+    if (!$service) {
+        return $false
+    }
+
+    # Native ssh doesn't need agentEnvFile, remove it.
+    if (Test-Path $agentEnvFile) {
+        Remove-Item $agentEnvFile
+    }
+
+    # Enable the servivce if it's disabled and we're an admin
+    if ($service.StartType -eq "Disabled") {
+        if (Test-Administrator) {
+            Set-Service "ssh-agent" -StartupType 'Manual'
+        }
+        else {
+            Write-Error "The ssh-agent service is disabled. Please start the service and try again."
+            # Exit with true so Start-SshAgent doesn't try to do any other work.
+            return $true
+        }
+    }
+
+    # Start the service
+    if ($service.Status -ne "Running") {
+        if ($Verbose) {
+            Write-Host "Starting ssh agent service."
+        }
+        Start-Service "ssh-agent"
+    }
+
+    Add-SshKey -Verbose:$Verbose
+
+    return $true
+}
+
+function Start-SshAgent([switch]$Verbose) {
+    # If we're using the native Open-SSH, we can just interact with the service directly.
+    if (Start-NativeSshAgent -Verbose:$Verbose) {
+        return
+    }
+
+    [int]$agentPid = Get-SshAgent
+    if ($agentPid -gt 0) {
+        if ($Verbose) {
+            $agentName = Get-Process -Id $agentPid | Select-Object -ExpandProperty Name
+            if (!$agentName) { $agentName = "SSH Agent" }
+            Write-Host "$agentName is already running (pid $($agentPid))"
+        }
+        # Import ssh-agent envs
+        Import-AgentEnv
+        return
+    }
+
+    # Start ssh-agent and get output, then translate env to powershell
+    & ssh-agent `
         -creplace '([A-Z_]+)=([^;]+).*', '$$env:$1="$2"' `
-        -creplace 'echo ([^;]+);', 'Write-Output "$1"' `
+        -creplace 'echo ([^;]+);', '' `
         -creplace 'export ([^;]+);', '' `
-        -creplace '/tmp/', '$env:TEMP\' `
-        -creplace '/', '\'
+        | Out-File -FilePath $agentEnvFile -Encoding ascii -Force
+    # And then import the ssh-agent envs
+    Import-AgentEnv
 
-    $output > $envfile
-    . $envfile > $null
+    Add-SshKey -Verbose:$Verbose
+}
+
+function Test-IsSshBinaryMissing([switch]$Verbose) {
+    # ssh-add
+    $sshAdd = Get-Command "ssh-add" -TotalCount 1 -ErrorAction SilentlyContinue
+    if (!$sshAdd) {
+        if ($Verbose) {
+            Write-Warning 'Could not find ssh-add.'
+        }
+        return $true
+    }
+
+    # ssh-agent
+    $sshAgent = Get-Command "ssh-agent" -TotalCount 1 -ErrorAction SilentlyContinue
+    if (!$sshAgent) {
+        if ($Verbose) {
+            Write-Warning 'Could not find ssh-agent.'
+        }
+        return $true
+    }
 }
 
 # pshazz plugin entry point
 function pshazz:ssh:init {
     if (!(Test-Path "$env:USERPROFILE/.ssh")) {
-        mkdir "$env:USERPROFILE/.ssh" > $null
+        New-Item "$env:USERPROFILE/.ssh" -ItemType Directory | Out-Null
     }
 
-    agent_load_env
-
-    if (!(agent_is_running)) {
-        # Removing old ssh-agent sockets
-        Get-ChildItem "$env:TEMP/ssh-??????*" | ForEach-Object {
-            Remove-Item $_ -ErrorAction Stop -Recurse -Force
-        }
-        agent_start
-        ssh-add
-    } elseif (!(agent_has_keys)) {
-        ssh-add
-    }
+    # Change it to $false to disable verbose output
+    $Verbose = $true
+    if (Test-IsSshBinaryMissing -Verbose:$Verbose) { return }
+    Start-SshAgent -Verbose:$Verbose
 }
