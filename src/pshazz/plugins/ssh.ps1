@@ -25,7 +25,7 @@ function Get-SshAgent() {
             return $agentPid
         }
         else {
-            # Remove SSH_AGENT_PID and SSH_AUTH_SOCK which is unvalaible
+            # Remove SSH_AGENT_PID and SSH_AUTH_SOCK which is unavailable
             $env:SSH_AGENT_PID = $null
             $env:SSH_AUTH_SOCK = $null
             if (Test-Path $agentEnvFile) {
