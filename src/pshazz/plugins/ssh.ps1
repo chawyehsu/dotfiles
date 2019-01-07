@@ -64,27 +64,45 @@ function Get-NativeSshAgent() {
         # Native Windows ssh-agent service
         $service = Get-Service "ssh-agent" -ErrorAction Ignore
         # Native ssh.exe binary version must include "OpenSSH"
-        $nativeSsh = Get-Command "ssh" -ErrorAction Ignore `
+        $nativeSsh = Get-Command "ssh.exe" -ErrorAction Ignore `
             | ForEach-Object FileVersionInfo `
             | Where-Object ProductVersion -match OpenSSH
         
-        if ($nativeSsh) {
-            if ($service) {
-                return $service
-            } else {
-                Write-Error "You have Win32-OpenSSH binaries installed but missed the ssh-agent service. Please fix it."
-                # Stop any other work.
-                exit 1
+        # hack for Scoop broken shims, the shim lost the information of the binary
+        if (!$nativeSsh) {
+            $shim = Get-Command "ssh.shim" -ErrorAction Ignore
+            if ($shim) {
+                $value = (Get-Content $shim.Source) -creplace 'path = '
+                # Check original ssh.exe binary
+                $nativeSsh = Get-Command $value -ErrorAction Ignore `
+                    | ForEach-Object FileVersionInfo `
+                    | Where-Object ProductVersion -match OpenSSH
             }
         }
+        
+        # Ouptut error if native ssh.exe exists but without ssh-agent.service
+        if ($nativeSsh -and !$service) {
+            Write-Host "You have Win32-OpenSSH binaries installed but missed the ssh-agent service. Please fix it." -f DarkRed
+        }
+
+        $result = @{}
+        $result.service = $service
+        $result.nativeSsh = $nativeSsh
+        return $result
     }
 }
 
 function Start-NativeSshAgent([switch]$Verbose) {
-    $service = Get-NativeSshAgent
+    $result = Get-NativeSshAgent
 
-    if (!$service) {
-        return $false
+    if (!$result.service) {
+        if ($result.nativeSsh) {
+            # ssh-agent service doesn't exist, but native ssh.exe found,
+            # exit with true so Start-SshAgent doesn't try to do any other work.
+            return $true
+        } else {
+            return $false
+        }
     }
 
     # Native ssh doesn't need agentEnvFile, remove it.
@@ -98,7 +116,7 @@ function Start-NativeSshAgent([switch]$Verbose) {
             Set-Service "ssh-agent" -StartupType 'Manual'
         }
         else {
-            Write-Error "The ssh-agent service is disabled. Please enable the service and try again."
+            Write-Host "The ssh-agent service is disabled. Please enable the service and try again." -f DarkRed
             # Exit with true so Start-SshAgent doesn't try to do any other work.
             return $true
         }
@@ -123,6 +141,9 @@ function Start-SshAgent([switch]$Verbose) {
         return
     }
 
+    # Import old ssh-agent envs if it exists
+    Import-AgentEnv
+
     [int]$agentPid = Get-SshAgent
     if ($agentPid -gt 0) {
         if ($Verbose) {
@@ -130,18 +151,17 @@ function Start-SshAgent([switch]$Verbose) {
             if (!$agentName) { $agentName = "SSH Agent" }
             Write-Host "$agentName is already running (pid $($agentPid))"
         }
-        # Import ssh-agent envs
-        Import-AgentEnv
         return
     }
 
-    # Start ssh-agent and get output, then translate env to powershell
-    & ssh-agent `
+    # Start ssh-agent and get output, translate to
+    # powershell type and write into agent env file
+    (& ssh-agent) `
         -creplace '([A-Z_]+)=([^;]+).*', '$$env:$1="$2"' `
-        -creplace 'echo ([^;]+);', '' `
-        -creplace 'export ([^;]+);', '' `
+        -creplace 'echo ([^;]+);' `
+        -creplace 'export ([^;]+);' `
         | Out-File -FilePath $agentEnvFile -Encoding ascii -Force
-    # And then import the ssh-agent envs
+    # And then import new ssh-agent envs
     Import-AgentEnv
 
     Add-SshKey -Verbose:$Verbose
@@ -149,7 +169,7 @@ function Start-SshAgent([switch]$Verbose) {
 
 function Test-IsSshBinaryMissing([switch]$Verbose) {
     # ssh-add
-    $sshAdd = Get-Command "ssh-add" -TotalCount 1 -ErrorAction SilentlyContinue
+    $sshAdd = Get-Command "ssh-add.exe" -TotalCount 1 -ErrorAction SilentlyContinue
     if (!$sshAdd) {
         if ($Verbose) {
             Write-Warning 'Could not find ssh-add.'
@@ -158,7 +178,7 @@ function Test-IsSshBinaryMissing([switch]$Verbose) {
     }
 
     # ssh-agent
-    $sshAgent = Get-Command "ssh-agent" -TotalCount 1 -ErrorAction SilentlyContinue
+    $sshAgent = Get-Command "ssh-agent.exe" -TotalCount 1 -ErrorAction SilentlyContinue
     if (!$sshAgent) {
         if ($Verbose) {
             Write-Warning 'Could not find ssh-agent.'
