@@ -198,5 +198,7 @@ function pshazz:ssh:init {
     if (Test-IsSshBinaryMissing -Verbose:$Verbose) { return }
     Start-SshAgent -Verbose:$Verbose
     
-    $global:pshazz.completions.ssh = resolve-path "$psscriptroot\..\libexec\ssh-complete.ps1"
+    # ssh TabExpansion
+    $pshazzPath = Resolve-Path (Split-Path (Split-Path (scoop which pshazz)))
+    $global:pshazz.completions.ssh = "$pshazzPath\libexec\ssh-complete.ps1"
 }
