@@ -53,8 +53,9 @@ function Add-SshKey([switch]$Verbose) {
 }
 
 function Test-Administrator {
-    $currentUser = [Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())
-    return $currentUser.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    return ([Security.Principal.WindowsPrincipal]`
+        [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
+        [Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
 function Get-NativeSshAgent() {
@@ -94,9 +95,11 @@ function Get-NativeSshAgent() {
 
 function Start-NativeSshAgent([switch]$Verbose) {
     $result = Get-NativeSshAgent
+    $service = $result.service
+    $nativeSsh = $result.nativeSsh
 
-    if (!$result.service) {
-        if ($result.nativeSsh) {
+    if (!$service) {
+        if ($nativeSsh) {
             # ssh-agent service doesn't exist, but native ssh.exe found,
             # exit with true so Start-SshAgent doesn't try to do any other work.
             return $true
@@ -114,8 +117,7 @@ function Start-NativeSshAgent([switch]$Verbose) {
     if ($service.StartType -eq "Disabled") {
         if (Test-Administrator) {
             Set-Service "ssh-agent" -StartupType 'Manual'
-        }
-        else {
+        } else {
             Write-Host "The ssh-agent service is disabled. Please enable the service and try again." -f DarkRed
             # Exit with true so Start-SshAgent doesn't try to do any other work.
             return $true
