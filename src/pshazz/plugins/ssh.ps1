@@ -80,7 +80,7 @@ function Get-NativeSshAgent() {
                     | Where-Object ProductVersion -match OpenSSH
             }
         }
-        
+
         # Ouptut error if native ssh.exe exists but without ssh-agent.service
         if ($nativeSsh -and !$service) {
             Write-Host "You have Win32-OpenSSH binaries installed but missed the ssh-agent service. Please fix it." -f DarkRed
@@ -202,7 +202,7 @@ function pshazz:ssh:init {
     }
     if (Test-IsSshBinaryMissing -Verbose:$Verbose) { return }
     Start-SshAgent -Verbose:$Verbose
-    
+
     # ssh TabExpansion
     $scoop = Get-Command "scoop" -TotalCount 1 -ErrorAction SilentlyContinue
     if ($scoop) {
