@@ -68,7 +68,7 @@ function Get-NativeSshAgent() {
         $nativeSsh = Get-Command "ssh.exe" -ErrorAction Ignore `
             | ForEach-Object FileVersionInfo `
             | Where-Object ProductVersion -match OpenSSH
-        
+
         # hack for Scoop broken shims, the shim lost the information of the binary
         if (!$nativeSsh) {
             $shim = Get-Command "ssh.shim" -ErrorAction Ignore
