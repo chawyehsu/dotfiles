@@ -201,6 +201,9 @@ function pshazz:ssh:init {
     Start-SshAgent -Verbose:$Verbose
     
     # ssh TabExpansion
-    $pshazzPath = Resolve-Path (Split-Path (Split-Path (scoop which pshazz)))
-    $global:pshazz.completions.ssh = "$pshazzPath\libexec\ssh-complete.ps1"
+    $scoop = Get-Command "scoop" -TotalCount 1 -ErrorAction SilentlyContinue
+    if ($scoop) {
+        $pshazzPath = Resolve-Path (Split-Path (Split-Path (scoop which pshazz)))
+        $global:pshazz.completions.ssh = "$pshazzPath\libexec\ssh-complete.ps1"
+    }
 }
