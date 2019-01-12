@@ -195,8 +195,11 @@ function pshazz:ssh:init {
         New-Item "$env:USERPROFILE/.ssh" -ItemType Directory | Out-Null
     }
 
-    # Change it to $false to disable verbose output
-    $Verbose = $true
+    $ssh = $global:pshazz.theme.ssh
+    $Verbose = $false
+    if ($ssh.verbose -eq "true") {
+        $Verbose = $true
+    }
     if (Test-IsSshBinaryMissing -Verbose:$Verbose) { return }
     Start-SshAgent -Verbose:$Verbose
     
