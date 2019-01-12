@@ -43,7 +43,7 @@ function Add-SshKey([switch]$Verbose) {
     if ($LASTEXITCODE -eq 0) {
         # Keys have already been added
         if ($Verbose) {
-            Write-Host "Keys have already been added to the ssh agent."
+            Write-Host "Keys have already been added to the ssh-agent."
         }
         return
     }
@@ -127,7 +127,7 @@ function Start-NativeSshAgent([switch]$Verbose) {
     # Start the service
     if ($service.Status -ne "Running") {
         if ($Verbose) {
-            Write-Host "Starting ssh agent service."
+            Write-Host "Starting ssh-agent service."
         }
         Start-Service "ssh-agent"
     }
