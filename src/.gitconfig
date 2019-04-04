@@ -1,6 +1,6 @@
 [user]
     name = h404bi
-    email = h404bi@gmail.com
+    email = h404bi@outlook.com
 
 [alias]
     aliases = config --get-regexp alias
