@@ -1,7 +1,4 @@
 channels:
-  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
-  - https://mirrors.ustc.edu.cn/anaconda/pkgs/free/
-  - https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge/
   - defaults
   - conda-forge
 show_channel_urls: true
