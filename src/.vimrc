@@ -1,22 +1,17 @@
-" Vundle START
-set nocompatible              " required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+set nocompatible
+filetype off
+" Plugins begin
+call plug#begin('~/.vim/plugged')
 " Plugins follow
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'chriskempson/base16-vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'base16-community/base16-vim'
+Plug 'tpope/vim-fugitive'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'editorconfig/editorconfig-vim'
 " Plugins end
-call vundle#end()            " required
-filetype plugin indent on    " required
-" Vundle END
+call plug#end()
+filetype plugin indent on
 
 syntax on
 set hlsearch
@@ -35,7 +30,7 @@ set t_Co=256
 set laststatus=2
 set background=dark
 " base16 colorscheme (cf. https://github.com/chriskempson/base16-vim)
-colorscheme base16-tomorrow-night
+colorscheme base16-snazzy
 
 " vim-airline: (cf. https://github.com/vim-airline/vim-airline)
 " vim-airline now maps the new base16 airline themes:
