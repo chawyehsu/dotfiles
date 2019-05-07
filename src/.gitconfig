@@ -1,5 +1,5 @@
 [user]
-    name = h404bi
+    name = Chawye Hsu
     email = h404bi@outlook.com
 
 [alias]
@@ -42,13 +42,14 @@
 [gui]
     encoding = utf-8
 
-# URL shorthands
-[url "git@github.com:"]
-    insteadOf = "gh:"
-    pushInsteadOf = "github:"
-    pushInsteadOf = "git://github.com/"
+# GitHub URL shorthands
+[url "https://github.com/"]
+    insteadOf = git://github.com/
+    insteadOf = git@github.com:
+    insteadOf = github:
+    insteadOf = gh:
 
-[url "git@gist.github.com:"]
-    insteadOf     = "gist:"
-    pushInsteadOf = "gist:"
-    pushInsteadOf = "git://gist.github.com/"
+[url "https://gist.github.com/"]
+    insteadOf = "git://gist.github.com/"
+    insteadOf = "git@gist.github.com:"
+    insteadOf = "gist:"
