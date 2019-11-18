@@ -1,7 +1,7 @@
 # /etc/skel/.bashrc
 #######################################################
 #  Core Requirements:
-#    Windows: Git-Bash, Scoop
+#    Windows: Git-Bash
 #      macOS: Homebrew, coreutils
 #      Linux:
 #######################################################
@@ -9,66 +9,93 @@
 # Test for an interactive shell.
 [[ $- != *i* ]] && return
 
-###################
-#     Exports     #
-###################
-case "$OSTYPE" in
-  darwin*)
-    # macOS default PATH:
-    #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    # Add Homebrew super formulae to PATH:
-    export PATH="/usr/local/sbin:$PATH"
-    # Add Miniconda3 to PATH on macOS:
-    export PATH="/usr/local/miniconda3/bin:$PATH"
-    # Then stop `brew doctor` from complaining about scripts
-    # https://github.com/yyuu/pyenv/issues/106#issuecomment-94921352
-    alias brew="env PATH=${PATH//usr\/local\/miniconda3\/bin:/} brew"
-    # Add ~/.local/bin to PATH:
-    if [[ -d $HOME/.local/bin ]]; then
-      export PATH="$HOME/.local/bin:$PATH"
-    fi
-    ;;
-  linux*)
-    # Add Miniconda3 to PATH on Linux:
-    if [[ -d /usr/local/miniconda3 ]]; then
-      export PATH="/usr/local/miniconda3/bin:$PATH"
-    elif [[ -d $HOME/miniconda3 ]]; then
-      export PATH="$HOME/miniconda3/bin:$PATH"
-    fi
-    # Add ~/.local/bin to PATH:
-    if [[ -d $HOME/.local/bin ]]; then
-      export PATH="$HOME/.local/bin:$PATH"
-    fi
-esac
 export LANG=en_US.UTF-8
 export TZ=UTC-8
-# Force enable Node.js (chalk) color,
-# cf. https://github.com/chalk/chalk#chalksupportscolor
-export FORCE_COLOR=true
-# Show git dirty state
+# Always display git dirty state
 export GIT_PS1_SHOWDIRTYSTATE=1
-# pipenv exports
+# Enable Node.js (chalk) color, see https://github.com/chalk/chalk#chalksupportscolor
+export FORCE_COLOR=1
+# Pipenv environment
 export PIPENV_DEFAULT_PYTHON_VERSION=3
 export PIPENV_SHELL_FANCY=1
+# Xterm colors
 if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
 fi
 
+case "$OSTYPE" in
+  darwin*)
+    # macOS default PATH:
+    #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+    # Add Homebrew super formulae directory to PATH:
+    if [[ -d "/usr/local/sbin" ]]; then
+      export PATH="/usr/local/sbin:$PATH"
+    fi
+    
+    # Add ~/.local/bin to PATH:
+    if [[ -d "$HOME/.local/bin" ]]; then
+      export PATH="$HOME/.local/bin:$PATH"
+    fi
+
+    # bash-completion:
+    if [[ -f "/usr/local/etc/bash_completion" ]]; then
+      . /usr/local/etc/bash_completion
+    fi
+
+    # Programming-Languages-Specific settings
+    # ---------------------------------------
+    # Python: Add miniconda
+    if [[ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]]; then
+      . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    elif [[ -d "/usr/local/Caskroom/miniconda/base/bin" ]]; then
+      export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
+    fi
+    # Ruby: Add rbenv
+    command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
+    ;;
+  linux*)
+    # Add ~/.local/bin to PATH:
+    if [[ -d "$HOME/.local/bin" ]]; then
+      export PATH="$HOME/.local/bin:$PATH"
+    fi
+
+    # Add Miniconda3 to PATH on Linux:
+    if [[ -d "/usr/local/miniconda3" ]]; then
+      export PATH="/usr/local/miniconda3/bin:$PATH"
+    elif [[ -d "$HOME/miniconda3" ]]; then
+      export PATH="$HOME/miniconda3/bin:$PATH"
+    fi
+
+    # Add git-prompt (Arch Linux):
+    if [[ -f "/usr/share/git/completion/git-prompt.sh" ]]; then
+      . /usr/share/git/completion/git-prompt.sh
+    fi
+esac
+
+# Dircolors. Note for macOS: install GNU gdircolors with `brew install coreutils`
+command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
+[[ -f "$HOME/.dircolorsdb" ]] && eval "$(gdircolors -b $HOME/.dircolorsdb)"
+
+# nvm (Need refactoring)
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm 
 
 ########################################
 #     Git-Bash (Windows) SSH Agent     #
 ########################################
 # cf. https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows
 if [[ $OSTYPE == "msys" ]]; then
-  # Your ssh keys storage path
+  # SSH keys storage path
   ssh_key_path=~/.ssh/*.pri
   env=~/.ssh/agent.env
   agent_load_env() {
-    test -f "$env" && . "$env" >| /dev/null;
+    test -f "$env" && . "$env" >| /dev/null
   }
   agent_start() {
     (umask 077; ssh-agent >| "$env")
-    . "$env" >| /dev/null ;
+    . "$env" >| /dev/null
   }
   agent_load_env
   # agent_run_state:
@@ -85,15 +112,6 @@ if [[ $OSTYPE == "msys" ]]; then
   unset ssh_key_path
   unset env
 fi
-
-
-#####################
-#     Dircolors     #
-#####################
-# macOS require GNU gdircolors command, install with `brew install coreutils`.
-command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
-test -f "$HOME/.dircolorsdb" && eval "$(gdircolors -b $HOME/.dircolorsdb)"
-
 
 ###################
 #     Aliases     #
@@ -152,10 +170,9 @@ alias cls="clear"
 alias ss="all_proxy=socks5://127.0.0.1:1080"
 
 
-##################
-#     Prompt     #
-##################
-function set_bash_prompt() {
+# The h404bi's styled prompt on bash shell
+# ----------------------------------------
+function stylish_bash_prompt () {
   # Color table
   local   RESET="\[\033[0m\]"
   local   BLACK="\[\033[0;30m\]"
@@ -168,32 +185,18 @@ function set_bash_prompt() {
   local   WHITE="\[\033[0;37m\]"
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
-  # Python virtualenv state; conda-envs will handle itself.
-  if [ -z "${VIRTUAL_ENV}" ]; then
+
+  # Python virtualenv state (Deprecated, since we use conda envs...)
+  if [[ -z "${VIRTUAL_ENV}" ]]; then
     VIRTUALENV=""
   else
     VIRTUALENV=" ${BLUE}[$(basename ${VIRTUAL_ENV})]${RESET}"
   fi
+
   # PS1 command substitution issue with newline:
   #   https://stackoverflow.com/questions/33220492/
   #   https://stackoverflow.com/questions/21517281/
   PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
 }
-set_bash_prompt
+stylish_bash_prompt
 
-
-##########################
-#     Other settings     #
-##########################
-case "$OSTYPE" in
-  darwin*)
-    # bash-completion:
-    [[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
-    # rbenv:
-    command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
-    ;;
-  linux*)
-    # git-prompt (Arch Linux):
-    [[ -f /usr/share/git/completion/git-prompt.sh ]] && . /usr/share/git/completion/git-prompt.sh
-    ;;
-esac
