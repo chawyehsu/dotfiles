@@ -60,16 +60,18 @@ case "$OSTYPE" in
       export PATH="$HOME/.local/bin:$PATH"
     fi
 
-    # Add Miniconda3 to PATH on Linux:
-    if [[ -d "/usr/local/miniconda3" ]]; then
-      export PATH="/usr/local/miniconda3/bin:$PATH"
-    elif [[ -d "$HOME/miniconda3" ]]; then
-      export PATH="$HOME/miniconda3/bin:$PATH"
-    fi
-
     # Add git-prompt (Arch Linux):
     if [[ -f "/usr/share/git/completion/git-prompt.sh" ]]; then
       . /usr/share/git/completion/git-prompt.sh
+    fi
+
+    # Programming-Languages-Specific settings
+    # ---------------------------------------
+    # Python: Add miniconda
+    if [[ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]]; then
+      . "$HOME/miniconda3/etc/profile.d/conda.sh"
+    elif [[ -d "$HOME/miniconda3/bin" ]]; then
+      export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 esac
 
@@ -81,6 +83,64 @@ command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm
+
+###################
+#     Aliases     #
+###################
+lsoption="-F --show-control-chars --group-directories-first --color=auto"
+# Provide an uniform `ls` command on all platforms
+case "$OSTYPE" in
+  darwin*)
+    # Note for macOS: install GNU ls with `brew install coreutils`
+    alias ls="gls $lsoption"
+    ;;
+  linux*)
+    alias ls="ls $lsoption"
+    ;;
+  msys*)
+    # There are too many unconcerned files and directories in Windows users' home, ignore them.
+    alias ls="ls $lsoption --ignore={navdb.csv,NTUSER*,ntuser*,Application\ Data,Local\ Settings,My\ Documents,NetHood,PrintHood,Recent,SendTo,Templates,Cookies,3D\ Objects,Thumbs.db,desktop.ini,Start\ Menu,「开始」菜单}"
+    ;;
+esac
+unset lsoption
+
+alias ll="ls -lh"
+alias la="ll -A"
+alias l="ls"
+alias c="clear"
+alias :q="exit"
+alias ..="cd .."
+alias ...="cd ../.."
+alias gdf="git diff"
+alias glg="git lg"
+alias gst="git status"
+alias wanip="curl -s https://api.ip.sb/ip"
+alias ss="all_proxy=socks5://127.0.0.1:1080"
+# Provide an uniform `cls` command on all platforms
+alias cls="clear"
+
+# Platform-Specific aliases
+# -------------------------
+case "$OSTYPE" in
+  darwin*)
+    alias here="open ."
+    ;;
+  msys*)
+    # winpty fixes
+    alias ipconfig="winpty ipconfig"
+    alias nslookup="winpty nslookup"
+    alias ping="winpty ping"
+    alias java="winpty java"
+    alias python="winpty python"
+    alias pip="winpty pip"
+    # Emulate ifconfig on Windows MSYS
+    alias ifconfig="ipconfig"
+    # Open window is only available on macOS, emulate it on Windows MSYS,
+    # but not on Linux, since I don't use GUI on Linux.
+    alias open="explorer"
+    alias here="open ."
+    ;;
+esac
 
 ########################################
 #     Git-Bash (Windows) SSH Agent     #
@@ -112,63 +172,6 @@ if [[ $OSTYPE == "msys" ]]; then
   unset ssh_key_path
   unset env
 fi
-
-###################
-#     Aliases     #
-###################
-lsoption="-F --show-control-chars --group-directories-first --color=auto"
-# Make 3 systems' ls command uniform
-case "$OSTYPE" in
-  darwin*)
-    # macOS require GNU gls command, install with `brew install coreutils`.
-    alias ls="gls $lsoption"
-    ;;
-  linux*)
-    alias ls="ls $lsoption"
-    ;;
-  msys*)
-    # There are too many unconcerned files and directories in Windows users home, ignore them.
-    alias ls="ls $lsoption --ignore={navdb.csv,NTUSER*,ntuser*,Application\ Data,Local\ Settings,My\ Documents,NetHood,PrintHood,Recent,SendTo,Templates,Cookies,3D\ Objects,Thumbs.db,desktop.ini,Start\ Menu,「开始」菜单}"
-    ;;
-esac
-unset lsoption
-
-alias ll="ls -lh"
-alias la="ll -A"
-alias l="ls"
-# Aliases only useful on Git-Bash(Windows)
-case "$OSTYPE" in
-  darwin*)
-    alias here="open ."
-    ;;
-  msys*)
-    alias ipconfig="winpty ipconfig"
-    # Add ifconfig to Windows.
-    alias ifconfig="ipconfig"
-    alias nslookup="winpty nslookup"
-    alias ping="winpty ping"
-    alias java="winpty java"
-    alias python="winpty python"
-    alias pip="winpty pip"
-    # Open window is only available on macOS, add it to Windows,
-    # but no Linux, because I don't use GUI on Linux.
-    alias open="explorer"
-    alias here="open ."
-    ;;
-esac
-# Aliases useful for all systems
-alias c="clear"
-alias :q="exit"
-alias ..="cd .."
-alias ...="cd ../.."
-alias gdf="git diff"
-alias glg="git lg"
-alias gst="git status"
-alias wanip="curl -s https://api.ip.sb/ip"
-# Sometimes I use CMD/PowerShell, which use cls command.
-alias cls="clear"
-alias ss="all_proxy=socks5://127.0.0.1:1080"
-
 
 # The h404bi's styled prompt on bash shell
 # ----------------------------------------
@@ -206,4 +209,3 @@ function stylish_bash_prompt () {
   PS1="${TERM_TITLE}${GREEN}\h${WSL}: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
 }
 stylish_bash_prompt
-
