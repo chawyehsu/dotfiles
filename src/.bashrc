@@ -32,7 +32,7 @@ case "$OSTYPE" in
     if [[ -d "/usr/local/sbin" ]]; then
       export PATH="/usr/local/sbin:$PATH"
     fi
-    
+
     # Add ~/.local/bin to PATH:
     if [[ -d "$HOME/.local/bin" ]]; then
       export PATH="$HOME/.local/bin:$PATH"
@@ -80,7 +80,7 @@ command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 # nvm (Need refactoring)
 export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm 
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm
 
 ########################################
 #     Git-Bash (Windows) SSH Agent     #
@@ -186,6 +186,13 @@ function stylish_bash_prompt () {
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
 
+  # WSL detection
+  if [[ "$(uname -r)" == *Microsoft ]]; then
+    WSL="${MAGENTA}(WSL)${RESET}"
+  else
+    WSL=""
+  fi
+
   # Python virtualenv state (Deprecated, since we use conda envs...)
   if [[ -z "${VIRTUAL_ENV}" ]]; then
     VIRTUALENV=""
@@ -196,7 +203,7 @@ function stylish_bash_prompt () {
   # PS1 command substitution issue with newline:
   #   https://stackoverflow.com/questions/33220492/
   #   https://stackoverflow.com/questions/21517281/
-  PS1="${TERM_TITLE}${GREEN}\h: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
+  PS1="${TERM_TITLE}${GREEN}\h${WSL}: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
 }
 stylish_bash_prompt
 
