@@ -1,0 +1,11 @@
+{
+  "lastupdate": "2020-02-01T23:21:35.5104591+08:00",
+  "alias": {
+    "outdated": "scoop-outdated",
+    "upgrade": "scoop-upgrade"
+  },
+  "SCOOP_BRANCH": "master",
+  "show_update_log": false,
+  "SCOOP_REPO": "https://github.com/lukesampson/scoop",
+  "proxy": "127.0.0.1:7890"
+}
