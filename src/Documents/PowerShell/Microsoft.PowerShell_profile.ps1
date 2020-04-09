@@ -1,26 +1,18 @@
-﻿# Scoop: pshazz
-$env:computername = $env:computername.substring(0,1).toupper()+$env:computername.substring(1).tolower()
+# Hostname
+$env:COMPUTERNAME = $env:COMPUTERNAME.Substring(0,1).ToUpper() + $env:COMPUTERNAME.Substring(1).ToLower()
+# pshazz
 try { $null = Get-Command pshazz -ea stop; pshazz init } catch { }
+# concfg
 try { $null = Get-Command concfg -ea stop; concfg tokencolor -n enable } catch { }
-# set-psreadlineoption -t parameter gray
-# set-psreadlineoption -t operator gray
-# set-psreadlineoption -t string gray
 
 # PSReadLine, more information in: https://github.com/lzybkr/PSReadLine
-if (Get-Module -ListAvailable -Name "PSReadline") {
+if (Get-Module -Name "PSReadline") {
+    Set-PSReadLineKeyHandler -Key "Ctrl+f" -Function ForwardWord
     Set-PSReadlineKeyHandler -Key DownArrow -Function HistorySearchForward
     Set-PSReadlineKeyHandler -Key UpArrow -Function HistorySearchBackward
     Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 }
-
-# try {
-#     Import-Module PSConsoleTheme
-# } catch { }
-
-# WSL bash
-function Invoke-WslBash { wsl.exe ~ }
-Set-Alias -Name bash -Value Invoke-WslBash -Option AllScope
 
 # Exports
 $env:LANG="en_US.UTF-8"
