@@ -5,6 +5,7 @@ pkgs_dirs:
 channels:
   - defaults
   - conda-forge
+auto_activate_base: false
 show_channel_urls: true
 proxy_servers:
   http: none
