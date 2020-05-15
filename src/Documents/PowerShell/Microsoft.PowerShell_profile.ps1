@@ -56,3 +56,8 @@ Set-Alias -Name here -Value Open-Here -Option AllScope
 # Show all environment variables, like `export`
 function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name export -Value Get-AllEnv -Option AllScope
+
+# Tab Completion
+if ([bool](Get-Command -Name 'rustup' -ErrorAction SilentlyContinue)) {
+    (& rustup completions powershell) | Out-String | Invoke-Expression
+}
