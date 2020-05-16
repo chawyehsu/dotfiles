@@ -104,18 +104,17 @@ case "$OSTYPE" in
 esac
 unset lsoption
 
-alias ll="ls -lh"
-alias la="ll -A"
 alias l="ls"
+alias la="ls -A"
+alias ll="ls -lh"
+alias lla="ls -lhA"
 alias c="clear"
 alias :q="exit"
 alias ..="cd .."
 alias ...="cd ../.."
 alias gdf="git diff"
-alias glg="git lg"
 alias gst="git status"
-alias wanip="curl -s https://api.ip.sb/ip"
-alias ss="all_proxy=socks5://127.0.0.1:1080"
+alias myip="curl -s https://api.ip.sb/ip"
 # Provide an uniform `cls` command on all platforms
 alias cls="clear"
 
