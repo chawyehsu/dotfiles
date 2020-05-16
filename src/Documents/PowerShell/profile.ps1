@@ -9,7 +9,7 @@ $env:COMPUTERNAME =
     $env:COMPUTERNAME.Substring(1).ToLower()
 
 # Customize PSReadLine, docs in: https://github.com/lzybkr/PSReadLine
-if ((Get-Module -Name "PSReadline") -and ($host.Name -eq "ConsoleHost")) {
+if (Get-Module -Name "PSReadline") {
     # Command history search/completion
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
     Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
@@ -43,7 +43,7 @@ if ([bool](Get-Command -Name "rustup" -ErrorAction SilentlyContinue)) {
 }
 
 # Load scoop-completion, see: https://github.com/lzybkr/PSReadLine
-if ((Test-Path $SCOOP_HOME\modules\scoop-completion) -and ($host.Name -eq "ConsoleHost")) {
+if (Test-Path $SCOOP_HOME\modules\scoop-completion) {
     Import-Module $SCOOP_HOME\modules\scoop-completion
 }
 
