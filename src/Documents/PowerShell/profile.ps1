@@ -40,7 +40,7 @@ if ([bool](Get-Command -Name "rustup" -ErrorAction SilentlyContinue)) {
 }
 
 # Load scoop-completion, see: https://github.com/lzybkr/PSReadLine
-if ((Get-Module -Name "scoop-completion") -and ($host.Name -eq "ConsoleHost")) {
+if ((Test-Path $env:USERPROFILE\scoop\modules\scoop-completion) -and ($host.Name -eq "ConsoleHost")) {
     Import-Module $env:USERPROFILE\scoop\modules\scoop-completion
 }
 
