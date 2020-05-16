@@ -312,7 +312,7 @@ function Get-ChildItemGLS {
     $ls1 = "$SCOOP_HOME\apps\git\current\usr\bin\ls.exe"
     $ls2 = "$SCOOP_HOME\apps\git-with-openssh\current\usr\bin\ls.exe"
     #$lsd = "$SCOOP_HOME\apps\lsd\current\lsd.exe" # lsd!!
-    $ls_exec = $ls1, $ls2 | Select-Object -First 1
+    $ls_exec = $ls1, $ls2 | Where-Object { Test-Path $_ } | Select-Object -First 1
 
     & $ls_exec -F --show-control-chars --color=auto --ignore="{$ls_ignore}" $args
 }
