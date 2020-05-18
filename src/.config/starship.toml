@@ -1,0 +1,9 @@
+add_newline = false
+scan_timeout = 10
+
+[conda]
+symbol = "venv:"
+
+[hostname]
+ssh_only = false
+disabled = false

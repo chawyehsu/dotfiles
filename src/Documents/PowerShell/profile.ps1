@@ -47,6 +47,11 @@ if (Test-Path $SCOOP_HOME\modules\scoop-completion) {
     Import-Module $SCOOP_HOME\modules\scoop-completion
 }
 
+# Use starship for better prompt (in Windows Terminal only)
+if ($env:WT_SESSION -and [bool](Get-Command -Name "starship" -ErrorAction SilentlyContinue)) {
+    Invoke-Expression (& starship init powershell)
+}
+
 #region Smart Insert/Delete
 
 # The next four key handlers are designed to make entering matched quotes
