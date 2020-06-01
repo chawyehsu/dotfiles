@@ -1,6 +1,6 @@
 [user]
     name = Chawye Hsu
-    email = h404bi@outlook.com
+    email = chawyehsu@hotmail.com
 
 [alias]
     aliases = config --get-regexp alias
@@ -50,6 +50,6 @@
     insteadOf = gh:
 
 [url "https://gist.github.com/"]
-    insteadOf = "git://gist.github.com/"
-    insteadOf = "git@gist.github.com:"
-    insteadOf = "gist:"
+    insteadOf = git://gist.github.com/
+    insteadOf = git@gist.github.com:
+    insteadOf = gist:
