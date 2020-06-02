@@ -7,7 +7,7 @@ Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.
 scoop install git-with-openssh pshazz concfg colortool curl hub
 
 # Add bucket
-scoop bucket add dorado https://github.com/h404bi/dorado
+scoop bucket add dorado https://github.com/chawyehsu/dorado
 
 # Pour out configs
 # colortool schemes
