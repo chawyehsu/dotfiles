@@ -14,6 +14,7 @@ BoldAsFont=no
 Charset=UTF-8
 FontHeight=11
 BellFlash=no
+BellType=0
 Columns=80
 Locale=C
 Rows=26
