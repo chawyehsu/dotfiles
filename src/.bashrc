@@ -141,35 +141,40 @@ case "$OSTYPE" in
     ;;
 esac
 
-########################################
-#     Git-Bash (Windows) SSH Agent     #
-########################################
-# cf. https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows
-if [[ $OSTYPE == "msys" ]]; then
-  # SSH keys storage path
-  ssh_key_path=~/.ssh/*.pri
-  env=~/.ssh/agent.env
-  agent_load_env() {
-    test -f "$env" && . "$env" >| /dev/null
-  }
-  agent_start() {
-    (umask 077; ssh-agent >| "$env")
-    . "$env" >| /dev/null
-  }
-  agent_load_env
-  # agent_run_state:
-  #   0=agent running w/ key;
-  #   1=agent w/o key;
-  #   2=agent not running.
-  agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-  if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
-    agent_start
-    ssh-add $ssh_key_path
-  elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
-    ssh-add $ssh_key_path
+#---------------------------------------#
+# SSH Agent on Windows (Git-Bash/MSYS2) #
+#---------------------------------------#
+# ref: https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows
+if [[ $OSTYPE == "msys" ]] && [[ -x "$(command -v ssh)" ]]; then
+  # ensure .ssh path
+  if [[ ! -d "${USERPROFILE//\\//}/.ssh" ]]; then
+    mkdir -p "${USERPROFILE//\\//}/.ssh" >| /dev/null
   fi
-  unset ssh_key_path
-  unset env
+  # we use $USERPROFILE instead of $HOME to locate SSH keys and SSH ENV,
+  # so we can share ssh keys between Win32-OpenSSH and openssh(Git-Bash & MSYS2)
+  # but be aware of that Win32-OpenSSH does not use SSH ENV
+  SSH_ENV_PATH="${USERPROFILE//\\//}/.ssh/agent.env"
+
+  # test ssh is Win32-OpenSSH or not
+  if [[ ! "$(ssh -V 2>&1)" == *Windows* ]]; then
+    [[ -f "$SSH_ENV_PATH" ]] && . "$SSH_ENV_PATH" >| /dev/null
+    # agent_run_state:
+    #   0=agent running w/ key;
+    #   1=agent w/o key;
+    #   2=agent not running.
+    agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+    if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+      (umask 077; ssh-agent >| "$SSH_ENV_PATH") && . "$SSH_ENV_PATH" >| /dev/null
+      ssh-add
+    elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+      ssh-add
+    fi
+  else
+    ssh-agent >| /dev/null
+    ssh-add
+  fi
+
+  unset SSH_ENV_PATH
 fi
 
 # The h404bi's styled prompt on bash shell
@@ -188,11 +193,20 @@ function stylish_bash_prompt () {
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
 
-  # WSL detection
+  # Distribution detection
   if [[ "$(uname -r)" == *Microsoft ]]; then
-    WSL="${MAGENTA}(WSL)${RESET}"
+    DIST="${MAGENTA}(WSL)${RESET}"
+  elif [[ $MSYSTEM ]]; then
+    DIST="${MAGENTA}($MSYSTEM)${RESET}"
   else
-    WSL=""
+    DIST=""
+  fi
+
+  # git-prompt
+  if [[ -x "$(command -v __git_ps1)" ]]; then
+    GITPS1="$(__git_ps1 ' (%s)')"
+  else
+    GITPS1=""
   fi
 
   # Python virtualenv state (Deprecated, since we use conda envs...)
@@ -205,6 +219,6 @@ function stylish_bash_prompt () {
   # PS1 command substitution issue with newline:
   #   https://stackoverflow.com/questions/33220492/
   #   https://stackoverflow.com/questions/21517281/
-  PS1="${TERM_TITLE}${GREEN}\h${WSL}: ${YELLOW}\W${CYAN}\$(__git_ps1 ' (%s)')${RESET}${VIRTUALENV}"$'\n\$ '
+  PS1="${TERM_TITLE}${GREEN}\h${DIST}: ${YELLOW}\W${CYAN}${GITPS1}${RESET}${VIRTUALENV}"$'\n\$ '
 }
 stylish_bash_prompt
