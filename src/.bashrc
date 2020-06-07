@@ -1,19 +1,21 @@
 # /etc/skel/.bashrc
-#######################################################
-#  Core Requirements:
-#    Windows: Git-Bash
-#      macOS: Homebrew, coreutils
-#      Linux:
-#######################################################
-
+# This bashrc file is created by Chawye Hsu, licensed under the WTFPL license.
+#------------------------------------------------------------------------------#
+# Support Platforms:
+#    Windows: Git-Bash/MSYS2/MinGW
+#      macOS: Bash
+#      Linux: Bash
+#------------------------------------------------------------------------------#
 # Test for an interactive shell.
 [[ $- != *i* ]] && return
-
+#-----------------------#
+# Environment Variables #
+#-----------------------#
 export LANG=en_US.UTF-8
 export TZ=UTC-8
 # Always display git dirty state
 export GIT_PS1_SHOWDIRTYSTATE=1
-# Enable Node.js (chalk) color, see https://github.com/chalk/chalk#chalksupportscolor
+# Enable Node.js (chalk) color
 export FORCE_COLOR=1
 # Pipenv environment
 export PIPENV_DEFAULT_PYTHON_VERSION=3
@@ -22,7 +24,9 @@ export PIPENV_SHELL_FANCY=1
 if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
 fi
-
+#------------#
+# Unify PATH #
+#------------#
 case "$OSTYPE" in
   darwin*)
     # macOS default PATH:
@@ -74,24 +78,20 @@ case "$OSTYPE" in
       export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 esac
-
-# Dircolors. Note for macOS: install GNU gdircolors with `brew install coreutils`
+#-----------#
+# Dircolors #
+#-----------#
+# requirement for macOS: install GNU gdircolors with `brew install coreutils`
 command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
 [[ -f "$HOME/.dircolorsdb" ]] && eval "$(gdircolors -b $HOME/.dircolorsdb)"
-
-# nvm (Need refactoring)
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm
-
-###################
-#     Aliases     #
-###################
+#---------------#
+# Unify Aliases #
+#---------------#
 lsoption="-F --show-control-chars --group-directories-first --color=auto"
 # Provide an uniform `ls` command on all platforms
 case "$OSTYPE" in
   darwin*)
-    # Note for macOS: install GNU ls with `brew install coreutils`
+    # requirement for macOS: install GNU ls with `brew install coreutils`
     alias ls="gls $lsoption"
     ;;
   linux*)
@@ -103,7 +103,6 @@ case "$OSTYPE" in
     ;;
 esac
 unset lsoption
-
 alias l="ls"
 alias la="ls -A"
 alias ll="ls -lh"
@@ -117,9 +116,6 @@ alias gst="git status"
 alias myip="curl -s https://api.ip.sb/ip"
 # Provide an uniform `cls` command on all platforms
 alias cls="clear"
-
-# Platform-Specific aliases
-# -------------------------
 case "$OSTYPE" in
   darwin*)
     alias here="open ."
@@ -140,23 +136,24 @@ case "$OSTYPE" in
     alias here="open ."
     ;;
 esac
-
 #---------------------------------------#
 # SSH Agent on Windows (Git-Bash/MSYS2) #
 #---------------------------------------#
 # ref: https://help.github.com/articles/working-with-ssh-key-passphrases/#auto-launching-ssh-agent-on-git-for-windows
 if [[ $OSTYPE == "msys" ]] && [[ -x "$(command -v ssh)" ]]; then
   # ensure .ssh path
+  # we use $USERPROFILE instead of $HOME to locate SSH ENV,
+  # so we can share ssh keys between Win32-OpenSSH and openssh(Git-Bash & MSYS2)
   if [[ ! -d "${USERPROFILE//\\//}/.ssh" ]]; then
     mkdir -p "${USERPROFILE//\\//}/.ssh" >| /dev/null
   fi
-  # we use $USERPROFILE instead of $HOME to locate SSH keys and SSH ENV,
-  # so we can share ssh keys between Win32-OpenSSH and openssh(Git-Bash & MSYS2)
-  # but be aware of that Win32-OpenSSH does not use SSH ENV
-  SSH_ENV_PATH="${USERPROFILE//\\//}/.ssh/agent.env"
-
   # test ssh is Win32-OpenSSH or not
   if [[ ! "$(ssh -V 2>&1)" == *Windows* ]]; then
+    # we use $USERPROFILE instead of $HOME to locate SSH ENV,
+    # so we can share ssh env between Git-Bash and MSYS2,
+    # but be aware of that Win32-OpenSSH does not use SSH ENV
+    SSH_ENV_PATH="${USERPROFILE//\\//}/.ssh/agent.env"
+    # load ssh env
     [[ -f "$SSH_ENV_PATH" ]] && . "$SSH_ENV_PATH" >| /dev/null
     # agent_run_state:
     #   0=agent running w/ key;
@@ -169,16 +166,22 @@ if [[ $OSTYPE == "msys" ]] && [[ -x "$(command -v ssh)" ]]; then
     elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
       ssh-add
     fi
+    unset SSH_ENV_PATH
   else
     ssh-agent >| /dev/null
     ssh-add
   fi
-
-  unset SSH_ENV_PATH
 fi
-
-# The h404bi's styled prompt on bash shell
-# ----------------------------------------
+#-------------------------------------#
+# Program-languages specific settings #
+#-------------------------------------#
+# nvm (Need refactoring)
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm
+#-------------------------------------------#
+# The h404bi's styled prompt for bash shell #
+#-------------------------------------------#
 function stylish_bash_prompt () {
   # Color table
   local   RESET="\[\033[0m\]"
@@ -193,7 +196,7 @@ function stylish_bash_prompt () {
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
 
-  # Distribution detection
+  # platform detection
   if [[ "$(uname -r)" == *Microsoft ]]; then
     DIST="${MAGENTA}(WSL)${RESET}"
   elif [[ $MSYSTEM ]]; then
@@ -204,9 +207,9 @@ function stylish_bash_prompt () {
 
   # git-prompt
   if [[ -x "$(command -v __git_ps1)" ]]; then
-    GITPS1="$(__git_ps1 ' (%s)')"
+    GITPROMPT="$(__git_ps1 ' (%s)')"
   else
-    GITPS1=""
+    GITPROMPT=""
   fi
 
   # Python virtualenv state (Deprecated, since we use conda envs...)
@@ -219,6 +222,6 @@ function stylish_bash_prompt () {
   # PS1 command substitution issue with newline:
   #   https://stackoverflow.com/questions/33220492/
   #   https://stackoverflow.com/questions/21517281/
-  PS1="${TERM_TITLE}${GREEN}\h${DIST}: ${YELLOW}\W${CYAN}${GITPS1}${RESET}${VIRTUALENV}"$'\n\$ '
+  PS1="${TERM_TITLE}${GREEN}\h${DIST}: ${YELLOW}\W${CYAN}${GITPROMPT}${RESET}${VIRTUALENV}"$'\n\$ '
 }
 stylish_bash_prompt
