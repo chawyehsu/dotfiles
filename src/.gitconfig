@@ -21,6 +21,8 @@
     df = diff
 
 # Always git pull --rebase
+[pull]
+    rebase = true
 [branch]
     autosetuprebase = always
 
