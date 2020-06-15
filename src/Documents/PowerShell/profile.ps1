@@ -39,7 +39,7 @@ if ([bool](Get-Command -Name "concfg" -ErrorAction SilentlyContinue)) {
 if ([bool](Get-Command -Name "rustup" -ErrorAction SilentlyContinue)) {
     (& rustup completions powershell) | Out-String | Invoke-Expression
     # Add rustup mirror
-    $env:RUSTUP_DIST_SERVER="https://mirrors.tuna.tsinghua.edu.cn/rustup"
+    $env:RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
 }
 
 # Load scoop-completion, see: https://github.com/lzybkr/PSReadLine
