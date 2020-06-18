@@ -42,6 +42,11 @@ if ([bool](Get-Command -Name "rustup" -ErrorAction SilentlyContinue)) {
     $env:RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
 }
 
+# Add volta tab-completion
+if ([bool](Get-Command -Name "volta" -ErrorAction SilentlyContinue)) {
+    (& volta completions powershell) | Out-String | Invoke-Expression
+}
+
 # Load scoop-completion, see: https://github.com/lzybkr/PSReadLine
 if (Test-Path $SCOOP_HOME\modules\scoop-completion) {
     Import-Module $SCOOP_HOME\modules\scoop-completion
