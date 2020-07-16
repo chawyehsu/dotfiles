@@ -122,7 +122,7 @@ Set-PSReadLineKeyHandler -Key '"',"'" `
     $token = FindToken $tokens $cursor
 
     # If we're on or inside a **quoted** string token (so not generic), we need to be smarter
-    if ($token -is [StringToken] -and $token.Kind -ne [TokenKind]::Generic) {
+    if ($token -is [System.Management.Automation.Language.StringToken] -and $token.Kind -ne [TokenKind]::Generic) {
         # If we're at the start of the string, assume we're inserting a new string
         if ($token.Extent.StartOffset -eq $cursor) {
             [Microsoft.PowerShell.PSConsoleReadLine]::Insert("$quote$quote ")
