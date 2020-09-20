@@ -139,8 +139,8 @@ if ([bool](Get-Command -Name "volta.exe" -ErrorAction SilentlyContinue)) {
     (& volta.exe "completions" "powershell") | Out-String | Invoke-Expression
 }
 # scoop-completion - https://github.com/Moeologist/scoop-completion
-if (Test-Path $SCOOP_HOME\modules\scoop-completion) {
-    Import-Module $SCOOP_HOME\modules\scoop-completion
+if (Test-Path "$SCOOP_HOME\modules\scoop-completion") {
+    Import-Module "$SCOOP_HOME\modules\scoop-completion"
 }
 
 
