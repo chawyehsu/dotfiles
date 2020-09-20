@@ -1,6 +1,9 @@
-[user]
-    name = Chawye Hsu
-    email = chawyehsu@hotmail.com
+# Local/private config goes in the include
+[include]
+    path = ~/.gitconfig.local.conf
+
+[hub]
+    protocol = https
 
 [alias]
     aliases = config --get-regexp alias
@@ -20,9 +23,15 @@
     co = checkout
     df = diff
 
-# Always git pull --rebase
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+
 [pull]
     rebase = true
+
 [branch]
     autosetuprebase = always
 
