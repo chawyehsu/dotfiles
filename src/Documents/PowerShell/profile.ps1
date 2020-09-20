@@ -28,8 +28,14 @@ $env:LS_COLORS = "no=00:fi=00:di=36:ln=35:pi=30;44:so=35;44:do=35;44:bd=33;44:cd
 #-----------------------#
 #   PowerShell Aliases  #
 #-----------------------#
-# Remove built-in curl alias
-if (Test-Path Alias:curl) { Remove-Item Alias:curl }
+# Remove built-in aliases
+('curl', 'wget', 'r') | ForEach-Object {
+    # may need to execute the rm many times in parent scopes until really removed
+    # (set-alias -option allscope copies the alias to child scopes)
+    while (test-path "alias:$_") {
+        Remove-Item "alias:\$_" -Force
+    }
+}
 # Override ls with GNU ls
 function Get-ChildItemGLS {
     # GNU ls ignore list

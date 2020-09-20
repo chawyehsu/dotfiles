@@ -1,5 +1,5 @@
 {
-    "plugins": [ "aliases", "git", "ssh", "virtualenv", "z" ],
+    "plugins": [ "aliases", "git", "ssh", "virtualenv" ],
     "prompt": [
         [ "darkgreen",  "", "$hostname" ],
         [ "darkcyan",   "", " $dir" ],
@@ -19,6 +19,6 @@
         "prompt_rbracket": "]"
     },
     "ssh": {
-        "verbose": "false"
+        "verbose": "true"
     }
 }
