@@ -1,0 +1,26 @@
+{
+    "node": {
+        "index": {
+            "prefix": "https://npm.taobao.org/mirrors/node/"
+        },
+        "distro": {
+            "template": "https://npm.taobao.org/mirrors/node/v{{version}}/{{filename}}"
+        }
+    },
+    "npm": {
+        "index": {
+            "prefix": "https://registry.npm.taobao.org/"
+        },
+        "distro": {
+            "template": "https://registry.npm.taobao.org/npm/-/{{filename}}"
+        }
+    },
+    "yarn": {
+        "latest": {
+            "prefix": "https://classic.yarnpkg.com/"
+        },
+        "distro": {
+            "template": "https://npm.taobao.org/mirrors/yarn/v{{version}}/{{filename}}"
+        }
+    }
+}
