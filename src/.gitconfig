@@ -11,7 +11,7 @@
     unstage = reset HEAD
     last = log -1 HEAD
     brs = branch -a
-    cim = commit -m
+    cim = commit -s -m
     clb = clone -b
     clr = clone --recursive
     cob = checkout -b
@@ -19,7 +19,7 @@
     lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
     st = status
     br = branch
-    ci = commit
+    ci = commit -s
     co = checkout
     df = diff
 

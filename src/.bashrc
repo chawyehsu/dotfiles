@@ -17,9 +17,6 @@ export TZ=UTC-8
 export GIT_PS1_SHOWDIRTYSTATE=1
 # Enable Node.js (chalk) color
 export FORCE_COLOR=1
-# Pipenv environment
-export PIPENV_DEFAULT_PYTHON_VERSION=3
-export PIPENV_SHELL_FANCY=1
 # Xterm colors
 if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
@@ -31,7 +28,6 @@ case "$OSTYPE" in
   darwin*)
     # macOS default PATH:
     #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-
     # Add Homebrew super formulae directory to PATH:
     if [[ -d "/usr/local/sbin" ]]; then
       export PATH="/usr/local/sbin:$PATH"
@@ -175,14 +171,11 @@ fi
 #-------------------------------------#
 # Program-languages specific settings #
 #-------------------------------------#
-# nvm (Need refactoring)
-export NVM_DIR="$HOME/.nvm"
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm
-#-------------------------------------------#
-# The h404bi's styled prompt for bash shell #
-#-------------------------------------------#
-function stylish_bash_prompt () {
+# NONE
+#----------------------------#
+# The Chawye's styled prompt #
+#----------------------------#
+function styled_prompt() {
   # Color table
   local   RESET="\[\033[0m\]"
   local   BLACK="\[\033[0;30m\]"
@@ -224,4 +217,4 @@ function stylish_bash_prompt () {
   #   https://stackoverflow.com/questions/21517281/
   PS1="${TERM_TITLE}${GREEN}\h${DIST}: ${YELLOW}\W${CYAN}${GITPROMPT}${RESET}${VIRTUALENV}"$'\n\$ '
 }
-stylish_bash_prompt
+styled_prompt
