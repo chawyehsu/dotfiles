@@ -43,6 +43,7 @@
     editor = vim
     autocrlf = input
     untrackedCache = true
+    symlinks = true
 
 [i18n]
     logoutputencoding = utf-8
