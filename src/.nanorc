@@ -1,0 +1,2 @@
+# see https://github.com/scopatz/nanorc
+include "~/.nano/*.nanorc"
