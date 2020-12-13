@@ -3,6 +3,8 @@ scan_timeout = 10
 
 [conda]
 symbol = "venv:"
+style = "bold blue"
+ignore_base = false
 
 [hostname]
 ssh_only = false
