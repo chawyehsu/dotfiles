@@ -7,6 +7,9 @@ channels:
   - conda-forge
 auto_activate_base: false
 show_channel_urls: true
+repodata_threads: 2
+verify_threads: 4
+execute_threads: 4
 proxy_servers:
-  http: none
-  https: none
+  http: none #127.0.0.1:7890
+  https: none #127.0.0.1:7890
