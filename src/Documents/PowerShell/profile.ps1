@@ -96,8 +96,10 @@ if ((Get-Module -Name "PSReadline").Version.Major -eq 2) {
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord "Ctrl+d,Ctrl+c" -Function CaptureScreen
 
-    if ((Get-Module -Name "PSReadline").Version.Minor -gt 1) {
-        # Enable Predictive IntelliSense (v2.2.0+)
+    # Enable Predictive IntelliSense (requires PS7.1+ and PSReadLine v2.2.0+)
+    if ((($PSVersionTable.Version.Major -ge 7) -and
+        ($PSVersionTable.Version.Minor -ge 1)) -and
+        ((Get-Module -Name "PSReadline").Version.Minor -gt 1)) {
         Set-PSReadLineOption -PredictionSource HistoryAndPlugin
     }
 
