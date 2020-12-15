@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 # /etc/skel/.bashrc
 # This bashrc file is created by Chawye Hsu, licensed under the WTFPL license.
 #------------------------------------------------------------------------------#
