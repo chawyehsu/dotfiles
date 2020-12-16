@@ -6,10 +6,18 @@
 # Environment Variables #
 #-----------------------#
 # Define Scoop home
-$Script:SCOOP_HOME = "$env:USERPROFILE\scoop"
+$Script:SCOOP_HOME = "$env:USERPROFILE/scoop"
 # Change hostname format
-$env:COMPUTERNAME = $env:COMPUTERNAME.Substring(0,1).ToUpper() +
-                    $env:COMPUTERNAME.Substring(1).ToLower()
+if (!$IsWindows) {
+    $env:NAME =
+        $env:NAME.Substring(0,1).ToUpper() +
+        $env:NAME.Substring(1).ToLower()
+} else {
+    $env:COMPUTERNAME =
+        $env:COMPUTERNAME.Substring(0,1).ToUpper() +
+        $env:COMPUTERNAME.Substring(1).ToLower()
+}
+
 $env:LANG = "en_US.UTF-8"
 $env:TZ = "UTC-8"
 # Rustup mirror
