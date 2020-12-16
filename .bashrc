@@ -41,6 +41,7 @@ case "$OSTYPE" in
 
     # bash-completion:
     if [[ -f "/usr/local/etc/bash_completion" ]]; then
+      # shellcheck disable=SC1091
       . /usr/local/etc/bash_completion
     fi
 
@@ -48,6 +49,7 @@ case "$OSTYPE" in
     # ---------------------------------------
     # Python: Add miniconda
     if [[ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]]; then
+      # shellcheck disable=SC1091
       . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
     elif [[ -d "/usr/local/Caskroom/miniconda/base/bin" ]]; then
       export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
@@ -63,6 +65,7 @@ case "$OSTYPE" in
 
     # Add git-prompt (Arch Linux):
     if [[ -f "/usr/share/git/completion/git-prompt.sh" ]]; then
+      # shellcheck disable=SC1091
       . /usr/share/git/completion/git-prompt.sh
     fi
 
@@ -70,6 +73,7 @@ case "$OSTYPE" in
     # ---------------------------------------
     # Python: Add miniconda
     if [[ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]]; then
+      # shellcheck disable=SC1090
       . "$HOME/miniconda3/etc/profile.d/conda.sh"
     elif [[ -d "$HOME/miniconda3/bin" ]]; then
       export PATH="$HOME/miniconda3/bin:$PATH"

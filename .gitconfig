@@ -40,7 +40,7 @@
     trustctime = false
     quotepath = false
     safecrlf = false
-    editor = vim
+    editor = nano
     autocrlf = input
     untrackedCache = true
     symlinks = true
