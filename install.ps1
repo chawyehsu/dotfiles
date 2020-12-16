@@ -21,13 +21,16 @@ $SRCROOT
 $DSTROOT
 
 # Core dotfiles
+Set-SymbolicLink -Target ".cargo/config"
 Set-SymbolicLink -Target ".condarc"
 Set-SymbolicLink -Target ".config/starship.toml"
 Set-SymbolicLink -Target ".dircolorsdb"
 Set-SymbolicLink -Target ".gitconfig"
 Set-SymbolicLink -Target ".gitignore_global"
+Set-SymbolicLink -Target ".gvimrc"
 Set-SymbolicLink -Target ".nanorc"
 Set-SymbolicLink -Target ".npmrc"
+Set-SymbolicLink -Target ".vimrc"
 
 # Platform-specific dotfiles
 if (!$IsWindows) {
@@ -43,4 +46,6 @@ if (!$IsWindows) {
     # WindowsPowerShell 5.1
     Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
         -Path "Documents/WindowsPowerShell/profile.ps1"
+    Set-SymbolicLink -Target ".config/pshazz/config.json"
+    Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
 }
