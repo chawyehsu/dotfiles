@@ -8,9 +8,9 @@ yet a simple, uniform terminal style and dotfiles, for macOS, Windows, and Linux
 Usage
 -----
 
-``` sh
+``` powershell
 $ git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
-$ cd ~/.dotfiles/scripts && bash copy-basic-files.sh
+$ cd ~/.dotfiles && ./scripts/install.ps1
 ...
 ```
 
@@ -22,4 +22,4 @@ See [spotlight.md](docs/spotlight.md) for screenshots.
 License
 -------
 
-[WTFPL](http://www.wtfpl.net/)
+[MIT](LICENSE)
