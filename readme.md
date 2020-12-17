@@ -14,12 +14,9 @@ $ cd ~/.dotfiles && ./scripts/install.ps1
 ...
 ```
 
-Spotlight
----------
-
-See [spotlight.md](docs/spotlight.md) for screenshots.
-
 License
 -------
 
-[MIT](LICENSE)
+[MIT](license) © Chawye Hsu
+
+> [Website](https://chawyehsu.com) · GitHub [@chawyehsu](https://github.com/chawyehsu) · Twitter [@chawyehsu](https://twitter.com/chawyehsu)
