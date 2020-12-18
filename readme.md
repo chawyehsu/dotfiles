@@ -10,7 +10,7 @@ Usage
 
 ``` powershell
 $ git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
-$ cd ~/.dotfiles && ./scripts/install.ps1
+$ cd ~/.dotfiles && ./install.ps1
 ...
 ```
 
