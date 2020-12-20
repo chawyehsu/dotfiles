@@ -21,6 +21,9 @@ $SRCROOT
 $DSTROOT
 
 # Core dotfiles
+Set-SymbolicLink -Target ".bash_logout"
+Set-SymbolicLink -Target ".bash_profile"
+Set-SymbolicLink -Target ".bashrc"
 Set-SymbolicLink -Target ".cargo/config"
 Set-SymbolicLink -Target ".condarc"
 Set-SymbolicLink -Target ".config/starship.toml"
@@ -37,12 +40,11 @@ Set-SymbolicLink -Target ".vimrc"
 
 # Platform-specific dotfiles
 if (!$IsWindows) {
-    Set-SymbolicLink -Target ".bash_logout"
-    Set-SymbolicLink -Target ".bash_profile"
-    Set-SymbolicLink -Target ".bashrc"
     # PowerShell Core
     Set-SymbolicLink -Target ".config/powershell/profile.ps1"
 } else {
+    # MinTTY
+    Set-SymbolicLink -Target ".minttyrc"
     # PowerShell Core
     Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
         -Path "Documents/PowerShell/profile.ps1"
