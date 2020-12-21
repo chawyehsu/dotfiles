@@ -316,9 +316,11 @@ Set-Alias -Name "export" -Value Get-AllEnv -Option AllScope
 #-------------------------------#
 # Change hostname format
 if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
-    $env:NAME =
-        $env:NAME.Substring(0,1).ToUpper() +
-        $env:NAME.Substring(1).ToLower()
+    if ($env:NAME) {
+        $env:NAME =
+            $env:NAME.Substring(0,1).ToUpper() +
+            $env:NAME.Substring(1).ToLower()
+    }
 } else {
     $env:COMPUTERNAME =
         $env:COMPUTERNAME.Substring(0,1).ToUpper() +
@@ -370,10 +372,6 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
     if ([bool](Get-Command -Name "rustup.exe" -ErrorAction SilentlyContinue)) {
         (& rustup.exe "completions" "powershell") | Out-String | Invoke-Expression
     }
-    # Volta - https://volta.sh
-    if ([bool](Get-Command -Name "volta.exe" -ErrorAction SilentlyContinue)) {
-        (& volta.exe "completions" "powershell") | Out-String | Invoke-Expression
-    }
     # Scoop - https://github.com/Moeologist/scoop-completion
     if (Test-Path "$SCOOP_HOME\modules\scoop-completion") {
         Import-Module "$SCOOP_HOME\modules\scoop-completion"
@@ -395,4 +393,9 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
     if ([bool](Get-Command -Name "concfg" -ErrorAction SilentlyContinue)) {
         concfg tokencolor -n enable
     }
+}
+
+# Volta - https://volta.sh
+if ([bool](Get-Command -Name "volta" -CommandType Application -ErrorAction SilentlyContinue)) {
+    (& volta "completions" "powershell") | Out-String | Invoke-Expression
 }
