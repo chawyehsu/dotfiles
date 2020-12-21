@@ -44,6 +44,8 @@ Set-SymbolicLink -Target ".vimrc"
 if (!$IsWindows) {
     # PowerShell Core
     Set-SymbolicLink -Target ".config/powershell/profile.ps1"
+    # Volta Hooks
+    Set-SymbolicLink -Target ".volta/hooks.json"
 } else {
     # MinTTY
     Set-SymbolicLink -Target ".minttyrc"
