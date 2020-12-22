@@ -273,6 +273,15 @@ if ((Get-Module -Name "PSReadline").Version.Major -eq 2) {
 }
 
 
+#-----------------------#
+#   Internal functions  #
+#-----------------------#
+function Test-Command([String]$command) {
+    return [bool](Get-Command -Name $command `
+        -CommandType Application -ErrorAction SilentlyContinue)
+}
+
+
 #--------------------------#
 #   Environment Variables  #
 #--------------------------#
@@ -321,6 +330,16 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
             $env:NAME.Substring(0,1).ToUpper() +
             $env:NAME.Substring(1).ToLower()
     }
+
+    # Anaconda/Miniconda - https://docs.conda.io/en/latest
+    if (Test-Command 'conda') {
+        (& conda "shell.powershell" "hook") | Out-String | Invoke-Expression
+    }
+
+    # starship - https://github.com/starship/starship
+    if (Test-Command 'starship') {
+        (& starship "init" "powershell") | Out-String | Invoke-Expression
+    }
 } else {
     $env:COMPUTERNAME =
         $env:COMPUTERNAME.Substring(0,1).ToUpper() +
@@ -365,12 +384,8 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
     #---------------------------------------------#
     # Anaconda/Miniconda - https://docs.conda.io/en/latest
     #  NOTES: This must be loaded before `pshazz`, since it also changes prompt
-    if ([bool](Get-Command -Name "conda.exe" -ErrorAction SilentlyContinue)) {
+    if (Test-Command 'conda.exe') {
         (& conda.exe "shell.powershell" "hook") | Out-String | Invoke-Expression
-    }
-    # Rustup - https://rustup.rs
-    if ([bool](Get-Command -Name "rustup.exe" -ErrorAction SilentlyContinue)) {
-        (& rustup.exe "completions" "powershell") | Out-String | Invoke-Expression
     }
     # Scoop - https://github.com/Moeologist/scoop-completion
     if (Test-Path "$SCOOP_HOME\modules\scoop-completion") {
@@ -381,21 +396,26 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
     #    Prompt & Styles    #
     #-----------------------#
     # pshazz - https://github.com/lukesampson/pshazz
-    if ([bool](Get-Command -Name "pshazz" -ErrorAction SilentlyContinue)) {
+    if (Test-Command 'pshazz') {
         pshazz init
     }
-    # starship - https://github.com/starship/starship (in Windows Terminal only)
+    # starship - https://github.com/starship/starship (Windows Terminal only)
     if ($env:WT_SESSION -and
-        [bool](Get-Command -Name "starship.exe" -ErrorAction SilentlyContinue)) {
+        (Test-Command 'starship.exe')) {
         (& starship.exe "init" "powershell") | Out-String | Invoke-Expression
     }
     # concfg - https://github.com/lukesampson/concfg
-    if ([bool](Get-Command -Name "concfg" -ErrorAction SilentlyContinue)) {
+    if (Test-Command 'concfg') {
         concfg tokencolor -n enable
     }
 }
 
+# Rustup - https://rustup.rs
+if (Test-Command 'rustup') {
+    (& rustup "completions" "powershell") | Out-String | Invoke-Expression
+}
+
 # Volta - https://volta.sh
-if ([bool](Get-Command -Name "volta" -CommandType Application -ErrorAction SilentlyContinue)) {
+if (Test-Command 'volta') {
     (& volta "completions" "powershell") | Out-String | Invoke-Expression
 }
