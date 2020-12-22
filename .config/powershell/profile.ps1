@@ -325,6 +325,9 @@ Set-Alias -Name "export" -Value Get-AllEnv -Option AllScope
 #-------------------------------#
 # Change hostname format
 if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
+    # gpg requires this to display passphrase prompt
+    $env:GPG_TTY=$(tty)
+
     if ($env:NAME) {
         $env:NAME =
             $env:NAME.Substring(0,1).ToUpper() +
