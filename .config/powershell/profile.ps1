@@ -334,6 +334,30 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
             $env:NAME.Substring(1).ToLower()
     }
 
+    function Get-ChildItemWithLs {
+        # Find available ls executable
+        $lsCmd = @("gls", "/bin/ls") |
+            Where-Object { Get-Command -Name "$_" -CommandType Application } |
+            Select-Object -First 1
+        # Setting ls color option
+        $lsColor = if ($IsMacOS -and ($lsCmd -eq "gls")) {
+            "--color=auto"
+        } else {
+            "-G"
+        }
+        # Call ls command
+        & $lsCmd -F $lsColor $args
+    }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
+    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
+    function Get-ChildItemWithLla { Get-ChildItemWithLs -lhA $args }
+    # ls aliases
+    Set-Alias -Name "l" -Value Get-ChildItemWithLs -Option AllScope
+    Set-Alias -Name "ls" -Value Get-ChildItemWithLs -Option AllScope
+    Set-Alias -Name "la" -Value Get-ChildItemWithLa -Option AllScope
+    Set-Alias -Name "lla" -Value Get-ChildItemWithLla -Option AllScope
+    Set-Alias -Name "ll" -Value Get-ChildItemWithLl -Option AllScope
+
     # Anaconda/Miniconda - https://docs.conda.io/en/latest
     if (Test-Command 'conda') {
         (& conda "shell.powershell" "hook") | Out-String | Invoke-Expression
@@ -352,7 +376,7 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
 
     # Replace Windows PowerShell `ls` command with GNU `ls` command,
     # it's bundled with git-for-windows, installed via Scoop
-    function Get-ChildItemWithGnuLs {
+    function Get-ChildItemWithLs {
         # Ignore some files that I don't want to see when calling ls command
         $ls_ignore = '"{0}"' -f (@(
             "_viminfo", "navdb.csv", "NTUSER*", "ntuser*", "Application Data*",
@@ -370,17 +394,17 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
         # Call ls command
         & $lsExe -F --color=auto --ignore="{$ls_ignore}" $args
     }
-    function Get-ChildItemGLSLA { Get-ChildItemWithGnuLs -A $args }
-    function Get-ChildItemGLSLL { Get-ChildItemWithGnuLs -lh $args }
-    function Get-ChildItemGLSLLA { Get-ChildItemWithGnuLs -lhA $args }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
+    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
+    function Get-ChildItemWithLla { Get-ChildItemWithLs -lhA $args }
     # ls aliases
-    Set-Alias -Name "l" -Value Get-ChildItemWithGnuLs -Option AllScope
-    Set-Alias -Name "ls" -Value Get-ChildItemWithGnuLs -Option AllScope
-    Set-Alias -Name "la" -Value Get-ChildItemGLSLA -Option AllScope
-    Set-Alias -Name "lla" -Value Get-ChildItemGLSLLA -Option AllScope
+    Set-Alias -Name "l" -Value Get-ChildItemWithLs -Option AllScope
+    Set-Alias -Name "ls" -Value Get-ChildItemWithLs -Option AllScope
+    Set-Alias -Name "la" -Value Get-ChildItemWithLa -Option AllScope
+    Set-Alias -Name "lla" -Value Get-ChildItemWithLla -Option AllScope
     # pshazz force setting `ll` as an alias of `ls`, disable pshazz aliases
     # plugin to avoid this behavior
-    Set-Alias -Name "ll" -Value Get-ChildItemGLSLL -Option AllScope
+    Set-Alias -Name "ll" -Value Get-ChildItemWithLl -Option AllScope
 
     #---------------------------------------------#
     #    External Applications Tab-Completions    #
