@@ -340,10 +340,10 @@ if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
             Where-Object { Get-Command -Name "$_" -CommandType Application } |
             Select-Object -First 1
         # Setting ls color option
-        $lsColor = if ($IsMacOS -and ($lsCmd -eq "gls")) {
-            "--color=auto"
-        } else {
+        $lsColor = if (($lsCmd -eq "/bin/ls") -and $IsMacOS) {
             "-G"
+        } else {
+            "--color=auto"
         }
         # Call ls command
         & $lsCmd -F $lsColor $args
