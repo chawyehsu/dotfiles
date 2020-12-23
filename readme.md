@@ -3,15 +3,17 @@
 </p>
 <h1 align="center">Dotfiles</h1>
 
-yet a simple, uniform terminal style and dotfiles, for macOS, Windows, and Linux.
+![Powered by PowerShell](https://img.shields.io/badge/Powered%20by-PowerShell-2673BB.svg?style=flat-square) ![License](https://img.shields.io/github/license/chawyehsu/dotfiles.svg?style=flat-square)
 
-Usage
+My simple and uniform dotfiles for Windows, macOS, and Linux.
+
+Setup
 -----
 
 ``` powershell
 $ git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
-$ cd ~/.dotfiles && ./install.ps1
-...
+$ cd ~/.dotfiles && pwsh ./install.ps1
+# You are ready to go
 ```
 
 License
