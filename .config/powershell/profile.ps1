@@ -1,14 +1,54 @@
 ﻿#Requires -Version 5
-# NOTES: Save it with `UTF-8 with BOM` or it will fail in PowerShell ISE
+# This profile is created by Chawye Hsu, licensed under the MIT license.
+# NOTES: Save it with `UTF-8 with BOM` or it will fail in PowerShell ISE.
+#------------------------------------------------------------------------------#
+# Support Platforms:
+#     Windows: WindowsPowerShell 5.1 or PowerShell 6+
+# macOS/Linux: PowerShell 6+ (PowerShell 7 is recommended)
+#------------------------------------------------------------------------------#
 
+
+#-----------------------#
+#   Internal variables  #
+#-----------------------#
+# Define an UNIform $HOME variable in the scope of this script.
+# $env:USERPROFILE goes first since $env:HOME might be defined in Windows.
 $Script:UNI_HOME = $env:USERPROFILE, $env:HOME |
     Where-Object { -not [String]::IsNullOrEmpty($_) } |
     Select-Object -First 1
 
+
+#-----------------------#
+#   Internal functions  #
+#-----------------------#
+function Test-IsNotWindows {
+    return ((Test-Path Variable:\IsWindows) -and (-not $IsWindows))
+}
+function Add-ItemToPath ([String]$part) {
+    $spliter = if (Test-IsNotWindows) { ':' } else { ';' }
+    $env:PATH = "$part$spliter$env:PATH"
+}
+function Get-NormalizedPath ([String]$in) {
+    # from: https://stackoverflow.com/a/12605755/3651279
+    $out = Resolve-Path $in -ErrorAction SilentlyContinue -ErrorVariable _errOut
+    # Return the `resolved` inputPath even if it's not exist.
+    if (-not $out) { $out = $_errOut[0].TargetObject }
+    return $out
+}
+function Test-Command ([String]$command) {
+    return [bool](Get-Command -Name $command `
+        -CommandType Application -ErrorAction SilentlyContinue)
+}
+function Test-PathExist ([String]$part) {
+    return ("$env:PATH".ToLower() -like "*$part*".ToLower())
+}
+
+
 #-----------------------#
 # PowerShell PSReadLine #
 #-----------------------#
-# PSReadLine - https://github.com/lzybkr/PSReadLine
+# readline implementation for PowerShell:
+#   https://github.com/PowerShell/PSReadLine
 if ((Get-Module -Name "PSReadline").Version.Major -eq 2) {
     # Enable Predictive IntelliSense (v2.1.0+)
     Set-PSReadLineOption -PredictionSource History
@@ -277,25 +317,6 @@ if ((Get-Module -Name "PSReadline").Version.Major -eq 2) {
 }
 
 
-#-----------------------#
-#   Internal functions  #
-#-----------------------#
-function Add-ItemToPath([String]$part) {
-    $spliter = if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { ':' } else { ';' }
-    $env:PATH = "$part$spliter$env:PATH"
-}
-function Test-Command([String]$command) {
-    return [bool](Get-Command -Name $command `
-        -CommandType Application -ErrorAction SilentlyContinue)
-}
-function Test-PathExist([String]$part) {
-    return ("$env:PATH".ToLower() -like "*$part*".ToLower())
-}
-function Get-NormalizedPath([String]$in) {
-    return (Resolve-Path $in -ErrorAction SilentlyContinue)
-}
-
-
 #--------------------------#
 #   Environment Variables  #
 #--------------------------#
@@ -317,7 +338,7 @@ $env:LS_COLORS = "no=00:fi=00:di=36:ln=35:pi=30;44:so=35;44:do=35;44:bd=33;44:cd
         Where-Object { -not [String]::IsNullOrEmpty($_) } |
         Select-Object -First 1
     $cargoPath = Get-NormalizedPath "$cargoHome/bin"
-    if ($cargoPath -and !(Test-PathExist $cargoPath)) {
+    if ($cargoPath -and (-not (Test-PathExist $cargoPath))) {
         Add-ItemToPath $cargoPath
     }
 }
@@ -350,8 +371,7 @@ Set-Alias -Name "export" -Value Get-AllEnv -Option AllScope
 #-------------------------------#
 #   Platform-specific Settings  #
 #-------------------------------#
-# Change hostname format
-if ((Test-Path Variable:\IsWindows) -and !$IsWindows) { # non-Windows
+if (Test-IsNotWindows) {
     # gpg requires this to display passphrase prompt
     $env:GPG_TTY=$(tty)
 
