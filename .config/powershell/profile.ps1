@@ -301,6 +301,8 @@ function Get-NormalizedPath([String]$in) {
 #--------------------------#
 $env:LANG = "en_US.UTF-8"
 $env:TZ = "UTC-8"
+# default editor
+$env:EDITOR = "nano"
 # Rustup mirror
 $env:RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static"
 # Node.js COLOR
