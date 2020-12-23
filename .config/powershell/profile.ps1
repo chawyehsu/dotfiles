@@ -289,7 +289,7 @@ function Test-Command([String]$command) {
         -CommandType Application -ErrorAction SilentlyContinue)
 }
 function Test-PathExist([String]$part) {
-    return ("$env:PATH".ToLower() -like "$part".ToLower())
+    return ("$env:PATH".ToLower() -like "*$part*".ToLower())
 }
 function Get-NormalizedPath([String]$in) {
     return (Resolve-Path $in -ErrorAction SilentlyContinue)
