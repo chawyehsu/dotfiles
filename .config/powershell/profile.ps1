@@ -330,8 +330,14 @@ $env:RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static"
 $env:FORCE_COLOR = "true"
 # Show git dirty state
 $env:GIT_PS1_SHOWDIRTYSTATE = 1
-# PATH updates - cargo
+# PATH updates
 & {
+    # .local bin
+    $localBinPath = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
+    if ($localBinPath -and (-not (Test-PathExist $localBinPath))) {
+        Add-ItemToPath $localBinPath
+    }
+    # cargo bin
     $cargoHome = $env:CARGO_HOME, "$Script:UNI_HOME/.cargo" |
         Where-Object { -not [String]::IsNullOrEmpty($_) } |
         Select-Object -First 1
