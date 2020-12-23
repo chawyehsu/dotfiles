@@ -362,16 +362,23 @@ function Get-GitDiff { git diff }
 function Get-GitStatus { git status }
 Set-Alias -Name "gdf" -Value Get-GitDiff -Option AllScope
 Set-Alias -Name "gst" -Value Get-GitStatus -Option AllScope
-# Efficient helper
 Set-Alias -Name "c" -Value "cls" -Option AllScope
+# Efficient helper
+# Get WAN ip
 function Get-WanIp {
     (Invoke-WebRequest -UseBasicParsing https://api.ip.sb/ip).Content
 }
 Set-Alias -Name "myip" -Value Get-WanIp -Option AllScope
-# Explorer helper, quick terminal->explorer
-function Open-Here { explorer.exe . }
-Set-Alias -Name "open" -Value explorer.exe -Option AllScope
+# Quick terminal->explorer
+# Detect platforms and specific explorer tool
+$nativeOpenCommand = if ($IsMacOS) {
+    'open' } elseif ($IsLinux) { 'nautilus' } else { 'explorer' }
+function Open-Here { & $nativeOpenCommand $(Get-Location) }
+if (-not([bool](Get-Command -Name 'open' -ErrorAction SilentlyContinue))) {
+    Set-Alias -Name "open" -Value $nativeOpenCommand -Option AllScope
+}
 Set-Alias -Name "here" -Value Open-Here -Option AllScope
+
 # Show all environment variables, like `export`
 function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name "export" -Value Get-AllEnv -Option AllScope
