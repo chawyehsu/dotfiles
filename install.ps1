@@ -48,6 +48,8 @@ if (!$IsWindows) {
     Set-SymbolicLink -Target ".volta/hooks.json"
     # pip
     Set-SymbolicLink -Target ".pip/pip.conf"
+    # tmux
+    Set-SymbolicLink -Target ".tmux.conf"
 } else {
     # MinTTY
     Set-SymbolicLink -Target ".minttyrc"
