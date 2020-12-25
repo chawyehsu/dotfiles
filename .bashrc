@@ -129,17 +129,13 @@ esac
 # ref: https://help.github.com/articles/working-with-ssh-key-passphrases/
 if [ "$OSTYPE" == "msys" ] && [ -x "$(command -v ssh)" ]; then
   # ensure .ssh directory exists
-  # Here we use $USERPROFILE instead of $HOME to locate SSH ENV,
-  # so we can share ssh keys between Win32-OpenSSH and openssh(Git-Bash/MSYS2)
-  if [ ! -d "${USERPROFILE//\\//}/.ssh" ]; then
-    mkdir -p "${USERPROFILE//\\//}/.ssh" >| /dev/null
-  fi
+  [ ! -d "$HOME/.ssh" ] && mkdir -p "$HOME/.ssh" >| /dev/null
   # test ssh is Win32-OpenSSH or not
   if [[ ! "$(ssh -V 2>&1)" == *"Windows"* ]]; then
     # we use $USERPROFILE instead of $HOME to locate SSH ENV,
     # so we can share ssh env between Git-Bash and MSYS2,
     # but be aware of that Win32-OpenSSH does not use SSH ENV
-    agentenv="${USERPROFILE//\\//}/.ssh/agent.env"
+    agentenv="$HOME/.ssh/agent.env"
     # load ssh env
     # shellcheck disable=SC1090
     [ -f "$agentenv" ] && source "$agentenv" >| /dev/null
