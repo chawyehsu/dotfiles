@@ -46,6 +46,8 @@ if (!$IsWindows) {
     Set-SymbolicLink -Target ".config/powershell/profile.ps1"
     # Volta Hooks
     Set-SymbolicLink -Target ".volta/hooks.json"
+    # pip
+    Set-SymbolicLink -Target ".pip/pip.conf"
 } else {
     # MinTTY
     Set-SymbolicLink -Target ".minttyrc"
@@ -57,4 +59,6 @@ if (!$IsWindows) {
         -Path "Documents/WindowsPowerShell/profile.ps1"
     Set-SymbolicLink -Target ".config/pshazz/config.json"
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
+    # pip
+    Set-SymbolicLink -Target "pip/pip.ini"
 }
