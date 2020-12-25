@@ -48,16 +48,6 @@ case "$OSTYPE" in
       # shellcheck disable=SC1091
       . /usr/local/etc/bash_completion
     fi
-
-    # Programming-Languages-Specific settings
-    # ---------------------------------------
-    # Python: Add miniconda
-    if [[ -f "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]]; then
-      # shellcheck disable=SC1091
-      . "/usr/local/Caskroom/miniconda/base/etc/profile.d/conda.sh"
-    elif [[ -d "/usr/local/Caskroom/miniconda/base/bin" ]]; then
-      export PATH="/usr/local/Caskroom/miniconda/base/bin:$PATH"
-    fi
     # Ruby: Add rbenv
     command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
     ;;
@@ -72,16 +62,6 @@ case "$OSTYPE" in
     if [[ -f "/usr/share/git/completion/git-prompt.sh" ]]; then
       # shellcheck disable=SC1091
       . /usr/share/git/completion/git-prompt.sh
-    fi
-
-    # Programming-Languages-Specific settings
-    # ---------------------------------------
-    # Python: Add miniconda
-    if [[ -f "$HOME/miniconda3/etc/profile.d/conda.sh" ]]; then
-      # shellcheck disable=SC1090
-      . "$HOME/miniconda3/etc/profile.d/conda.sh"
-    elif [[ -d "$HOME/miniconda3/bin" ]]; then
-      export PATH="$HOME/miniconda3/bin:$PATH"
     fi
 esac
 #--------------------#
@@ -98,12 +78,12 @@ case "$OSTYPE" in
     if command -v gls >/dev/null 2>&1; then
       alias ls='gls -F --group-directories-first --color' # GNU ls
     else
-      alias ls="ls -F -G" # BSD/macOS lg
+      alias ls="ls -F -G" # BSD/macOS ls
     fi
     ;;
   linux*|msys*)
     # Too many unconcerned files and directories in Windows $HOME, ignore them.
-    _ignoreList=('_viminfo' 'navdb.csv' 'NTUSER*' "ntuser*" "Local Settings*" \
+    _ignoreList=("_viminfo" "navdb.csv" "NTUSER*" "ntuser*" "Local Settings*" \
       "Application Data*" "My Documents*" "NetHood*" "PrintHood*" "Recent*" \
       "SendTo*" "Templates*" "Cookies*" "3D Objects" "Thumbs.db" "Start Menu" \
       "desktop.ini" "Saved Games" "Creative Cloud Files")
@@ -130,7 +110,6 @@ alias ...="cd ../.."
 alias gdf="git diff"
 alias gst="git status"
 alias myip="curl -s https://api.ip.sb/ip"
-# Provide an uniform `cls` command on all platforms
 alias cls="clear"
 case "$OSTYPE" in
   darwin*)
