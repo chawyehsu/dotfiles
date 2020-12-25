@@ -91,9 +91,6 @@ esac
 command -v vivid >/dev/null 2>&1 && \
   export LS_COLORS="$(vivid -m 8-bit generate snazzy)"
 
-# requirement for macOS: install GNU gdircolors with `brew install coreutils`
-command -v gdircolors >/dev/null 2>&1 || alias gdircolors="dircolors"
-[[ -f "$HOME/.dircolorsdb" ]] && eval "$(gdircolors -b $HOME/.dircolorsdb)"
 #---------------#
 # Unify Aliases #
 #---------------#
