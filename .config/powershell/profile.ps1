@@ -442,7 +442,7 @@ if (Test-IsNotWindows) {
     # it's bundled with git-for-windows, installed via Scoop
     function Get-ChildItemWithLs {
         # Ignore some files that I don't want to see when calling ls command
-        $ls_ignore = '"{0}"' -f (@(
+        $lsIgnore = '"{0}"' -f (@(
             "_viminfo", "navdb.csv", "NTUSER*", "ntuser*", "Application Data*",
             "Local Settings*", "My Documents*", "NetHood*", "PrintHood*",
             "Recent*", "SendTo*", "Templates*", "Cookies*", "iCloudDrive*",
@@ -456,7 +456,7 @@ if (Test-IsNotWindows) {
         ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 
         # Call ls command
-        & $lsExe -F --group-directories-first --color --ignore="{$ls_ignore}" $args
+        & $lsExe -F --group-directories-first --color --ignore="{$lsIgnore}" $args
     }
     function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
