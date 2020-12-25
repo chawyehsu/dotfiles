@@ -409,7 +409,7 @@ if (Test-IsNotWindows) {
         $lsColor = if (($lsCmd -eq "/bin/ls") -and $IsMacOS) {
             "-G" # BSD/macOS ls
         } else {
-            "--color=auto" # GNU ls
+            "--group-directories-first --color=auto" # GNU ls
         }
         # Call ls command
         & $lsCmd -F $lsColor $args
