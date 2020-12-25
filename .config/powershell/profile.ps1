@@ -405,14 +405,12 @@ if (Test-IsNotWindows) {
                     -CommandType Application `
                     -ErrorAction SilentlyContinue
             } | Select-Object -First 1
-        # Setting ls color option
-        $lsColor = if (($lsCmd -eq "/bin/ls") -and $IsMacOS) {
-            "-G" # BSD/macOS ls
-        } else {
-            "--group-directories-first --color=auto" # GNU ls
-        }
         # Call ls command
-        & $lsCmd -F $lsColor $args
+        if (($lsCmd -eq "/bin/ls") -and $IsMacOS) {
+            & $lsCmd -F -G $args # BSD/macOS ls
+        } else {
+            & $lsCmd -F --group-directories-first --color $args # GNU ls
+        }
     }
     function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
@@ -458,7 +456,7 @@ if (Test-IsNotWindows) {
         ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 
         # Call ls command
-        & $lsExe -F --color=auto --ignore="{$ls_ignore}" $args
+        & $lsExe -F --group-directories-first --color --ignore="{$ls_ignore}" $args
     }
     function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
