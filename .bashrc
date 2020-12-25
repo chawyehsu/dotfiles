@@ -14,6 +14,8 @@
 #-----------------------#
 export LANG=en_US.UTF-8
 export TZ=UTC-8
+# default editor
+export EDITOR=nano
 # Always display git dirty state
 export GIT_PS1_SHOWDIRTYSTATE=1
 # Enable Node.js (chalk) color
@@ -22,21 +24,23 @@ export FORCE_COLOR=1
 if [[ "$TERM" == "xterm" ]]; then
   export TERM=xterm-256color
 fi
-#------------#
-# Unify PATH #
-#------------#
+# PATH updates - Add `~/.local/bin`:
+_localbin="$HOME/.local/bin"
+if [[ -d $_localbin && ":$PATH:" != *":$_localbin:"* ]]; then
+  export PATH="$_localbin:$PATH"
+fi
+# PATH updates -
 case "$OSTYPE" in
   darwin*)
-    # macOS default PATH:
+    # NOTES: macOS's default PATH (definition in `/etc/paths`):
     #   "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-    # Add Homebrew super formulae directory to PATH:
-    if [[ -d "/usr/local/sbin" ]]; then
-      export PATH="/usr/local/sbin:$PATH"
-    fi
+    #
+    # A `/Library/Apple/usr/bin` path will be added when the
+    # Xcode command line tools is installed.
 
-    # Add ~/.local/bin to PATH:
-    if [[ -d "$HOME/.local/bin" ]]; then
-      export PATH="$HOME/.local/bin:$PATH"
+    # PATH updates - Add super bin directory installed by Homebrew:
+    if [[ -d "/usr/local/sbin" && ":$PATH:" != *":/usr/local/sbin:"* ]]; then
+      export PATH="/usr/local/sbin:$PATH"
     fi
 
     # bash-completion:
@@ -58,9 +62,10 @@ case "$OSTYPE" in
     command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"
     ;;
   linux*)
-    # Add ~/.local/bin to PATH:
-    if [[ -d "$HOME/.local/bin" ]]; then
-      export PATH="$HOME/.local/bin:$PATH"
+    # PATH updates - Add `~/.linuxbrew/bin` (Linuxbrew bin):
+    _linuxbrew="$HOME/.linuxbrew/bin"
+    if [[ -d $_linuxbrew && ":$PATH:" != *":$_linuxbrew:"* ]]; then
+      export PATH="$_linuxbrew:$PATH"
     fi
 
     # Add git-prompt (Arch Linux):
@@ -177,6 +182,8 @@ fi
 # Program-languages specific settings #
 #-------------------------------------#
 # NONE
+
+
 #----------------------------#
 # The Chawye's styled prompt #
 #----------------------------#
@@ -194,8 +201,8 @@ function styled_prompt() {
   # Terminal title
   local TERM_TITLE="\[\e]0; \w\a\]"
 
-  # platform detection
-  if [[ "$(uname -r)" == *Microsoft ]]; then
+  # Special system environment detection: WSL, MSYS2/MinGW
+  if [[ "$(uname -r)" == *icrosoft ]]; then
     DIST="${MAGENTA}(WSL)${RESET}"
   elif [[ $MSYSTEM ]]; then
     DIST="${MAGENTA}($MSYSTEM)${RESET}"
