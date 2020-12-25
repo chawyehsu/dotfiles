@@ -182,9 +182,9 @@ function styled_prompt() {
 
   # Special system environment detection: WSL, MSYS2/MinGW
   if [[ "$(uname -r)" == *"icrosoft" ]]; then
-    DIST="${MAGENTA}(WSL)${RESET}"
+    DIST="$MAGENTA(WSL)$RESET"
   elif [ -n "$MSYSTEM" ]; then
-    DIST="${MAGENTA}($MSYSTEM)${RESET}"
+    DIST="$MAGENTA($MSYSTEM)$RESET"
   else
     DIST=""
   fi
