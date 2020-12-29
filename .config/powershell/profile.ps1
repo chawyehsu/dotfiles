@@ -398,6 +398,14 @@ if (Test-IsNotWindows) {
     }
 
     function Get-ChildItemWithLs {
+        # Ignore some files that I don't want to see when calling ls command
+        $lsIgnore = '"{0}"' -f (@(
+            "_viminfo", "navdb.csv", "NTUSER*", "ntuser*", "Application Data*",
+            "Local Settings*", "My Documents*", "NetHood*", "PrintHood*",
+            "Recent*", "SendTo*", "Templates*", "Cookies*", "iCloudDrive*",
+            "desktop.ini", "Thumbs.db", "Start Menu", "Saved Games",
+            "Creative Cloud Files", "3D Objects"
+        ) -join '","')
         # Find available ls executable
         $lsCmd = @("gls", "/bin/ls") |
             Where-Object {
@@ -406,10 +414,10 @@ if (Test-IsNotWindows) {
                     -ErrorAction SilentlyContinue
             } | Select-Object -First 1
         # Call ls command
-        if (($lsCmd -eq "/bin/ls") -and $IsMacOS) {
-            & $lsCmd -F -G $args # BSD/macOS ls
-        } else {
-            & $lsCmd -F --group-directories-first --color $args # GNU ls
+        if (($lsCmd -eq "/bin/ls") -and $IsMacOS) { # BSD/macOS ls
+            & $lsCmd -F -G $args
+        } else { # GNU ls
+            & $lsCmd -F --group-directories-first --color --ignore="{$lsIgnore}" $args
         }
     }
     function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
