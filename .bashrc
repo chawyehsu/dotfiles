@@ -181,7 +181,7 @@ function styled_prompt() {
   local TERMTITLE="\[\e]0; \w\a\]"
 
   # Special system environment detection: WSL, MSYS2/MinGW
-  if [[ "$(uname -r)" == *"icrosoft" ]]; then
+  if [[ "$(uname -r)" == *"icrosoft"* ]]; then
     DIST="$MAGENTA(WSL)$RESET"
   elif [ -n "$MSYSTEM" ]; then
     DIST="$MAGENTA($MSYSTEM)$RESET"
@@ -197,6 +197,6 @@ function styled_prompt() {
   #  https://stackoverflow.com/questions/21517281/
   # __git_ps1 not update issue:
   #  https://askubuntu.com/questions/896445/#comment2153553_1163371
-  PS1="$TERMTITLE$GREEN\h$DIST: $YELLOW\W$CYAN$GITPS1$RESET"$'\n\$ '
+  PS1="$TERMTITLE$GREEN\h$DIST $YELLOW\W$CYAN$GITPS1$RESET"$'\n\$ '
 }
 styled_prompt
