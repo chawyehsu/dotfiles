@@ -5,6 +5,7 @@ pkgs_dirs:
 channels:
   - defaults
   - conda-forge
+changeps1: false
 auto_activate_base: false
 show_channel_urls: true
 repodata_threads: 2
