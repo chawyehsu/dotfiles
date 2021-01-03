@@ -1,3 +1,4 @@
+#!/usr/bin/env pwsh
 #Requires -Version 5
 
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
@@ -8,7 +9,11 @@ $DSTROOT = (Resolve-Path (($env:HOME, $env:USERPROFILE |
 function Set-SymbolicLink([String]$Target, [String]$Path) {
     if (!$Path) { $Path = $Target }
     $src = (Join-Path $SRCROOT $Target)
-    $dst = (Join-Path $DSTROOT $Path)
+    $dst = if ([System.IO.Path]::IsPathRooted($Path)) {
+        (Resolve-Path $Path)
+    } else {
+        (Join-Path $DSTROOT $Path)
+    }
     Write-Output $dst
 
     if (Test-Path $dst) {
@@ -63,4 +68,7 @@ if (!$IsWindows) {
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
     # pip
     Set-SymbolicLink -Target "pip/pip.ini"
+    # Windows Terminal
+    Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
+        -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
 }
