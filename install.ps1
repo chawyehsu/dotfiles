@@ -60,7 +60,8 @@ if (!$IsWindows) {
     # Volta Hooks
     Set-SymbolicLink -Target ".volta/hooks.json"
     # pip
-    Set-SymbolicLink -Target ".pip/pip.conf"
+    Set-SymbolicLink -Target ".config/pip/pip.ini" `
+        -Path ".pip/pip.conf"
     # tmux
     Set-SymbolicLink -Target ".tmux.conf"
 } else {
@@ -77,7 +78,8 @@ if (!$IsWindows) {
     Set-SymbolicLink -Target ".config/pshazz/config.json"
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
     # pip
-    Set-SymbolicLink -Target "pip/pip.ini"
+    Set-SymbolicLink -Target ".config/pip/pip.ini" `
+        -Path "pip/pip.ini"
     # Windows Terminal
     Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
