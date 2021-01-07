@@ -31,11 +31,11 @@ Set-SymbolicLink -Target ".bash_profile"
 Set-SymbolicLink -Target ".bashrc"
 Set-SymbolicLink -Target ".cargo/config"
 Set-SymbolicLink -Target ".condarc"
+Set-SymbolicLink -Target ".config/git/config"
+Set-SymbolicLink -Target ".config/git/ignore"
 Set-SymbolicLink -Target ".config/starship.toml"
 Set-SymbolicLink -Target ".dir_colors"
 Set-SymbolicLink -Target ".gemrc"
-Set-SymbolicLink -Target ".gitconfig"
-Set-SymbolicLink -Target ".gitignore_global"
 Set-SymbolicLink -Target ".gnupg/gpg-agent.conf"
 Set-SymbolicLink -Target ".gnupg/gpg.conf"
 Set-SymbolicLink -Target ".gradle/gradle.properties"
@@ -47,6 +47,14 @@ Set-SymbolicLink -Target ".vimrc"
 
 # Platform-specific dotfiles
 if (!$IsWindows) {
+    # gitconfig local file
+    if ($IsMacOS) { # macOS
+        Set-SymbolicLink -Target ".config/git/config.mac.conf" `
+            -Path ".config/git/config.local"
+    } else { # Linux
+        Set-SymbolicLink -Target ".config/git/config.linux.conf" `
+            -Path ".config/git/config.local"
+    }
     # PowerShell Core
     Set-SymbolicLink -Target ".config/powershell/profile.ps1"
     # Volta Hooks
@@ -58,6 +66,8 @@ if (!$IsWindows) {
 } else {
     # MinTTY
     Set-SymbolicLink -Target ".minttyrc"
+    Set-SymbolicLink -Target ".config/git/config.win.conf" `
+        -Path ".config/git/config.local"
     # PowerShell Core
     Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
         -Path "Documents/PowerShell/profile.ps1"
