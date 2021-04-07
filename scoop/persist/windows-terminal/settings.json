@@ -1,14 +1,15 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "initialCols": 94,
-    "initialRows": 32,
+    "initialCols": 78,
+    "initialRows": 26,
     "copyOnSelect": false,
     "copyFormatting": false,
     "profiles":
     {
         "defaults":
         {
+            "fontSize": 11,
             "fontFace": "Cascadia Mono PL",
             "colorScheme" : "Snazzy",
             "useAcrylic": false,
@@ -20,7 +21,7 @@
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
                 "name": "PowerShell",
-                "commandline": "pwsh.exe",
+                "commandline": "pwsh.exe -nologo",
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
@@ -32,7 +33,7 @@
             {
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "name": "Windows PowerShell",
-                "commandline": "powershell.exe",
+                "commandline": "powershell.exe -nologo",
                 "hidden": false
             },
             {
