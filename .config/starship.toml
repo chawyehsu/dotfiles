@@ -9,3 +9,6 @@ ignore_base = false
 [hostname]
 ssh_only = false
 disabled = false
+
+[nodejs]
+symbol = "⬢ "
