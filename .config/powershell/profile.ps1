@@ -506,17 +506,9 @@ if (Test-IsNotWindows) {
     }
 }
 
-# Deno - https://deno.land
-if (Test-Command 'deno') {
-    (& deno "completions" "powershell") | Out-String | Invoke-Expression
-}
-
-# Rustup - https://rustup.rs
-if (Test-Command 'rustup') {
-    (& rustup "completions" "powershell") | Out-String | Invoke-Expression
-}
-
-# Volta - https://volta.sh
-if (Test-Command 'volta') {
-    (& volta "completions" "powershell") | Out-String | Invoke-Expression
+# Tab-completions autoload for tools written in Rust(clap-rs)
+@('rustup', 'deno', 'volta', 'starship') | ForEach-Object {
+    if (Test-Command $_) {
+        (& $_ "completions" "powershell") | Out-String | Invoke-Expression
+    }
 }
