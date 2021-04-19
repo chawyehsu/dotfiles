@@ -14,16 +14,13 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
     } else {
         (Join-Path $DSTROOT $Path)
     }
-    Write-Output $dst
+    Write-Output $dst.ToString()
 
     if (Test-Path $dst) {
         Remove-Item -Path $dst -Force
     }
     New-Item -Type SymbolicLink -Path $dst -Target $src -Force | Out-Null
 }
-
-$SRCROOT
-$DSTROOT
 
 # Core dotfiles
 Set-SymbolicLink -Target ".bash_logout"
@@ -42,8 +39,15 @@ Set-SymbolicLink -Target ".gradle/gradle.properties"
 Set-SymbolicLink -Target ".gvimrc"
 Set-SymbolicLink -Target ".inputrc"
 Set-SymbolicLink -Target ".nanorc"
-Set-SymbolicLink -Target ".npmrc"
 Set-SymbolicLink -Target ".vimrc"
+
+# Runtime generated dotfiles
+& {
+    # .npmrc
+    if (!(Test-Path "$DSTROOT/.npmrc")) {
+        Write-Output "loglevel=http" | Out-File "$DSTROOT/.npmrc" -Force
+    }
+}
 
 # Platform-specific dotfiles
 if (!$IsWindows) {
