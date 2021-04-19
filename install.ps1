@@ -40,6 +40,7 @@ Set-SymbolicLink -Target ".gvimrc"
 Set-SymbolicLink -Target ".inputrc"
 Set-SymbolicLink -Target ".nanorc"
 Set-SymbolicLink -Target ".vimrc"
+Set-SymbolicLink -Target ".wgetrc"
 
 # Runtime generated dotfiles
 & {
@@ -66,6 +67,8 @@ if (!$IsWindows) {
     # pip
     Set-SymbolicLink -Target ".config/pip/pip.ini" `
         -Path ".pip/pip.conf"
+    # tmux
+    Set-SymbolicLink -Target ".screenrc"
     # tmux
     Set-SymbolicLink -Target ".tmux.conf"
 } else {
