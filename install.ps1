@@ -1,6 +1,8 @@
 #!/usr/bin/env pwsh
 #Requires -Version 5
 
+Read-Host "Please enter to continue or Ctrl+C to cancel"
+
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
 $DSTROOT = (Resolve-Path (($env:HOME, $env:USERPROFILE |
     Where-Object { -not [String]::IsNullOrEmpty($_) } |
@@ -67,7 +69,7 @@ if (!$IsWindows) {
     # pip
     Set-SymbolicLink -Target ".config/pip/pip.ini" `
         -Path ".pip/pip.conf"
-    # tmux
+    # screen
     Set-SymbolicLink -Target ".screenrc"
     # tmux
     Set-SymbolicLink -Target ".tmux.conf"
