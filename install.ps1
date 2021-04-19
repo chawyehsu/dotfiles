@@ -84,6 +84,9 @@ if (!$IsWindows) {
     # pip
     Set-SymbolicLink -Target ".config/pip/pip.ini" `
         -Path "pip/pip.ini"
+    # pip
+    Set-SymbolicLink -Target ".config/proxychains/proxychains.conf" `
+        -Path ".proxychains/proxychains.conf"
     # Windows Terminal
     Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
