@@ -86,6 +86,7 @@ if (!$IsWindows) {
         -Path "Documents/WindowsPowerShell/profile.ps1"
     Set-SymbolicLink -Target ".config/pshazz/config.json"
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
+    Set-SymbolicLink -Target ".config/scoop/config.json"
     # pip
     Set-SymbolicLink -Target ".config/pip/pip.ini" `
         -Path "pip/pip.ini"

@@ -1,11 +1,9 @@
 {
-  "lastupdate": "2020-02-01T23:21:35.5104591+08:00",
-  "alias": {
-    "outdated": "scoop-outdated",
-    "upgrade": "scoop-upgrade"
-  },
-  "SCOOP_BRANCH": "master",
+  "aria2-enabled": true,
+  "lastupdate": "2021-04-24T17:23:07.8325455+08:00",
+  "scoop_branch": "master",
+  "scoop_repo": "https://gitee.com/chawyehsu/scoop",
+  "shim": "kiennq",
   "show_update_log": false,
-  "SCOOP_REPO": "https://github.com/lukesampson/scoop",
   "proxy": "127.0.0.1:7890"
 }
