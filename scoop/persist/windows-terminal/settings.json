@@ -1,8 +1,8 @@
 {
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "initialCols": 78,
-    "initialRows": 26,
+    "initialCols": 82,
+    "initialRows": 28,
     "copyOnSelect": false,
     "copyFormatting": false,
     "profiles":
@@ -13,7 +13,13 @@
             "fontFace": "Cascadia Mono PL",
             "colorScheme" : "Snazzy",
             "useAcrylic": false,
-            "acrylicOpacity": 0.875
+            "acrylicOpacity": 0.875,
+            // "backgroundImageOpacity": 0.4,
+            // "experimental.retroTerminalEffect": true,
+            // "fontSize": 18,
+            // "fontFace": "VT323",
+            // "colorScheme" : "Vintage"
+
         },
         "list":
         [
@@ -73,6 +79,27 @@
             "brightPurple": "#ff6ac1",
             "brightCyan": "#9aedfe",
             "brightWhite": "#eff0eb"
+        },
+        {
+            "name": "Vintage",
+            "foreground": "#C0C0C0",
+            "background": "#000000",
+            "black": "#000000",
+            "red": "#800000",
+            "green": "#008000",
+            "yellow": "#808000",
+            "blue": "#000080",
+            "purple": "#800080",
+            "cyan": "#008080",
+            "white": "#C0C0C0",
+            "brightBlack": "#808080",
+            "brightRed": "#FF0000",
+            "brightGreen": "#00FF00",
+            "brightYellow": "#FFFF00",
+            "brightBlue": "#0000FF",
+            "brightPurple": "#FF00FF",
+            "brightCyan": "#00FFFF",
+            "brightWhite": "#FFFFFF"
         }
     ],
     "keybindings":
