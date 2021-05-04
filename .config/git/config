@@ -72,6 +72,9 @@
 	insteadOf = git@gist.github.com:
 	insteadOf = gist:
 
+[ghq]
+	root = ~/workspace/repos
+
 # Local/private config goes in the include
 [include]
 	path = config.local
