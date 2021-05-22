@@ -50,11 +50,11 @@ case "$OSTYPE" in
     [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
     ;;
   linux*)
-    # PATH updates - Add `~/.linuxbrew/bin` (Linuxbrew bin):
-    _linuxbrew="$HOME/.linuxbrew/bin"
-    if [[ -d $_linuxbrew && ":$PATH:" != *":$_linuxbrew:"* ]]; then
-      export PATH="$_linuxbrew:$PATH"
-    fi
+    # PATH updates - Add linuxbrew:
+    _linuxbrew1="/home/linuxbrew/.linuxbrew/bin/brew" # sudo
+    [[ -f $_linuxbrew1 ]] && eval "$($_linuxbrew1 shellenv)"
+    _linuxbrew2="$HOME/.linuxbrew/bin/brew" # non sudo
+    [[ -f $_linuxbrew2 ]] && eval "$($_linuxbrew2 shellenv)"
 
     # Add git-prompt (Arch Linux):
     _gitprompt="/usr/share/git/completion/git-prompt.sh"
