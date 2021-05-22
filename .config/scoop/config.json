@@ -1,9 +1,10 @@
 {
   "aria2-enabled": true,
-  "lastupdate": "2021-04-24T17:23:07.8325455+08:00",
+  "lastupdate": "2021-05-22T08:43:10.1932826+08:00",
+  "msiextract_use_lessmsi": true,
+  "proxy": "127.0.0.1:7890",
   "scoop_branch": "master",
   "scoop_repo": "https://gitee.com/chawyehsu/scoop",
   "shim": "kiennq",
-  "show_update_log": false,
-  "proxy": "127.0.0.1:7890"
+  "show_update_log": false
 }
