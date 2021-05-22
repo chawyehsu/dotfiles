@@ -506,6 +506,18 @@ if (Test-IsNotWindows) {
     }
 }
 
+if (Test-Command 'zoxide') {
+    Invoke-Expression (& {
+        $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
+        (zoxide init --hook $hook powershell) -join "`n"
+    })
+}
+
+@('k3d') | ForEach-Object {
+    if (Test-Command $_) {
+        (& $_ "completion" "powershell") | Out-String | Invoke-Expression
+    }
+}
 # Tab-completions autoload for tools written in Rust(clap-rs)
 @('rustup', 'deno', 'volta', 'starship') | ForEach-Object {
     if (Test-Command $_) {
