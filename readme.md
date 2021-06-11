@@ -12,7 +12,7 @@ Setup
 
 ``` powershell
 $ git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
-$ cd ~/.dotfiles && pwsh ./install.ps1
+$ cd ~/.dotfiles && pwsh -noprofile ./install.ps1
 # You are ready to go
 ```
 
