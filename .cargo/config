@@ -1,5 +1,7 @@
 [source.crates-io]
 registry = "https://github.com/rust-lang/crates.io-index"
-replace-with = 'tuna'
+replace-with = 'ustc'
 [source.tuna]
 registry = "https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git"
+[source.ustc]
+registry = "https://mirrors.ustc.edu.cn/crates.io-index"
