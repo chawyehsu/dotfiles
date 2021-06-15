@@ -1,6 +1,7 @@
 #!/usr/bin/env pwsh
 #Requires -Version 5
 
+Write-Host "This will overwrite all local dotfiles. Make sure backup your changes." -f Red
 Read-Host "Please enter to continue or Ctrl+C to cancel"
 
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
@@ -30,6 +31,7 @@ Set-SymbolicLink -Target ".bash_profile"
 Set-SymbolicLink -Target ".bashrc"
 Set-SymbolicLink -Target ".cargo/config"
 Set-SymbolicLink -Target ".condarc"
+Set-SymbolicLink -Target ".config/gh/config.yml"
 Set-SymbolicLink -Target ".config/git/config"
 Set-SymbolicLink -Target ".config/git/ignore"
 Set-SymbolicLink -Target ".config/starship.toml"
@@ -88,8 +90,7 @@ if (!$IsWindows) {
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
     Set-SymbolicLink -Target ".config/scoop/config.json"
     # pip
-    Set-SymbolicLink -Target ".config/pip/pip.ini" `
-        -Path "pip/pip.ini"
+    Set-SymbolicLink -Target ".config/pip/pip.ini" ` -Path "pip/pip.ini"
     # pip
     Set-SymbolicLink -Target ".config/proxychains/proxychains.conf" `
         -Path ".proxychains/proxychains.conf"

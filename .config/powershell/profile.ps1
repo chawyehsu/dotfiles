@@ -330,6 +330,8 @@ $env:RUSTUP_DIST_SERVER = "https://mirrors.ustc.edu.cn/rust-static"
 $env:FORCE_COLOR = "true"
 # Show git dirty state
 $env:GIT_PS1_SHOWDIRTYSTATE = 1
+# GitHub CLI config dir
+$env:GH_CONFIG_DIR = "$Script:UNI_HOME/.config/gh"
 # PATH updates
 & {
     # .local bin
