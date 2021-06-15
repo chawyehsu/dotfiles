@@ -515,9 +515,18 @@ if (Test-Command 'zoxide') {
     })
 }
 
+
+#------------------------------#
+#   CLI tools tab-completions  #
+#------------------------------#
 @('k3d') | ForEach-Object {
     if (Test-Command $_) {
         (& $_ "completion" "powershell") | Out-String | Invoke-Expression
+    }
+}
+@('gh') | ForEach-Object {
+    if (Test-Command $_) {
+        (& $_ "completion" "-s" "powershell") | Out-String | Invoke-Expression
     }
 }
 # Tab-completions autoload for tools written in Rust(clap-rs)
