@@ -515,7 +515,6 @@ if (Test-Command 'zoxide') {
     })
     # Overwrite `cd` with `z`
     Set-Alias -Name "cd" -Value "z" -Option AllScope
-
 }
 
 
