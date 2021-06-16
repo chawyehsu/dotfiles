@@ -513,6 +513,9 @@ if (Test-Command 'zoxide') {
         $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
         (zoxide init --hook $hook powershell) -join "`n"
     })
+    # Overwrite `cd` with `z`
+    Set-Alias -Name "cd" -Value "z" -Option AllScope
+
 }
 
 
