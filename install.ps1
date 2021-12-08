@@ -25,7 +25,7 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
     New-Item -Type SymbolicLink -Path $dst -Target $src -Force | Out-Null
 }
 
-# Core dotfiles
+# Common dotfiles
 Set-SymbolicLink -Target ".bash_logout"
 Set-SymbolicLink -Target ".bash_profile"
 Set-SymbolicLink -Target ".bashrc"
@@ -54,38 +54,15 @@ Set-SymbolicLink -Target ".wgetrc"
     }
 }
 
-# Platform-specific dotfiles
-if (!$IsWindows) {
-    # gitconfig local file
-    if ($IsMacOS) { # macOS
-        Set-SymbolicLink -Target ".config/git/config.mac.conf" `
-            -Path ".config/git/config.local"
-    } else { # Linux
-        Set-SymbolicLink -Target ".config/git/config.linux.conf" `
-            -Path ".config/git/config.local"
-    }
-    # PowerShell Core
-    Set-SymbolicLink -Target ".config/powershell/profile.ps1"
-    # Volta Hooks
-    Set-SymbolicLink -Target ".volta/hooks.json"
-    # pip
-    Set-SymbolicLink -Target ".config/pip/pip.ini" `
-        -Path ".pip/pip.conf"
-    # screen
-    Set-SymbolicLink -Target ".screenrc"
-    # tmux
-    Set-SymbolicLink -Target ".tmux.conf"
-} else {
+# OS-specific dotfiles
+if ($env:OS -eq "Windows_NT" -or $IsWindows) { # Windows
     # MinTTY
     Set-SymbolicLink -Target ".minttyrc"
     Set-SymbolicLink -Target ".config/git/config.win.conf" `
         -Path ".config/git/config.local"
-    # PowerShell Core
+    # PowerShell
     Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
-        -Path "Documents/PowerShell/profile.ps1"
-    # WindowsPowerShell 5.1
-    Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
-        -Path "Documents/WindowsPowerShell/profile.ps1"
+        -Path $PROFILE.CurrentUserAllHosts
     Set-SymbolicLink -Target ".config/pshazz/config.json"
     Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
     Set-SymbolicLink -Target ".config/scoop/config.json"
@@ -97,4 +74,24 @@ if (!$IsWindows) {
     # Windows Terminal
     Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+} else {
+    # gitconfig local file
+    if ($IsMacOS) { # macOS
+        Set-SymbolicLink -Target ".config/git/config.mac.conf" `
+            -Path ".config/git/config.local"
+    } else { # Linux
+        Set-SymbolicLink -Target ".config/git/config.linux.conf" `
+            -Path ".config/git/config.local"
+    }
+    # PowerShell
+    Set-SymbolicLink -Target ".config/powershell/profile.ps1"
+    # Volta Hooks
+    Set-SymbolicLink -Target ".volta/hooks.json"
+    # pip
+    Set-SymbolicLink -Target ".config/pip/pip.ini" `
+        -Path ".pip/pip.conf"
+    # screen
+    Set-SymbolicLink -Target ".screenrc"
+    # tmux
+    Set-SymbolicLink -Target ".tmux.conf"
 }
