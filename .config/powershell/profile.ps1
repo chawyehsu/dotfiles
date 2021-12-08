@@ -419,14 +419,12 @@ if (Test-IsNotWindows) {
             & $lsCmd -F --group-directories-first --color $args
         }
     }
-    function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
-    function Get-ChildItemWithLla { Get-ChildItemWithLs -lhA $args }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh $args }
     # ls aliases
     Set-Alias -Name "l" -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name "ls" -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name "la" -Value Get-ChildItemWithLa -Option AllScope
-    Set-Alias -Name "lla" -Value Get-ChildItemWithLla -Option AllScope
     Set-Alias -Name "ll" -Value Get-ChildItemWithLl -Option AllScope
 
     # Anaconda/Miniconda - https://docs.conda.io/en/latest
@@ -465,14 +463,12 @@ if (Test-IsNotWindows) {
         # Call ls command
         & $lsExe -F --group-directories-first --color --ignore="{$lsIgnore}" $args
     }
-    function Get-ChildItemWithLa { Get-ChildItemWithLs -A $args }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
-    function Get-ChildItemWithLla { Get-ChildItemWithLs -lhA $args }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh $args }
     # ls aliases
     Set-Alias -Name "l" -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name "ls" -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name "la" -Value Get-ChildItemWithLa -Option AllScope
-    Set-Alias -Name "lla" -Value Get-ChildItemWithLla -Option AllScope
     # pshazz force setting `ll` as an alias of `ls`, disable pshazz aliases
     # plugin to avoid this behavior
     Set-Alias -Name "ll" -Value Get-ChildItemWithLl -Option AllScope
