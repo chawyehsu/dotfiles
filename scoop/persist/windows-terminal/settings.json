@@ -10,7 +10,7 @@
         "defaults":
         {
             "fontSize": 11,
-            "fontFace": "Cascadia Mono",
+            "fontFace": "Cascadia Mono PL",
             "colorScheme" : "Snazzy",
             "useAcrylic": false,
             "acrylicOpacity": 0.875,
@@ -19,7 +19,6 @@
             // "fontSize": 18,
             // "fontFace": "VT323",
             // "colorScheme" : "Vintage"
-
         },
         "list":
         [
