@@ -74,6 +74,8 @@ if ($env:OS -eq "Windows_NT" -or $IsWindows) { # Windows
     # Windows Terminal
     Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+    # WSL
+    Set-SymbolicLink -Target "wsl/.wslconfig" -Path ".wslconfig"
 } else {
     # gitconfig local file
     if ($IsMacOS) { # macOS
