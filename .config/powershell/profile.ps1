@@ -1,6 +1,6 @@
 ﻿#Requires -Version 5
 # This profile is created by Chawye Hsu, licensed under the MIT license.
-# NOTES: Save it with `UTF-8 with BOM` or it will fail in PowerShell ISE.
+# NOTES: Save it with `UTF-8 with BOM` or it will break on PowerShell ISE.
 #------------------------------------------------------------------------------#
 # Support Platforms:
 #     Windows: WindowsPowerShell 5.1 or PowerShell 6+
