@@ -373,15 +373,19 @@ Set-Alias -Name "c" -Value "cls" -Option AllScope
 # Efficient helper
 # Get WAN ip
 function Get-WanIp {
-    (Invoke-WebRequest -UseBasicParsing https://api.ip.sb/ip).Content
+    param([Switch]$g)
+    if (!$g) {
+        return Invoke-RestMethod https://api.myip.la
+    }
+    (Invoke-RestMethod https://api.myip.la/en?json) | ConvertTo-Json
 }
-Set-Alias -Name "myip" -Value Get-WanIp -Option AllScope
+Set-Alias -Name "wanip" -Value Get-WanIp -Option AllScope
 # Quick terminal->explorer
 # Detect platforms and specific explorer tool
 $nativeOpenCommand = if ($IsMacOS) {
     'open' } elseif ($IsLinux) { 'nautilus' } else { 'explorer' }
 function Open-Here { & $nativeOpenCommand $(Get-Location) }
-if (-not([bool](Get-Command -Name 'open' -ErrorAction SilentlyContinue))) {
+if (!(Test-Command "open")) {
     Set-Alias -Name "open" -Value $nativeOpenCommand -Option AllScope
 }
 Set-Alias -Name "here" -Value Open-Here -Option AllScope
