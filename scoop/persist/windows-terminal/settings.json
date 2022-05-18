@@ -1,31 +1,38 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
+    "actions":
     [
         {
-            "command": 
+            "command":
             {
                 "action": "newTab"
             },
             "keys": "ctrl+t"
         },
         {
-            "command": 
+            "command":
+            {
+                "action": "closeTab"
+            },
+            "keys": "ctrl+w"
+        },
+        {
+            "command":
             {
                 "action": "prevTab"
             },
             "keys": "alt+left"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "nextTab"
             },
             "keys": "alt+right"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "copy",
                 "singleLine": false
@@ -37,7 +44,7 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
+            "command":
             {
                 "action": "splitPane",
                 "split": "auto",
@@ -51,12 +58,12 @@
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 82,
     "initialRows": 28,
-    "profiles": 
+    "profiles":
     {
-        "defaults": 
+        "defaults":
         {
             "colorScheme": "Snazzy",
-            "font": 
+            "font":
             {
                 "face": "Cascadia Mono PL",
                 "size": 11
@@ -64,7 +71,7 @@
             "opacity": 100,
             "useAcrylic": true
         },
-        "list": 
+        "list":
         [
             {
                 "commandline": "pwsh.exe -nologo",
@@ -104,7 +111,7 @@
             }
         ]
     },
-    "schemes": 
+    "schemes":
     [
         {
             "background": "#0C0C0C",
