@@ -1,10 +1,11 @@
 {
   "aria2-enabled": false,
-  "lastupdate": "2022-05-13T11:38:46.7656815+08:00",
+  "lastupdate": "2022-05-31T17:41:45.2091707+08:00",
   "msiextract_use_lessmsi": true,
   "proxy": "127.0.0.1:7890",
   "scoop_branch": "develop",
   "scoop_repo": "https://github.com/scoopinstaller/scoop",
   "shim": "kiennq",
-  "show_update_log": false
+  "show_update_log": false,
+  "cat_style": "grid,numbers"
 }
