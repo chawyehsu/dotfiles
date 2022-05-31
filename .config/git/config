@@ -6,9 +6,6 @@
 [commit]
 	gpgsign = true
 
-[hub]
-	protocol = https
-
 [alias]
 	aliases = config --get-regexp alias
 	remotes = remote -v
@@ -22,6 +19,7 @@
 	tags = tag -l
 	lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
 	st = status
+	sw = switch
 	br = branch
 	ci = commit -s
 	co = checkout
@@ -77,6 +75,10 @@
 	insteadOf = git://gist.github.com/
 	insteadOf = git@gist.github.com:
 	insteadOf = gist:
+
+# Extensions
+[hub]
+	protocol = https
 
 [ghq]
 	root = ~/workspace/repos
