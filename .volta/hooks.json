@@ -15,6 +15,14 @@
             "template": "https://registry.npmmirror.com/npm/-/{{filename}}"
         }
     },
+    "pnpm": {
+        "index": {
+            "prefix": "https://registry.npmmirror.com/"
+        },
+        "distro": {
+            "template": "https://registry.npmmirror.com/pnpm/-/{{filename}}"
+        }
+    },
     "yarn": {
         "latest": {
             "prefix": "https://classic.yarnpkg.com/"
