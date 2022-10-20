@@ -1,0 +1,18 @@
+# https://github.com/ipfs/kubo/blob/master/misc/README.md
+
+[Unit]
+Description=IPFS daemon
+Documentation=https://docs.ipfs.tech/
+After=network.target
+
+[Service]
+Type=notify
+User=ipfs
+Group=ipfs
+Environment="IPFS_PATH=/data/ipfs" # path to ipfs init directory if not default ($HOME/.ipfs)
+ExecStart=/usr/local/bin/ipfs daemon --init --migrate
+Restart=on-failure
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target
