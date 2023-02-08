@@ -1,2 +1,1 @@
-# see https://github.com/scopatz/nanorc
-include "~/.nano/*.nanorc"
+include "~/.config/nano/syntax/*.nanorc"
