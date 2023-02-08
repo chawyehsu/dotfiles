@@ -454,13 +454,13 @@ if (Test-IsNotWindows) {
     # it's bundled with git-for-windows, installed via Scoop
     function Get-ChildItemWithLs {
         # Ignore some files that I don't want to see when calling ls command
-        $lsIgnore = '"{0}"' -f (@(
-                '_viminfo', 'navdb.csv', 'NTUSER*', 'ntuser*', 'Application Data*',
-                'Local Settings*', 'My Documents*', 'NetHood*', 'PrintHood*',
+        $lsIgnore = "'{0}'" -f (@(
+                '_viminfo', 'navdb.csv', 'NTUSER*', 'ntuser*', 'Application*Data*',
+                'Local*Settings*', 'My*Documents*', 'NetHood*', 'PrintHood*',
                 'Recent*', 'SendTo*', 'Templates*', 'Cookies*', 'iCloudDrive*',
-                'desktop.ini', 'Thumbs.db', 'Start Menu', 'Saved Games',
-                'Creative Cloud Files', '3D Objects'
-            ) -join '","')
+                'desktop.ini', 'Thumbs.db', 'Start*Menu', 'Saved*Games',
+                'Creative*Cloud*Files', '3D*Objects'
+            ) -join "','")
         # Find available ls executable
         $lsExe = @(
             "$SCOOP_HOME\apps\git\current\usr\bin\ls.exe",
@@ -468,10 +468,10 @@ if (Test-IsNotWindows) {
         ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 
         # Call ls command
-        & $lsExe -F --group-directories-first --color --ignore="{$lsIgnore}" $args
+        & $lsExe -F --group-directories-first --color --ignore="{$lsIgnore}" @args
     }
-    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
-    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh $args }
+    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh @args }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh @args }
     # ls aliases
     Set-Alias -Name 'l' -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name 'ls' -Value Get-ChildItemWithLs -Option AllScope
