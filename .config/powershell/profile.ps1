@@ -422,14 +422,14 @@ if (Test-IsNotWindows) {
         # Call ls command
         if (($lsCmd -eq '/bin/ls') -and $IsMacOS) {
             # BSD/macOS ls
-            & $lsCmd -F -G $args
+            & $lsCmd -F -G @args
         } else {
             # GNU ls
-            & $lsCmd -F --group-directories-first --color $args
+            & $lsCmd -F --group-directories-first --color @args
         }
     }
-    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh $args }
-    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh $args }
+    function Get-ChildItemWithLl { Get-ChildItemWithLs -lh @args }
+    function Get-ChildItemWithLa { Get-ChildItemWithLs -lAh @args }
     # ls aliases
     Set-Alias -Name 'l' -Value Get-ChildItemWithLs -Option AllScope
     Set-Alias -Name 'ls' -Value Get-ChildItemWithLs -Option AllScope
