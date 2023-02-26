@@ -6,6 +6,7 @@
 #     Windows: WindowsPowerShell 5.1 or PowerShell 6+
 # macOS/Linux: PowerShell 6+ (PowerShell 7 is recommended)
 #------------------------------------------------------------------------------#
+# Set-StrictMode -Version 3.0
 
 
 #-----------------------#
@@ -46,11 +47,9 @@ function Test-PathExist ([String]$part) {
 #-----------------------#
 # PowerShell PSReadLine #
 #-----------------------#
-# readline implementation for PowerShell:
-#   https://github.com/PowerShell/PSReadLine
-if ((Get-Module -Name 'PSReadline').Version.Major -eq 2) {
-    # Enable Predictive IntelliSense (v2.1.0+)
-    Set-PSReadLineOption -PredictionSource History
+# readline implementation for PowerShell: https://github.com/PowerShell/PSReadLine
+$_PSReadLineVersion = (Get-Module -Name 'PSReadline').Version
+if ($_PSReadLineVersion.Major -ge 2) {
     # Command history search/completion
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
@@ -60,20 +59,32 @@ if ((Get-Module -Name 'PSReadline').Version.Major -eq 2) {
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
-    # Enable Predictive IntelliSense (requires PS7.1+ and PSReadLine v2.2.0+)
-    if ((($PSVersionTable.PSVersion.Major -ge 7) -and
-        ($PSVersionTable.PSVersion.Minor -ge 1)) -and
-        ((Get-Module -Name 'PSReadline').Version.Minor -ge 2)) {
-        Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-    }
+    # Predictive IntelliSense
+    # It was introduced in v2.1.0, and enabled by default starting from v2.2.6
+    # Refs:
+    #   https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/using-predictors
+    #   https://github.com/PowerShell/PSReadLine/pull/3351
+    # For PSReadLine versions from 2.1.0 to 2.2.5, we need to enable it manually
+    # according to the PSReadLine version.
+    if (($_PSReadLineVersion -ge '2.1.0') -and ($_PSReadLineVersion -lt '2.2.6')) {
+        Set-PSReadLineOption -PredictionSource History
 
-    # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
-    if ((($PSVersionTable.PSVersion.Major -ge 7) -and
-        ($PSVersionTable.PSVersion.Minor -ge 2)) -and
-        ((Get-Module -Name 'PSReadline').Version.Minor -ge 2) -and
-        ((Get-Module -Name 'PSReadline').Version.Build -ge 2) -and
-        (Get-Module -Name 'CompletionPredictor')) {
-        Import-Module -Name CompletionPredictor
+        # For PowerShell 7.2+ with PSReadLine versions from 2.2.0 to 2.2.5
+        if ((($PSVersionTable.PSVersion.Major -ge 7) -and
+            ($PSVersionTable.PSVersion.Minor -ge 2)) -and
+            ($_PSReadLineVersion.Minor -ge 2)) {
+            Set-PSReadLineOption -PredictionSource HistoryAndPlugin
+        }
+
+        # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
+        # Ref: https://github.com/PowerShell/CompletionPredictor
+        if ((($PSVersionTable.PSVersion.Major -ge 7) -and
+            ($PSVersionTable.PSVersion.Minor -ge 2)) -and
+            ((Get-Module -Name 'PSReadline').Version.Minor -ge 2) -and
+            ((Get-Module -Name 'PSReadline').Version.Build -ge 2) -and
+            (Get-Module -Name 'CompletionPredictor')) {
+            Import-Module -Name CompletionPredictor
+        }
     }
 
     # Smart Quotes Insert/Delete
@@ -399,6 +410,10 @@ Set-Alias -Name 'here' -Value Open-Here -Option AllScope
 # Show all environment variables, like `export`
 function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
+
+# Remove PowerShell's troublesome built-in aliases
+# 'r' is an alias for 'Invoke-History'
+Remove-Alias -Name 'r' -ErrorAction SilentlyContinue
 
 
 #-------------------------------#
