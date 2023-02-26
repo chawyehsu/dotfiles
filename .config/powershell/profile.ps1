@@ -412,8 +412,9 @@ function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
 
 # Remove PowerShell's troublesome built-in aliases
+# TIP: I'd like to use Remove-Alias, but it doesn't work in PowerShell 5.1
 # 'r' is an alias for 'Invoke-History'
-Remove-Alias -Name 'r' -ErrorAction SilentlyContinue
+Remove-Item "alias:\r" -ErrorAction SilentlyContinue
 
 
 #-------------------------------#
