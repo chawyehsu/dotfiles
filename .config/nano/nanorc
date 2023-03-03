@@ -1,0 +1,12 @@
+include "~/.config/nano/syntax/*.nanorc"
+set autoindent
+set constantshow
+set linenumbers
+set minibar
+set mouse
+set nohelp
+set numbercolor gray,normal
+set stateflags
+set statuscolor normal,normal
+set tabsize 4
+set titlecolor gray,normal

@@ -43,7 +43,6 @@ Set-SymbolicLink -Target ".gnupg/gpg.conf"
 Set-SymbolicLink -Target ".gradle/gradle.properties"
 Set-SymbolicLink -Target ".gvimrc"
 Set-SymbolicLink -Target ".inputrc"
-Set-SymbolicLink -Target ".nanorc"
 Set-SymbolicLink -Target ".vimrc"
 Set-SymbolicLink -Target ".wgetrc"
 
