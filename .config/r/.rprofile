@@ -1,0 +1,21 @@
+local({
+    # Use TUNA CRAN mirror
+    repos <- getOption("repos")
+    repos["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
+    options(repos = repos)
+
+    if (.Platform$OS.type == "windows") {
+        # I was surprised that R for Windows by default uses the Documents
+        # folder `%USERPROFILE%\Documents` as the HOME directory. The term
+        # "by default" means when neither `R_USER` nor `HOME` environment
+        # variable is set. This is not a good choice in my humble opinion,
+        # because the Documents folder is not actually the home directory,
+        # or "Windows personal directory" defined in rw-FAQ for a Windows user,
+        # the `%USERPROFILE%` however is the home directory. Imagine that
+        # you wouldn't want to use the Documents folder as your HOME directory
+        # in Ubuntu or macOS.
+        Sys.setenv(R_USER = Sys.getenv("USERPROFILE"))
+        # I don't want to use `R_LIBS_USER`
+        Sys.unsetenv("R_LIBS_USER")
+    }
+})
