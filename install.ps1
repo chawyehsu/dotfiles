@@ -35,16 +35,17 @@ Set-SymbolicLink -Target ".config/gh/config.yml"
 Set-SymbolicLink -Target ".config/git/config"
 Set-SymbolicLink -Target ".config/git/ignore"
 Set-SymbolicLink -Target ".config/nano"
+Set-SymbolicLink -Target ".config/nvim"
 Set-SymbolicLink -Target ".config/starship.toml"
 Set-SymbolicLink -Target ".dir_colors"
-Set-SymbolicLink -Target ".gemrc"
+Set-SymbolicLink -Target ".config/gem/gemrc"
 Set-SymbolicLink -Target ".gnupg/gpg-agent.conf"
 Set-SymbolicLink -Target ".gnupg/gpg.conf"
 Set-SymbolicLink -Target ".gradle/gradle.properties"
 Set-SymbolicLink -Target ".gvimrc"
-Set-SymbolicLink -Target ".inputrc"
+Set-SymbolicLink -Target ".config/readline/inputrc" -Path ".inputrc"
 Set-SymbolicLink -Target ".vimrc"
-Set-SymbolicLink -Target ".wgetrc"
+Set-SymbolicLink -Target ".config/wget/wgetrc" -Path ".wgetrc"
 
 # Runtime generated dotfiles
 & {
@@ -88,12 +89,12 @@ if ($env:OS -eq "Windows_NT" -or $IsWindows) { # Windows
     # PowerShell
     Set-SymbolicLink -Target ".config/powershell/profile.ps1"
     # Volta Hooks
-    Set-SymbolicLink -Target ".volta/hooks.json"
+    Set-SymbolicLink -Target ".config/volta" -Path ".volta"
     # pip
     Set-SymbolicLink -Target ".config/pip/pip.ini" `
         -Path ".pip/pip.conf"
     # screen
-    Set-SymbolicLink -Target ".screenrc"
+    Set-SymbolicLink -Target ".config/screen/screenrc" -Path ".screenrc"
     # tmux
-    Set-SymbolicLink -Target ".tmux.conf"
+    Set-SymbolicLink -Target ".config/tmux"
 }
