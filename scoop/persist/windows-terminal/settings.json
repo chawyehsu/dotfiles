@@ -63,13 +63,15 @@
         "defaults":
         {
             "colorScheme": "Snazzy",
+            "cursorShape": "filledBox",
             "font":
             {
-                "face": "Cascadia Mono PL",
-                "size": 11
+                "face": "CaskaydiaCove Nerd Font Mono",
+                "size": 11.0
             },
             "opacity": 100,
-            "useAcrylic": true
+            "useAcrylic": true,
+            "useAtlasEngine": true
         },
         "list":
         [
@@ -343,5 +345,6 @@
             "white": "#C0C0C0",
             "yellow": "#808000"
         }
-    ]
+    ],
+    "themes": []
 }
