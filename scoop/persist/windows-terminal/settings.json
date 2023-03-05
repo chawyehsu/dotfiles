@@ -67,7 +67,8 @@
             "font":
             {
                 "face": "CaskaydiaCove Nerd Font Mono",
-                "size": 11.0
+                "size": 11.0,
+                "weight": "normal"
             },
             "opacity": 100,
             "useAcrylic": true,
@@ -346,6 +347,7 @@
             "yellow": "#808000"
         }
     ],
+    "tabWidthMode": "equal",
     "theme": "Seamless",
     "themes":
     [
