@@ -6,5 +6,8 @@ charset = utf-8
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.lua]
+end_of_line = lf
+
 [*.md]
 trim_trailing_whitespace = false
