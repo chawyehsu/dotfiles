@@ -346,5 +346,26 @@
             "yellow": "#808000"
         }
     ],
-    "themes": []
+    "theme": "Seamless",
+    "themes":
+    [
+        {
+            "name": "Seamless",
+            "tab":
+            {
+                "background": "terminalBackground",
+                "showCloseButton": "hover",
+                "unfocusedBackground": "terminalBackground"
+            },
+            "tabRow":
+            {
+                "background": "terminalBackground",
+                "unfocusedBackground": "terminalBackground"
+            },
+            "window":
+            {
+                "applicationTheme": "dark"
+            }
+        }
+    ]
 }
