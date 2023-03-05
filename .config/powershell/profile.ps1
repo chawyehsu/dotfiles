@@ -466,6 +466,10 @@ if (Test-IsNotWindows) {
     # Define Scoop home
     $SCOOP_HOME = "$Script:UNI_HOME\scoop"
 
+    if (-not $env:XDG_CONFIG_HOME) {
+        $env:XDG_CONFIG_HOME = Get-NormalizedPath "$env:USERPROFILE\.config"
+    }
+
     # Replace Windows PowerShell `ls` command with GNU `ls` command,
     # it's bundled with git-for-windows, installed via Scoop
     function Get-ChildItemWithLs {
