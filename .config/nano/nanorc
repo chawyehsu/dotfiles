@@ -1,12 +1,44 @@
 include "~/.config/nano/syntax/*.nanorc"
 set autoindent
+set brackets ""')>]}"
 set constantshow
 set linenumbers
+set matchbrackets "(<[{)>]}"
 set minibar
-set mouse
 set nohelp
 set numbercolor gray,normal
 set stateflags
 set statuscolor normal,normal
 set tabsize 4
+set tabstospaces
 set titlecolor gray,normal
+set wordchars "<_>."
+set zap # erase the marked region instead of a single character
+
+bind ^Q exit all
+bind ^Z undo main
+bind ^Y redo main
+bind ^X cut main
+bind ^C copy main
+bind ^D paste main # (TODO:) ^V doesn't work
+bind ^R replace main
+bind ^S savefile main
+bind ^/ comment main
+bind ^H chopwordleft all
+bind ^K mark main
+bind ^F whereis all
+bind ^G findnext all
+bind M-H left all
+bind M-J down all
+bind M-K up all
+bind M-L right all
+bind M-B prevword all
+bind M-W nextword all
+bind M-M mouse all
+bind M-] indent all
+bind M-[ unindent all
+bind Sh-M-H home all
+bind Sh-M-J nextblock all
+bind Sh-M-K prevblock all
+bind Sh-M-L end all
+bind Sh-M-M help all
