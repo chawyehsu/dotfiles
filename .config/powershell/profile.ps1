@@ -350,7 +350,12 @@ $env:FORCE_COLOR = 'true'
 # Show git dirty state
 $env:GIT_PS1_SHOWDIRTYSTATE = 1
 # GitHub CLI config dir
-$env:GH_CONFIG_DIR = "$Script:UNI_HOME/.config/gh"
+$env:GH_CONFIG_DIR = Get-NormalizedPath "$Script:UNI_HOME/.config/gh"
+# XDG environment variables
+$env:XDG_CONFIG_HOME = Get-NormalizedPath "$Script:UNI_HOME/.config"
+$env:XDG_CACHE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.cache"
+$env:XDG_DATA_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/share"
+$env:XDG_STATE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/state"
 # PATH updates
 & {
     # .local bin
@@ -377,7 +382,8 @@ $env:GH_CONFIG_DIR = "$Script:UNI_HOME/.config/gh"
         $env:LS_COLORS = $(vivid -m 8-bit generate snazzy)
     }
 }
-
+# XDG compliance
+$env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
 
 #-----------------------#
 #   PowerShell Aliases  #
@@ -465,10 +471,6 @@ if (Test-IsNotWindows) {
     $env:COMPUTERNAME = $env:COMPUTERNAME.Substring(0, 1).ToUpper() + $env:COMPUTERNAME.Substring(1).ToLower()
     # Define Scoop home
     $SCOOP_HOME = "$Script:UNI_HOME\scoop"
-
-    if (-not $env:XDG_CONFIG_HOME) {
-        $env:XDG_CONFIG_HOME = Get-NormalizedPath "$env:USERPROFILE\.config"
-    }
 
     # Replace Windows PowerShell `ls` command with GNU `ls` command,
     # it's bundled with git-for-windows, installed via Scoop
