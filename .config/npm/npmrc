@@ -1,0 +1,3 @@
+cache=${XDG_CACHE_HOME}/npm
+loglevel=http
+store-dir=${XDG_DATA_HOME}/pnpm-store
