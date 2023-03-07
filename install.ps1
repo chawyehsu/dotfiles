@@ -1,100 +1,235 @@
 #!/usr/bin/env pwsh
 #Requires -Version 5
 
-Write-Host "This will overwrite all local dotfiles. Make sure backup your changes." -f Red
-Read-Host "Please enter to continue or Ctrl+C to cancel"
+<#
+.SYNOPSIS
+    Dotfiles installer.
+.DESCRIPTION
+    Script to pour dotfiles into your home directory.
+.PARAMETER BackupDir
+    Directory to store backup files. Default is ~/dotfiles.backup[datetime].
+.PARAMETER NoBackup
+    Do not backup existing dotfiles. Default is to create a backup when a same
+    dotfile already exists.
+.LINK
+    https://github.com/chawyehsu/dotfiles
+#>
+param(
+    [Parameter(Mandatory=$false)]
+    [string]$BackupDir = "~/dotfiles.backup$(Get-Date -Format 'yyyyMMddHHmmss')",
+    [Parameter(Mandatory=$false)]
+    [Switch]$NoBackup
+)
+
+Set-StrictMode -Version Latest
+
+Write-Host "This will overwrite all current local dotfiles" -ForegroundColor Red
+if ($NoBackup) {
+    Write-Host "[CAUTION!] No backup will be created" -ForegroundColor Red
+} else {
+    Write-Host "A backup will be created at $BackupDir" -ForegroundColor Yellow
+}
+Read-Host "Press ENTER to continue or Ctrl+C to cancel"
 
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
 $DSTROOT = (Resolve-Path (($env:HOME, $env:USERPROFILE |
     Where-Object { -not [String]::IsNullOrEmpty($_) } |
     Select-Object -First 1).ToString().TrimEnd('/') + '/'))
 
+function Test-IsWindows() {
+    return $env:OS -eq "Windows_NT" -or $IsWindows
+}
+
+function Get-NormalizedPath ([String]$in) {
+    # from: https://stackoverflow.com/a/12605755/3651279
+    $out = Resolve-Path $in -ErrorAction SilentlyContinue -ErrorVariable _errOut
+    # Return the `resolved` inputPath even if it's not exist.
+    if (-not $out) { $out = $_errOut[0].TargetObject }
+    return $out
+}
+
+function Backup-Item([String]$Path) {
+    if (Test-Path $Path) {
+        Write-Output "Backup $Path"
+        $ItemPathNoQualifier = Split-Path $Path -NoQualifier
+        $BackupPath = (Join-Path $BackupDir $ItemPathNoQualifier)
+        if (Test-Path $BackupPath) {
+            Remove-Item -Path $BackupPath -Recurse -Force
+        }
+        $BackupPathParent = Split-Path $BackupPath -Parent
+        New-Item -ItemType Directory -Path $BackupPathParent -Force | Out-Null
+        Copy-Item -Path $Path -Destination $BackupPath -Recurse -Container -Force
+        # Dangerous operation here
+        Remove-Item -Path $Path -Recurse -Force
+    }
+}
+
 function Set-SymbolicLink([String]$Target, [String]$Path) {
     if (!$Path) { $Path = $Target }
-    $src = (Join-Path $SRCROOT $Target)
-    $dst = if ([System.IO.Path]::IsPathRooted($Path)) {
-        (Resolve-Path $Path)
+    $src = if ([System.IO.Path]::IsPathRooted($Target)) {
+        Get-NormalizedPath  $Path
+    } else {
+        (Join-Path $SRCROOT $Target)
+    }
+    $DestPath = if ([System.IO.Path]::IsPathRooted($Path)) {
+        Get-NormalizedPath  $Path
     } else {
         (Join-Path $DSTROOT $Path)
     }
-    Write-Output $dst.ToString()
-
-    if (Test-Path $dst) {
-        Remove-Item -Path $dst -Force
-    }
-    New-Item -Type SymbolicLink -Path $dst -Target $src -Force | Out-Null
+    Write-Output "$($DestPath.ToString()) -> $($src.ToString())"
+    New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
 }
 
-# Common dotfiles
-Set-SymbolicLink -Target ".bash_logout"
-Set-SymbolicLink -Target ".bash_profile"
-Set-SymbolicLink -Target ".bashrc"
-Set-SymbolicLink -Target ".cargo/config"
-Set-SymbolicLink -Target ".config/conda"
-Set-SymbolicLink -Target ".config/gh/config.yml"
-Set-SymbolicLink -Target ".config/git/config"
-Set-SymbolicLink -Target ".config/git/ignore"
-Set-SymbolicLink -Target ".config/nano"
-Set-SymbolicLink -Target ".config/nvim"
-Set-SymbolicLink -Target ".config/starship.toml"
-Set-SymbolicLink -Target ".dir_colors"
-Set-SymbolicLink -Target ".config/gem/gemrc"
-Set-SymbolicLink -Target ".gnupg/gpg-agent.conf"
-Set-SymbolicLink -Target ".gnupg/gpg.conf"
-Set-SymbolicLink -Target ".gradle/gradle.properties"
-Set-SymbolicLink -Target ".gvimrc"
-Set-SymbolicLink -Target ".config/readline/inputrc" -Path ".inputrc"
-Set-SymbolicLink -Target ".vimrc"
-Set-SymbolicLink -Target ".config/wget/wgetrc" -Path ".wgetrc"
 
-# Runtime generated dotfiles
-& {
-    # .npmrc
-    if (!(Test-Path "$DSTROOT/.npmrc")) {
-        Write-Output "loglevel=http" | Out-File "$DSTROOT/.npmrc" -Force
+# Backup
+if (-not $NoBackup) {
+    $BackupDir = Get-NormalizedPath $BackupDir
+    if (-not (Test-Path $BackupDir)) {
+        New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
     }
+
+    $DotfilesToBackup = @()
+    # dotfiles deprecated in favor of XDG compliance
+    $DotfilesDeprecated = @(
+        '.condarc',
+        '.gemrc',
+        '.gitconfig',
+        '.gvimrc',
+        '.inputrc',
+        '.mintty',
+        '.nanorc',
+        '.npmrc',
+        '.tmux.conf',
+        '.vimrc'
+    )
+    $DotfilesToBackup = $DotfilesToBackup + $DotfilesDeprecated
+
+    # dotfiles to be linked
+    $DotfilesToBeLinked = @(
+        '.bash_logout',
+        '.bash_profile',
+        '.bashrc',
+        '.cargo/config',
+        '.config/conda',
+        '.config/gem',
+        '.config/gh/config',
+        '.config/git/config',
+        '.config/git/config.local',
+        '.config/git/ignore',
+        '.config/mintty',
+        '.config/nano',
+        '.config/npm',
+        '.config/nvim',
+        '.config/pip',
+        '.config/powershell/profile.ps1',
+        '.config/proxychains/proxychains.conf',
+        '.config/readline/inputrc',
+        '.config/screen/screenrc',
+        '.config/starship.toml',
+        '.config/tmux',
+        '.config/volta/hook.json',
+        '.config/wget/wgetrc',
+        '.dir_colors',
+        '.gnupg/gpg-agent.conf',
+        '.gnupg/gpg.conf',
+        '.gradle/gradle.properties',
+        '.pip',
+        '.rprofile',
+        '.screenrc',
+        '.volta',
+        '.wgetrc'
+    )
+    $DotfilesToBackup = $DotfilesToBackup + $DotfilesToBeLinked
+
+    # Windows only
+    if (Test-IsWindows) {
+        $DotfilesWindowsOnly = @(
+            '.config/concfg',
+            '.config/pshazz',
+            '.config/scoop/config.json',
+            '.wslconfig',
+            'pip',
+            'Rconsole',
+            "$env:APPDATA/pip",
+            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+        )
+        $DotfilesToBackup = $DotfilesToBackup + $DotfilesWindowsOnly
+    }
+
+    $DotfilesToBackup | ForEach-Object {
+        $Path = if ([System.IO.Path]::IsPathRooted($_)) {
+            Get-NormalizedPath "$_"
+        } else {
+            Get-NormalizedPath "$DSTROOT/$_"
+        }
+        Backup-Item $Path
+    }
+
+    Write-Host "Backup created at $BackupDir" -ForegroundColor Green
 }
 
-# OS-specific dotfiles
-if ($env:OS -eq "Windows_NT" -or $IsWindows) { # Windows
-    # MinTTY
-    Set-SymbolicLink -Target ".config/mintty"
-    Set-SymbolicLink -Target ".config/git/config.win.conf" `
-        -Path ".config/git/config.local"
-    # PowerShell
-    Set-SymbolicLink -Target ".config/powershell/profile.ps1" `
+# Link dotfiles
+Set-SymbolicLink -Target '.bash_logout'
+Set-SymbolicLink -Target '.bash_profile'
+Set-SymbolicLink -Target '.bashrc'
+Set-SymbolicLink -Target '.cargo/config'
+Set-SymbolicLink -Target '.config/conda'
+Set-SymbolicLink -Target '.config/gem/gemrc'
+Set-SymbolicLink -Target '.config/gh/config.yml'
+Set-SymbolicLink -Target '.config/git/config'
+Set-SymbolicLink -Target '.config/git/ignore'
+Set-SymbolicLink -Target '.config/mintty'
+Set-SymbolicLink -Target '.config/nano'
+Set-SymbolicLink -Target '.config/nvim'
+Set-SymbolicLink -Target '.config/starship.toml'
+Set-SymbolicLink -Target '.dir_colors'
+Set-SymbolicLink -Target '.gnupg/gpg-agent.conf'
+Set-SymbolicLink -Target '.gnupg/gpg.conf'
+Set-SymbolicLink -Target '.gradle/gradle.properties'
+Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
+Set-SymbolicLink -Target '.config/readline/inputrc'
+Set-SymbolicLink -Target '.config/starship.toml'
+Set-SymbolicLink -Target '.config/tmux'
+Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
+# Link dotfiles (platform specific)
+if (Test-IsWindows) {
+    # git config for Windows
+    Set-SymbolicLink -Target '.config/git/config.win.conf' `
+        -Path '.config/git/config.local'
+    # PowerShell profile
+    Set-SymbolicLink -Target '.config/powershell/profile.ps1' `
         -Path $PROFILE.CurrentUserAllHosts
-    Set-SymbolicLink -Target ".config/pshazz/config.json"
-    Set-SymbolicLink -Target ".config/pshazz/themes/chawyehsu.json"
-    Set-SymbolicLink -Target ".config/scoop/config.json"
-    # pip
-    Set-SymbolicLink -Target ".config/pip/pip.ini" ` -Path "pip/pip.ini"
-    # pip
-    Set-SymbolicLink -Target ".config/proxychains/proxychains.conf" `
-        -Path ".proxychains/proxychains.conf"
+    # Scoop, pshazz and concfg
+    Set-SymbolicLink -Target '.config/concfg'
+    Set-SymbolicLink -Target '.config/pshazz'
+    Set-SymbolicLink -Target '.config/scoop/config.json'
+    # pip on Windows only uses %APPDATA%/pip
+    Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
+    # proxychains
+    Set-SymbolicLink -Target '.config/proxychains/proxychains.conf' `
+        -Path '.proxychains/proxychains.conf'
+    # R for Windows
+    Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
     # Windows Terminal
-    Set-SymbolicLink -Target "scoop/persist/windows-terminal/settings.json" `
+    Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings.json' `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
-    # WSL
-    Set-SymbolicLink -Target "wsl/.wslconfig" -Path ".wslconfig"
+    # WSL host config
+    Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
 } else {
-    # gitconfig local file
+    # git config for macOS and Linux
     if ($IsMacOS) { # macOS
-        Set-SymbolicLink -Target ".config/git/config.mac.conf" `
-            -Path ".config/git/config.local"
+        Set-SymbolicLink -Target '.config/git/config.mac.conf' `
+            -Path '.config/git/config.local'
     } else { # Linux
-        Set-SymbolicLink -Target ".config/git/config.linux.conf" `
-            -Path ".config/git/config.local"
+        Set-SymbolicLink -Target '.config/git/config.linux.conf' `
+            -Path '.config/git/config.local'
     }
-    # PowerShell
-    Set-SymbolicLink -Target ".config/powershell/profile.ps1"
+    # PowerShell profile
+    Set-SymbolicLink -Target '.config/powershell/profile.ps1'
     # Volta Hooks
-    Set-SymbolicLink -Target ".config/volta" -Path ".volta"
+    Set-SymbolicLink -Target '.config/volta' -Path '.volta'
     # pip
-    Set-SymbolicLink -Target ".config/pip/pip.ini" `
-        -Path ".pip/pip.conf"
+    Set-SymbolicLink -Target '.config/pip/pip.ini' -Path '.config/pip/pip.conf'
     # screen
     Set-SymbolicLink -Target ".config/screen/screenrc" -Path ".screenrc"
-    # tmux
-    Set-SymbolicLink -Target ".config/tmux"
 }
