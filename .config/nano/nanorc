@@ -35,6 +35,7 @@ bind M-L right all
 bind M-B prevword all
 bind M-W nextword all
 bind M-M mouse all
+bind M-I autoindent all
 bind M-] indent all
 bind M-[ unindent all
 bind Sh-M-H home all
