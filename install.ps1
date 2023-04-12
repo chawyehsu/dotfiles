@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-#Requires -Version 5
+#Requires -Version 5.1
 
 <#
 .SYNOPSIS
@@ -15,29 +15,29 @@
     https://github.com/chawyehsu/dotfiles
 #>
 param(
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [string]$BackupDir = "~/dotfiles.backup$(Get-Date -Format 'yyyyMMddHHmmss')",
-    [Parameter(Mandatory=$false)]
+    [Parameter(Mandatory = $false)]
     [Switch]$NoBackup
 )
 
 Set-StrictMode -Version Latest
 
-Write-Host "This will overwrite all current local dotfiles" -ForegroundColor Red
+Write-Host 'This will overwrite all current local dotfiles' -ForegroundColor Red
 if ($NoBackup) {
-    Write-Host "[CAUTION!] No backup will be created" -ForegroundColor Red
+    Write-Host '[CAUTION!] No backup will be created' -ForegroundColor Red
 } else {
     Write-Host "A backup will be created at $BackupDir" -ForegroundColor Yellow
 }
-Read-Host "Press ENTER to continue or Ctrl+C to cancel"
+Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
 
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
 $DSTROOT = (Resolve-Path (($env:HOME, $env:USERPROFILE |
-    Where-Object { -not [String]::IsNullOrEmpty($_) } |
-    Select-Object -First 1).ToString().TrimEnd('/') + '/'))
+            Where-Object { -not [String]::IsNullOrEmpty($_) } |
+            Select-Object -First 1).ToString().TrimEnd('/') + '/'))
 
 function Test-IsWindows() {
-    return $env:OS -eq "Windows_NT" -or $IsWindows
+    return $env:OS -eq 'Windows_NT' -or $IsWindows
 }
 
 function Get-NormalizedPath ([String]$in) {
@@ -217,10 +217,12 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
 } else {
     # git config for macOS and Linux
-    if ($IsMacOS) { # macOS
+    if ($IsMacOS) {
+        # macOS
         Set-SymbolicLink -Target '.config/git/config.mac.conf' `
             -Path '.config/git/config.local'
-    } else { # Linux
+    } else {
+        # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
             -Path '.config/git/config.local'
     }
@@ -231,5 +233,5 @@ if (Test-IsWindows) {
     # pip
     Set-SymbolicLink -Target '.config/pip/pip.ini' -Path '.config/pip/pip.conf'
     # screen
-    Set-SymbolicLink -Target ".config/screen/screenrc" -Path ".screenrc"
+    Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
 }
