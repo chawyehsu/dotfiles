@@ -433,6 +433,8 @@ $env:XDG_STATE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/state"
 }
 # XDG compliance
 $env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
+# Dotnet telemetry optout
+$env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 
 #-----------------------#
 #   PowerShell Aliases  #
