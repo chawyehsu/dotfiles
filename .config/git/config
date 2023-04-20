@@ -1,7 +1,7 @@
 [user]
 	name = Chawye Hsu
-	email = chawyehsu@hotmail.com
-	signingKey = 5AE5178B3E1624DA
+	email = su+git@chawyehsu.com
+	signingKey = 0F08DA819FFD7B2D519673B65AE5178B3E1624DA
 
 [commit]
 	gpgsign = true
