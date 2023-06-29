@@ -211,7 +211,7 @@ if (Test-IsWindows) {
     # R for Windows
     Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
     # Windows Terminal
-    Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings.json' `
+    Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
     # WSL host config
     Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
