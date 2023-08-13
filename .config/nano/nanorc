@@ -15,29 +15,40 @@ set titlecolor gray,normal
 set wordchars "<_>."
 set zap # erase the marked region instead of a single character
 
+# common
 bind ^Q exit all
 bind ^Z undo main
 bind ^Y redo main
+bind ^S savefile main
+
+# text edit
 bind ^X cut main
 bind ^C copy main
 bind ^D paste main # (TODO:) ^V doesn't work
 bind ^R replace main
-bind ^S savefile main
-bind ^/ comment main
-bind ^H chopwordleft all
 bind ^K mark main
+bind ^H chopwordleft all # `H` of hjkl
+bind ^L chopwordright all # `L` of hjkl
+
+# text search
 bind ^F whereis all
-bind ^G findnext all
+bind ^P findprevious all
+bind ^N findnext all
+
+# indent and comment
+bind M-I autoindent all
+bind M-] indent all
+bind M-[ unindent all
+bind ^/ comment main
+
+# cursor movement
+bind M-M mouse all
 bind M-H left all
 bind M-J down all
 bind M-K up all
 bind M-L right all
-bind M-B prevword all
-bind M-W nextword all
-bind M-M mouse all
-bind M-I autoindent all
-bind M-] indent all
-bind M-[ unindent all
+bind M-B prevword all # Backward
+bind M-F nextword all # Forward
 bind Sh-M-H home all
 bind Sh-M-J nextblock all
 bind Sh-M-K prevblock all
