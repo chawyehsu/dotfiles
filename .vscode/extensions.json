@@ -1,3 +1,7 @@
 {
-  "recommendations": ["ms-vscode.powershell", "editorconfig.editorconfig"]
+  "recommendations": [
+    "ms-vscode.powershell",
+    "editorconfig.editorconfig",
+    "thenuprojectcontributors.vscode-nushell-lang"
+  ]
 }

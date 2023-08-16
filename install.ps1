@@ -66,16 +66,19 @@ function Backup-Item([String]$Path) {
 
 function Set-SymbolicLink([String]$Target, [String]$Path) {
     if (!$Path) { $Path = $Target }
+
     $src = if ([System.IO.Path]::IsPathRooted($Target)) {
         Get-NormalizedPath  $Path
     } else {
         (Join-Path $SRCROOT $Target)
     }
+
     $DestPath = if ([System.IO.Path]::IsPathRooted($Path)) {
         Get-NormalizedPath  $Path
     } else {
         (Join-Path $DSTROOT $Path)
     }
+
     Write-Output "$($DestPath.ToString()) -> $($src.ToString())"
     New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
 }
@@ -151,7 +154,8 @@ if (-not $NoBackup) {
             'pip',
             'Rconsole',
             "$env:APPDATA/pip",
-            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json",
+            "$env:APPDATA/nushell"
         )
         $DotfilesToBackup = $DotfilesToBackup + $DotfilesWindowsOnly
     }
@@ -215,6 +219,8 @@ if (Test-IsWindows) {
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
     # WSL host config
     Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
+    # Nushell
+    Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
 } else {
     # git config for macOS and Linux
     if ($IsMacOS) {
