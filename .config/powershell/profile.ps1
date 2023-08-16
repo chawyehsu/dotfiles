@@ -28,6 +28,9 @@ function Add-ToPath {
     <#
     .SYNOPSIS
         Add an item to the PATH environment variable.
+    .DESCRIPTION
+        This function will add the given path item to the PATH environment
+        variable if it doesn't exist, else it will do nothing.
     .PARAMETER Path
         The path item to add to the PATH environment variable.
     .PARAMETER AllowNotExist
