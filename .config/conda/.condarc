@@ -1,8 +1,13 @@
+channels:
+  - defaults
+  - bioconda
+  - conda-forge
 envs_dirs:
   - ~/.conda/envs
 pkgs_dirs:
   - ~/.conda/pkgs
 changeps1: false
+channel_priority: strict
 auto_activate_base: false
 show_channel_urls: true
 repodata_threads: 2
