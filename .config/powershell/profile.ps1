@@ -436,8 +436,9 @@ $env:XDG_STATE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/state"
 }
 # XDG compliance
 $env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
-# Dotnet telemetry optout
+# Telemetry
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
+$env:VCPKG_DISABLE_METRICS = 1
 
 #-----------------------#
 #   PowerShell Aliases  #
@@ -571,6 +572,11 @@ if (Test-IsNotWindows) {
     if (Test-Command 'conda') {
         (& conda 'shell.powershell' 'hook') | Out-String | Invoke-Expression
     }
+    # Mircomamba - https://github.com/mamba-org/mamba
+    if ($Env:MAMBA_EXE -and $Env:MAMBA_ROOT_PREFIX) {
+        (& $Env:MAMBA_EXE 'shell' 'hook' -s 'powershell' -p $Env:MAMBA_ROOT_PREFIX) | Out-String | Invoke-Expression
+    }
+
     # WinGet
     if (Test-Command 'winget') {
         Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
