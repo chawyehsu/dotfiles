@@ -34,8 +34,8 @@ bind ^C copy main
 bind ^D paste main # (TODO:) ^V doesn't work: https://github.com/okibcn/nano-for-windows/issues/21
 bind ^R replace main
 bind ^M mark main
-bind ^H chopwordleft main
-bind ^L chopwordright main
+bind Sh-M-H chopwordleft main
+bind Sh-M-L chopwordright main
 
 # text search
 bind ^F whereis all
@@ -55,8 +55,8 @@ bind M-K up all
 bind M-L right all
 bind M-B prevword all # Backward
 bind M-F nextword all # Forward
-bind Sh-M-H home all
-bind Sh-M-J nextblock all
-bind Sh-M-K prevblock all
-bind Sh-M-L end all
+bind ^H firstline all
+bind ^J nextblock all
+bind ^K prevblock all
+bind ^L lastline all
 bind Sh-M-M mouse all
