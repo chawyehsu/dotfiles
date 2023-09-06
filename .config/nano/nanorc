@@ -5,30 +5,37 @@ set constantshow
 set linenumbers
 set matchbrackets "(<[{)>]}"
 set minibar
+set multibuffer
 set nohelp
 set numbercolor gray,normal
 set stateflags
 set statuscolor normal,normal
-set tabsize 4
+set tabsize 2 # 2 is used here and 4size can be inserted by indent twice
 set tabstospaces
 set titlecolor gray,normal
 set wordchars "<_>."
 set zap # erase the marked region instead of a single character
 
 # common
+bind ^G help all
 bind ^Q exit all
 bind ^Z undo main
 bind ^Y redo main
+
+# buffer
+bind ^O insert main # Open file to current/new buffer
 bind ^S savefile main
+bind M-, prevbuf main # This doesn't work..
+bind ^] nextbuf main # And also M-. doesn't work..
 
 # text edit
 bind ^X cut main
 bind ^C copy main
-bind ^D paste main # (TODO:) ^V doesn't work
+bind ^D paste main # (TODO:) ^V doesn't work: https://github.com/okibcn/nano-for-windows/issues/21
 bind ^R replace main
-bind ^K mark main
-bind ^H chopwordleft all # `H` of hjkl
-bind ^L chopwordright all # `L` of hjkl
+bind ^M mark main
+bind ^H chopwordleft main
+bind ^L chopwordright main
 
 # text search
 bind ^F whereis all
@@ -41,8 +48,7 @@ bind M-] indent all
 bind M-[ unindent all
 bind ^/ comment main
 
-# cursor movement
-bind M-M mouse all
+# cursor movement and mouse
 bind M-H left all
 bind M-J down all
 bind M-K up all
@@ -53,4 +59,4 @@ bind Sh-M-H home all
 bind Sh-M-J nextblock all
 bind Sh-M-K prevblock all
 bind Sh-M-L end all
-bind Sh-M-M help all
+bind Sh-M-M mouse all
