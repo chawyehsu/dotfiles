@@ -10,7 +10,7 @@ set nohelp
 set numbercolor gray,normal
 set stateflags
 set statuscolor normal,normal
-set tabsize 2 # 2 is used here and 4size can be inserted by indent twice
+set tabsize 2 # 2 is used here and 4size can be inserted by indenting twice
 set tabstospaces
 set titlecolor gray,normal
 set wordchars "<_>."
@@ -25,6 +25,7 @@ bind ^Y redo main
 # buffer
 bind ^O insert main # Open file to current/new buffer
 bind ^S savefile main
+bind ^B browser all # Browser files, work after ^O
 bind M-, prevbuf main # This doesn't work..
 bind ^] nextbuf main # And also M-. doesn't work..
 
