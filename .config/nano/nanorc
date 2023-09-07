@@ -1,3 +1,4 @@
+# https://www.nano-editor.org/dist/latest/nanorc.5.html
 include "~/.config/nano/syntax/*.nanorc"
 set autoindent
 set brackets ""')>]}"
