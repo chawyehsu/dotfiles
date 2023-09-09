@@ -11,11 +11,13 @@ set nohelp
 set numbercolor gray,normal
 set stateflags
 set statuscolor normal,normal
-set tabsize 2 # 2 is used here and 4size can be inserted by indenting twice
+## 2 is used here and 4size can be inserted by indenting twice
+set tabsize 2
 set tabstospaces
 set titlecolor gray,normal
 set wordchars "<_>."
-set zap # erase the marked region instead of a single character
+## erase the marked region instead of a single character
+set zap
 
 # common
 bind ^G help all
@@ -24,18 +26,27 @@ bind ^Z undo main
 bind ^Y redo main
 
 # buffer
-bind ^O insert main # Open file to current/new buffer
 bind ^S savefile main
-bind ^B browser all # Browser files, work after ^O
-bind M-, prevbuf main # This doesn't work..
-bind ^] nextbuf main # And also M-. doesn't work..
+## Open file to current/new buffer
+bind ^O insert main
+## Browser files, work after ^O
+bind ^B browser all
+## It's not possible to bind with ^[ which is the `ESC` key,
+## however, `M-,` does not work, I don't know why..
+bind M-, prevbuf main
+## And also `M-.` doesn't work..
+bind ^] nextbuf main
 
 # text edit
 bind ^X cut main
 bind ^C copy main
-bind ^D paste main # (TODO:) ^V doesn't work: https://github.com/okibcn/nano-for-windows/issues/21
+## (TODO:) ^V doesn't work:
+## https://github.com/okibcn/nano-for-windows/issues/21
+bind ^D paste main
 bind ^R replace main
-bind ^M mark main
+## Binding mark with ^M is not good, since it aliases to `Enter`,
+## hence ^K is used here.. See nanorc manpage for details.
+bind ^K mark main
 bind Sh-M-H chopwordleft main
 bind Sh-M-L chopwordright main
 
