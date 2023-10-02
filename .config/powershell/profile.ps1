@@ -630,7 +630,7 @@ if (Test-Command 'zoxide') {
         (& $_ 'completion' 'powershell') | Out-String | Invoke-Expression
     }
 }
-@('gh') | ForEach-Object {
+@('gh', 'pixi') | ForEach-Object {
     if (Test-Command $_) {
         (& $_ 'completion' '-s' 'powershell') | Out-String | Invoke-Expression
     }
