@@ -1,4 +1,4 @@
-﻿#Requires -Version 5
+﻿#Requires -Version 5.1
 # This profile is created by Chawye Hsu, licensed under the MIT license.
 # NOTES: Save it with `UTF-8 with BOM` or it will break on PowerShell ISE.
 #------------------------------------------------------------------------------#
@@ -103,6 +103,8 @@ function Test-Command {
 # PowerShell PSReadLine #
 #-----------------------#
 # readline implementation for PowerShell: https://github.com/PowerShell/PSReadLine
+# Most features are only available in PSReadLine v2.0+, older versions are not
+# supported and will be skipped.
 $_PSReadLineVersion = (Get-Module -Name 'PSReadline').Version
 if ($_PSReadLineVersion.Major -ge 2) {
     # Command history search/completion
@@ -132,6 +134,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
         }
 
         # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
+        # This experimental module needs to be installed manually
         # Ref: https://github.com/PowerShell/CompletionPredictor
         if ((($PSVersionTable.PSVersion.Major -ge 7) -and
             ($PSVersionTable.PSVersion.Minor -ge 2)) -and
