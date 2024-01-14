@@ -132,17 +132,17 @@ if ($_PSReadLineVersion.Major -ge 2) {
             ($_PSReadLineVersion.Minor -ge 2)) {
             Set-PSReadLineOption -PredictionSource HistoryAndPlugin
         }
+    }
 
-        # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
-        # This experimental module needs to be installed manually
-        # Ref: https://github.com/PowerShell/CompletionPredictor
-        if ((($PSVersionTable.PSVersion.Major -ge 7) -and
-            ($PSVersionTable.PSVersion.Minor -ge 2)) -and
-            ((Get-Module -Name 'PSReadline').Version.Minor -ge 2) -and
-            ((Get-Module -Name 'PSReadline').Version.Build -ge 2) -and
-            (Get-Module -Name 'CompletionPredictor')) {
-            Import-Module -Name CompletionPredictor
-        }
+    # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
+    # This experimental module needs to be installed manually
+    # Ref: https://github.com/PowerShell/CompletionPredictor
+    if ((($PSVersionTable.PSVersion.Major -ge 7) -and
+        ($PSVersionTable.PSVersion.Minor -ge 2)) -and
+        ($_PSReadLineVersion.Minor -ge 2) -and
+        ($_PSReadLineVersion.Build -ge 2) -and
+        (Get-Module -Name 'CompletionPredictor' -ListAvailable)) {
+        Import-Module -Name CompletionPredictor
     }
 
     # Smart Quotes Insert/Delete
