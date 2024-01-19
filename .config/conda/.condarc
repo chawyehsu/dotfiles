@@ -18,6 +18,7 @@ changeps1: false
 channel_priority: strict
 auto_activate_base: false
 show_channel_urls: true
+shortcuts: false
 repodata_threads: 2
 verify_threads: 4
 execute_threads: 4
