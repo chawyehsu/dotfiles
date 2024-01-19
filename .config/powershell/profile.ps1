@@ -440,6 +440,7 @@ $env:XDG_STATE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/state"
 # XDG compliance
 $env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
 # Telemetry
+$env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:VCPKG_DISABLE_METRICS = 1
 
