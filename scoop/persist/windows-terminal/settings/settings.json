@@ -1,75 +1,87 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
+    "actions":
+    [
         {
-            "command": {
-                "action": "newTab"
-            },
-            "keys": "ctrl+t"
-        },
-        {
-            "command": {
-                "action": "closeTab"
-            },
-            "keys": "ctrl+w"
-        },
-        {
-            "command": {
-                "action": "prevTab"
-            },
-            "keys": "alt+left"
-        },
-        {
-            "command": {
-                "action": "nextTab"
-            },
-            "keys": "alt+right"
-        },
-        {
-            "command": {
+            "command":
+            {
                 "action": "copy",
                 "singleLine": false
             },
             "keys": "ctrl+c"
         },
         {
-            "command": "find",
-            "keys": "ctrl+shift+f"
+            "command":
+            {
+                "action": "newTab"
+            },
+            "keys": "ctrl+t"
         },
         {
-            "command": {
+            "command":
+            {
+                "action": "closeTab"
+            },
+            "keys": "ctrl+w"
+        },
+        {
+            "command":
+            {
+                "action": "prevTab"
+            },
+            "keys": "alt+left"
+        },
+        {
+            "command":
+            {
+                "action": "nextTab"
+            },
+            "keys": "alt+right"
+        },
+        {
+            "command":
+            {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
         }
     ],
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 104,
-    "initialRows": 38,
-    "newTabMenu": [
+    "initialRows": 36,
+    "newTabMenu":
+    [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": {
-        "defaults": {
+    "profiles":
+    {
+        "defaults":
+        {
+            "bellStyle": "window",
             "colorScheme": "Snazzy",
             "cursorShape": "filledBox",
-            "font": {
+            "font":
+            {
                 "face": "CaskaydiaCove Nerd Font Mono",
                 "size": 11.0,
                 "weight": "normal"
             },
             "opacity": 100,
-            "useAcrylic": true,
-            "useAtlasEngine": true
+            "useAcrylic": true
         },
-        "list": [
+        "list":
+        [
             {
                 "commandline": "pwsh.exe -nologo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
@@ -105,10 +117,24 @@
                 "hidden": false,
                 "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "commandline": "nu.exe",
+                "guid": "{80c90094-a95e-4b23-88f4-33eee4e35b39}",
+                "hidden": false,
+                "name": "Nushell",
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{e5a83caa-4c73-52b3-ae6b-bc438d721ef9}",
+                "hidden": false,
+                "name": "Ubuntu 22.04.3 LTS",
+                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
             }
         ]
     },
-    "schemes": [
+    "schemes":
+    [
         {
             "background": "#0C0C0C",
             "black": "#0C0C0C",
@@ -317,6 +343,29 @@
             "yellow": "#C4A000"
         },
         {
+            "background": "#300A24",
+            "black": "#171421",
+            "blue": "#0037DA",
+            "brightBlack": "#767676",
+            "brightBlue": "#08458F",
+            "brightCyan": "#2C9FB3",
+            "brightGreen": "#26A269",
+            "brightPurple": "#A347BA",
+            "brightRed": "#C01C28",
+            "brightWhite": "#F2F2F2",
+            "brightYellow": "#A2734C",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3A96DD",
+            "foreground": "#FFFFFF",
+            "green": "#26A269",
+            "name": "Ubuntu-22.04-ColorScheme",
+            "purple": "#881798",
+            "red": "#C21A23",
+            "selectionBackground": "#FFFFFF",
+            "white": "#CCCCCC",
+            "yellow": "#A2734C"
+        },
+        {
             "background": "#000000",
             "black": "#000000",
             "blue": "#000080",
@@ -340,56 +389,28 @@
             "yellow": "#808000"
         }
     ],
-    "themes": [
+    "themes":
+    [
         {
             "name": "Seamless",
-            "tab": {
+            "tab":
+            {
                 "background": "terminalBackground",
+                "iconStyle": "default",
                 "showCloseButton": "hover",
                 "unfocusedBackground": "terminalBackground"
             },
-            "tabRow": {
+            "tabRow":
+            {
                 "background": "terminalBackground",
                 "unfocusedBackground": "terminalBackground"
             },
-            "window": {
+            "window":
+            {
                 "applicationTheme": "dark",
-                "useMica": false
-            }
-        },
-        {
-            "name": "legacyDark",
-            "tab": {
-                "background": null,
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "window": {
-                "applicationTheme": "dark",
-                "useMica": false
-            }
-        },
-        {
-            "name": "legacyLight",
-            "tab": {
-                "background": null,
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "window": {
-                "applicationTheme": "light",
-                "useMica": false
-            }
-        },
-        {
-            "name": "legacySystem",
-            "tab": {
-                "background": null,
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "window": {
-                "applicationTheme": "system",
+                "experimental.rainbowFrame": false,
+                "frame": null,
+                "unfocusedFrame": null,
                 "useMica": false
             }
         }
