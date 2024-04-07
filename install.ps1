@@ -122,7 +122,6 @@ if (-not $NoBackup) {
         '.config/mintty',
         '.config/nano',
         '.config/npm',
-        '.config/nvim',
         '.config/pip',
         '.config/powershell/profile.ps1',
         '.config/proxychains/proxychains.conf',
@@ -184,7 +183,6 @@ Set-SymbolicLink -Target '.config/git/config'
 Set-SymbolicLink -Target '.config/git/ignore'
 Set-SymbolicLink -Target '.config/mintty'
 Set-SymbolicLink -Target '.config/nano'
-Set-SymbolicLink -Target '.config/nvim'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.dir_colors'
 Set-SymbolicLink -Target '.gnupg/gpg-agent.conf'
