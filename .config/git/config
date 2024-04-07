@@ -24,6 +24,7 @@
 	ci = commit -s
 	co = checkout
 	df = diff
+	fp = fetch -p
 
 [color]
 	diff = auto
