@@ -1,0 +1,22 @@
+theme = "chawyehsu"
+
+[editor]
+bufferline = "multiple"
+default-line-ending = "lf"
+gutters = ["line-numbers", "spacer", "diff"]
+rulers = [80, 120]
+
+# nano bindings
+[keys.insert]
+"A-b" = "move_prev_word_start"
+"A-f" = "move_next_word_start"
+"A-h" = "move_char_left"
+"A-j" = "move_line_down"
+"A-k" = "move_line_up"
+"A-l" = "move_char_right"
+"C-w" = "no_op"
+"C-d" = "no_op"
+"C-h" = "goto_file_start"
+"C-j" = "goto_next_paragraph"
+"C-k" = "goto_prev_paragraph"
+"C-l" = "goto_last_line"

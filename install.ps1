@@ -219,6 +219,8 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
     # Nushell
     Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
+    # Helix
+    Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
 } else {
     # git config for macOS and Linux
     if ($IsMacOS) {
