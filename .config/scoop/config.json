@@ -1,11 +1,13 @@
 {
   "aria2-enabled": false,
   "cat_style": "grid,numbers",
-  "last_update": "2023-03-05T08:41:01.461396+00:00",
+  "last_update": "2024-04-19T07:16:54.5217261+08:00",
   "use_lessmsi": true,
   "proxy": "127.0.0.1:7890",
-  "scoop_branch": "master",
+  "scoop_branch": "develop",
   "scoop_repo": "https://github.com/scoopinstaller/scoop",
-  "shim": "kiennq",
-  "show_update_log": false
+  "shim": "scoopcs",
+  "show_update_log": false,
+  "use_external_7zip": true,
+  "use_isolated_path": true
 }
