@@ -1,0 +1,12 @@
+# Reference: https://pixi.sh/latest/advanced/global_configuration/
+change_ps1 = false
+
+[mirrors]
+"https://conda.anaconda.org/" = [
+    "https://mirrors.sustech.edu.cn/anaconda/cloud/",
+    "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/"
+]
+
+[repodata-config]
+disable-jlap = true
+disable-zstd = true
