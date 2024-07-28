@@ -403,6 +403,8 @@ $env:TZ = 'UTC-8'
 $env:EDITOR = 'nano'
 # Rustup mirror
 $env:RUSTUP_DIST_SERVER = 'https://mirrors.ustc.edu.cn/rust-static'
+# sccache
+$env:SCCACHE_CACHE_SIZE = if ($env:SCCACHE_CACHE_SIZE) { $env:SCCACHE_CACHE_SIZE } else { '20G' }
 # Node.js COLOR
 $env:FORCE_COLOR = 'true'
 # Show git dirty state
