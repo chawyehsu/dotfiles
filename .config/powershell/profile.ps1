@@ -640,7 +640,7 @@ if (Test-Command 'zoxide') {
     }
 }
 # Tab-completions autoload for tools written in Rust(clap-rs)
-@('rustup', 'deno', 'volta', 'starship') | ForEach-Object {
+@('rustup', 'deno', 'volta', 'starship', 'moonup') | ForEach-Object {
     if (Test-Command $_) {
         (& $_ 'completions' 'powershell') | Out-String | Invoke-Expression
     }
