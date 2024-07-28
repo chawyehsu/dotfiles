@@ -1,4 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "shellcheck.enable": true,
+  "editor.formatOnSave": false,
   "powershell.codeFormatting.useCorrectCasing": true
 }
