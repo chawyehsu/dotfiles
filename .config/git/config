@@ -35,6 +35,11 @@
 [pull]
 	rebase = true
 
+[push]
+	# Automatically set up tracking upstream for new branches
+	autoSetupRemote = true
+	default = simple
+
 [branch]
 	autosetuprebase = always
 
