@@ -99,6 +99,12 @@
 [ghq]
 	root = ~/workspace/repos
 
+[credential]
+	# To override the default system credential.helper, it is needed to
+	# set it to an empty value first, ref:
+	# https://github.com/git-for-windows/git/issues/4844#issuecomment-1975141080
+	helper = # empty value, to make it ignore system settings
+
 # Local/private config goes in the include
 [include]
 	path = config.local
