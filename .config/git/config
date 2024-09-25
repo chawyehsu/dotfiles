@@ -45,12 +45,19 @@
 
 [core]
 	trustctime = false
-	quotepath = false
-	safecrlf = false
-	editor = nano
-	autocrlf = input
+	# (perf) Enable cache for untracked files, speed up commands that
+	# involve untracked files
 	untrackedCache = true
+	# Do not escape non-ASCII characters in pathnames for readability
+	quotePath = false
+	# local->remote: Reject mixed line endings, for binary files that
+	# may contain mixed line endings, follow .gitattributes
+	safecrlf = true
+	# local->remote: LF, unless .gitattributes specifies
+	# remote->local: AS-IS
+	autocrlf = input
 	symlinks = true
+	editor = nano
 
 [init]
 	defaultBranch = main
