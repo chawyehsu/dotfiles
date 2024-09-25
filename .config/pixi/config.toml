@@ -1,5 +1,5 @@
 # Reference: https://pixi.sh/latest/advanced/global_configuration/
-change_ps1 = false
+change-ps1 = false
 
 [mirrors]
 "https://conda.anaconda.org/" = [
@@ -10,3 +10,6 @@ change_ps1 = false
 [repodata-config]
 disable-jlap = true
 disable-zstd = true
+
+[pypi-config]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
