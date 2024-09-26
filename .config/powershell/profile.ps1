@@ -445,6 +445,7 @@ $env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:VCPKG_DISABLE_METRICS = 1
+$env:VOLTA_FEATURE_PNPM = 1
 
 #-----------------------#
 #   PowerShell Aliases  #
@@ -554,7 +555,8 @@ if (Test-IsNotWindows) {
         # Find available ls executable
         $lsExe = @(
             "$SCOOP_HOME\apps\git\current\usr\bin\ls.exe",
-            "$SCOOP_HOME\apps\git-with-openssh\current\usr\bin\ls.exe"
+            "$SCOOP_HOME\apps\git-with-openssh\current\usr\bin\ls.exe",
+            "$SCOOP_HOME\apps\mingit\current\usr\bin\ls.exe"
         ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 
         # Call ls command
