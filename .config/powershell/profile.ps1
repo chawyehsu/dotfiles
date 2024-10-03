@@ -581,9 +581,13 @@ if (Test-IsNotWindows) {
     if (Test-Command 'conda') {
         (& conda 'shell.powershell' 'hook') | Out-String | Invoke-Expression
     }
-    # Mircomamba - https://github.com/mamba-org/mamba
+    # mamba/mircomamba - https://github.com/mamba-org/mamba
     if ($Env:MAMBA_EXE -and $Env:MAMBA_ROOT_PREFIX) {
         (& $Env:MAMBA_EXE 'shell' 'hook' -s 'powershell') | Out-String | Invoke-Expression
+        # Alias `mamba` to `micromamba` if MAMBA_EXE is micromamba
+        if ($Env:MAMBA_EXE -match 'micromamba') {
+            Set-Alias -Name 'mamba' -Value 'micromamba' -Option AllScope
+        }
     }
 
     # WinGet
