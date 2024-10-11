@@ -1,2 +1,9 @@
 version: "1"
 editor: nano
+aliases:
+    si: search issues
+    sp: search prs
+    sr: search repos
+    sc: search commits
+    iv: issue view
+    ivw: issue view --web
