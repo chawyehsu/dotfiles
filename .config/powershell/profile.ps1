@@ -450,13 +450,8 @@ $env:VOLTA_FEATURE_PNPM = 1
 #-----------------------#
 #   PowerShell Aliases  #
 #-----------------------#
-# Git Alias
-function Get-GitDiff { git diff }
-function Get-GitStatus { git status }
-Set-Alias -Name 'gdf' -Value Get-GitDiff -Option AllScope
-Set-Alias -Name 'gst' -Value Get-GitStatus -Option AllScope
+# Efficient helpers
 Set-Alias -Name 'c' -Value 'cls' -Option AllScope
-# Efficient helper
 # Get WAN ip
 function Get-WanIp {
     param([Switch]$g)
@@ -469,22 +464,29 @@ Set-Alias -Name 'wanip' -Value Get-WanIp -Option AllScope
 # Quick terminal->explorer
 # Detect platforms and specific explorer tool
 $nativeOpenCommand = if ($IsMacOS) { 'open' } elseif ($IsLinux) { 'nautilus' } else { 'explorer' }
+Set-Alias -Name 'open' -Value $nativeOpenCommand -Option AllScope
 function Open-Here { & $nativeOpenCommand $(Get-Location) }
-if (!(Test-Command 'open')) {
-    Set-Alias -Name 'open' -Value $nativeOpenCommand -Option AllScope
-}
 Set-Alias -Name 'here' -Value Open-Here -Option AllScope
-
 # Show all environment variables, like `export`
 function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
 
+# Git aliases
+function Get-GitDiff { git diff @args }
+function Get-GitStatus { git status @args }
+Set-Alias -Name 'gdf' -Value Get-GitDiff -Option AllScope
+Set-Alias -Name 'gst' -Value Get-GitStatus -Option AllScope
+
 # Remove PowerShell's troublesome built-in aliases
 # NOTE: I'd like to use Remove-Alias, but it doesn't work in PowerShell 5.1
-# 'r' is an alias for 'Invoke-History'
+# 'r' is an alias for 'Invoke-History', for the R programming language
 Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
-# 'ni' is an alias for 'New-Item'
+# 'ni' is an alias for 'New-Item', for github:antfu-collective/ni
 Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
+
+if (Test-Command 'bat') {
+    Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
+}
 
 #-------------------------------#
 #   Platform-specific Settings  #
