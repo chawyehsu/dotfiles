@@ -2,9 +2,9 @@
 change-ps1 = false
 
 [mirrors]
-"https://conda.anaconda.org/" = [
-    "https://mirrors.sustech.edu.cn/anaconda/cloud/",
-    "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/"
+"https://conda.anaconda.org/conda-forge" = [
+    "https://mirrors.sustech.edu.cn/anaconda/cloud/conda-forge",
+    "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge"
 ]
 
 [repodata-config]
