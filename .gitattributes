@@ -3,3 +3,4 @@
 .condarc linguist-language=yaml
 .minttyrc linguist-language=ini
 .rprofile linguist-language=r
+.config/bat/config linguist-language=ini

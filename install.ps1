@@ -175,6 +175,7 @@ if (-not $NoBackup) {
 Set-SymbolicLink -Target '.bash_logout'
 Set-SymbolicLink -Target '.bash_profile'
 Set-SymbolicLink -Target '.bashrc'
+Set-SymbolicLink -Target '.config/bat/config'
 Set-SymbolicLink -Target '.cargo/config.toml'
 Set-SymbolicLink -Target '.config/conda'
 Set-SymbolicLink -Target '.config/gem/gemrc'

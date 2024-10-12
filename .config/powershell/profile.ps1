@@ -485,6 +485,7 @@ Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
 Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 
 if (Test-Command 'bat') {
+    $env:BAT_CONFIG_PATH = Get-NormalizedPath "$Script:UNI_HOME/.config/bat/config"
     Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
 }
 
