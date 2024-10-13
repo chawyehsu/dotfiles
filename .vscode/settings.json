@@ -1,5 +1,9 @@
 {
   "shellcheck.enable": true,
   "editor.formatOnSave": false,
-  "powershell.codeFormatting.useCorrectCasing": true
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "files.associations": {
+    "nanorc": "ini",
+    "*.nanorc": "ini"
+  }
 }
