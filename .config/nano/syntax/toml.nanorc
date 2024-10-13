@@ -1,0 +1,14 @@
+syntax "TOML" "\.toml$"
+
+icolor yellow start="\"\"\"" end="\"\"\""
+icolor yellow start="'''" end="'''"
+icolor yellow start="\[" end="\]"
+
+## values
+icolor yellow "=.*"
+
+## tables
+icolor red "^\s*\[.*\]$"
+
+## comments
+icolor cyan "#.*$"
