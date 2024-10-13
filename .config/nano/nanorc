@@ -24,17 +24,14 @@ bind ^G help all
 bind ^Q exit all
 bind ^Z undo main
 bind ^Y redo main
+bind ^U cancel all
 
 # buffer
 bind ^S savefile main
-## Open file to current/new buffer
+## Open file to new buffer
 bind ^O insert main
 ## Browser files, work after ^O
 bind ^B browser all
-## It's not possible to bind with ^[ which is the `ESC` key,
-## however, `M-,` does not work, I don't know why..
-bind M-, prevbuf main
-## And also `M-.` doesn't work..
 bind ^] nextbuf main
 
 # text edit
@@ -45,17 +42,18 @@ bind ^C copy main
 bind ^D paste main
 bind ^R replace main
 ## Binding mark with ^M is not good, since it aliases to `Enter`,
-## hence ^K is used here.. See nanorc manpage for details.
-bind ^K mark main
+## hence M-M is used here.. See nanorc manpage for details.
+bind M-M mark main
 bind Sh-M-H chopwordleft main
 bind Sh-M-L chopwordright main
 
 # text search
 bind ^F whereis all
-bind ^P findprevious all
-bind ^N findnext all
+bind ^P findprevious main
+bind ^N findnext main
 
 # indent and comment
+bind M-P whitespacedisplay main
 bind M-I autoindent all
 bind M-] indent all
 bind M-[ unindent all
@@ -67,7 +65,7 @@ bind M-J down all
 bind M-K up all
 bind M-L right all
 bind M-B prevword all # Backward
-bind M-F nextword all # Forward
+bind M-N nextword all # Forward
 bind ^H firstline all
 bind ^J nextblock all
 bind ^K prevblock all
