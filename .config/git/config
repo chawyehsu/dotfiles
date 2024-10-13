@@ -32,6 +32,9 @@
 	branch = auto
 	ui = true
 
+[fetch]
+	prune = true
+
 [pull]
 	rebase = true
 
