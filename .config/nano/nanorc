@@ -39,6 +39,7 @@ bind ^X cut main
 bind ^C copy main
 ## (TODO:) ^V doesn't work:
 ## https://github.com/okibcn/nano-for-windows/issues/21
+#bind ^V paste main
 bind ^D paste main
 bind ^R replace main
 ## Binding mark with ^M is not good, since it aliases to `Enter`,
@@ -60,6 +61,7 @@ bind M-[ unindent all
 bind ^/ comment main
 
 # cursor movement and mouse
+bind M-G gotoline all
 bind M-H left all
 bind M-J down all
 bind M-K up all
