@@ -11,20 +11,21 @@
 	remotes = remote -v
 	unstage = reset HEAD
 	last = log -1 HEAD
+	tags = tag -l
 	brs = branch -a
-	cim = commit -s -m
 	clb = clone -b
 	clr = clone --recursive
 	cob = checkout -b
-	tags = tag -l
 	lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
-	st = status
 	sw = switch
 	br = branch
 	ci = commit -s
+	cm = commit -s -m
 	co = checkout
 	df = diff
 	fp = fetch -p
+	a = add
+	s = status
 
 [color]
 	diff = auto
