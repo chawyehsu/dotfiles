@@ -8,23 +8,24 @@
 
 [alias]
 	aliases = config --get-regexp alias
-	remotes = remote -v
 	unstage = reset HEAD
+	remotes = remote -v
 	last = log -1 HEAD
 	tags = tag -l
 	brs = branch -a
 	clb = clone -b
 	clr = clone --recursive
 	cob = checkout -b
-	lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
-	sw = switch
 	br = branch
 	ci = commit -s
 	cm = commit -s -m
 	co = checkout
 	df = diff
-	fp = fetch -p
+	lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
+	sw = switch
 	a = add
+	f = fetch -p
+	m = merge
 	s = status
 
 [color]
