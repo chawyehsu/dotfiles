@@ -471,12 +471,6 @@ Set-Alias -Name 'here' -Value Open-Here -Option AllScope
 function Get-AllEnv { Get-ChildItem env: }
 Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
 
-# Git aliases
-function Get-GitDiff { git diff @args }
-function Get-GitStatus { git status @args }
-Set-Alias -Name 'gdf' -Value Get-GitDiff -Option AllScope
-Set-Alias -Name 'gst' -Value Get-GitStatus -Option AllScope
-
 # Remove PowerShell's troublesome built-in aliases
 # NOTE: I'd like to use Remove-Alias, but it doesn't work in PowerShell 5.1
 # 'r' is an alias for 'Invoke-History', for the R programming language

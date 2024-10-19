@@ -111,8 +111,6 @@ alias c="clear"
 alias :q="exit"
 alias ..="cd .."
 alias ...="cd ../.."
-alias gdf="git diff"
-alias gst="git status"
 alias myip="curl -s https://api.ip.sb/ip"
 alias cls="clear"
 case "$OSTYPE" in
