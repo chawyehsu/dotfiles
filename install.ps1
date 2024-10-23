@@ -123,6 +123,7 @@ if (-not $NoBackup) {
         '.config/nano',
         '.config/npm',
         '.config/pip',
+        '.config/pixi',
         '.config/powershell/profile.ps1',
         '.config/proxychains/proxychains.conf',
         '.config/readline/inputrc',
@@ -189,6 +190,7 @@ Set-SymbolicLink -Target '.dir_colors'
 Set-SymbolicLink -Target '.gnupg/gpg-agent.conf'
 Set-SymbolicLink -Target '.gnupg/gpg.conf'
 Set-SymbolicLink -Target '.gradle/gradle.properties'
+Set-SymbolicLink -Target '.config/pixi/config.toml'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
 Set-SymbolicLink -Target '.config/readline/inputrc'
 Set-SymbolicLink -Target '.config/starship.toml'
