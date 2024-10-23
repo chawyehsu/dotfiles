@@ -103,6 +103,7 @@
                 "name": "Windows PowerShell"
             },
             {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
@@ -114,13 +115,13 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "guid": "{f4ee9684-0c79-5b4e-afa3-623e1d15f462}",
+                "guid": "{eec93884-64d0-50c6-9c93-acbb752020e6}",
                 "hidden": false,
                 "name": "Developer Command Prompt for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{2c3b911c-a917-5047-9ce7-3638970d57a5}",
+                "guid": "{f5178ebc-f25e-5cc0-9d83-2f3458df180d}",
                 "hidden": false,
                 "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
