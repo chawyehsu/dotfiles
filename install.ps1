@@ -216,6 +216,10 @@ if (Test-IsWindows) {
     # Windows Terminal
     Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
         -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+    if (Test-Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState") {
+        Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
+            -Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+    }
     # WSL host config
     Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
     # Nushell
