@@ -1,22 +1,30 @@
 #Requires -Version 5.1
-#!Requires Visual Studio 2022 or later
+#!Requires Visual Studio 2022 17.1 or later
 
 <#
 .SYNOPSIS
     Set up Visual Studio Developer Shell environment.
 .DESCRIPTION
     This script sets up Visual Studio Developer Shell environment.
-.PARAMETER Arch
+.PARAMETER HostArch
+    The host application of the Visual Studio Developer Shell. Valid
+    values are 'x86' and 'amd64'.
+    Default is 'Default'.
+.PARAMETER TargetArch
     The target architecture of the Visual Studio Developer Shell.
-    Default is 'amd64'.
+    Default is automatically detected through the PROCESSOR_ARCHITECTURE
+    environment variable.
 .PARAMETER KeepModule
     Keep the module loaded after setting up the environment.
     Default is $false.
 #>
 param (
+    [ValidateSet('x86', 'amd64')]
+    [string]
+    $HostArch = 'Default',
     [ValidateSet('x86', 'amd64', 'arm', 'arm64')]
     [string]
-    $Arch,
+    $TargetArch,
     [switch]
     $KeepModule = $false
 )
@@ -76,15 +84,15 @@ function Enter-DevShell {
         Import-Module (Get-ChildItem $vsPath -File -Filter Microsoft.VisualStudio.DevShell.dll -Recurse).FullName
     }
 
-    if (-not $Arch) {
+    if (-not $TargetArch) {
         $envArch = $env:PROCESSOR_ARCHITECTURE
-        $Arch = if ($envArch) { $envArch.ToLower() } else { 'amd64' }
+        $TargetArch = if ($envArch) { $envArch.ToLower() } else { 'amd64' }
     }
 
     Write-Verbose "Setting up environment variables"
-    Write-Verbose "Arch: '$Arch'"
+    Write-Verbose "Host: $HostArch, Target: '$TargetArch'"
     # https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022#skipautomaticlocation
-    Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments "-arch=$Arch"
+    Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -HostArch $HostArch -Arch $TargetArch
 
     if (-not $KeepModule) {
         Remove-Module Microsoft.VisualStudio.DevShell
