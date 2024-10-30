@@ -14,8 +14,9 @@
     Default is $false.
 #>
 param (
+    [ValidateSet('x86', 'amd64', 'arm', 'arm64')]
     [string]
-    $Arch = 'amd64',
+    $Arch,
     [switch]
     $KeepModule = $false
 )
@@ -52,7 +53,7 @@ function Enter-DevShell {
         Write-Output "This script is for Windows only."
         return
     }
-    
+
     if (Test-Command 'cl.exe') {
         Write-Output "Visual Studio Developer Shell already set up."
         return
@@ -74,11 +75,17 @@ function Enter-DevShell {
 
         Import-Module (Get-ChildItem $vsPath -File -Filter Microsoft.VisualStudio.DevShell.dll -Recurse).FullName
     }
-    
+
+    if (-not $Arch) {
+        $envArch = $env:PROCESSOR_ARCHITECTURE
+        $Arch = if ($envArch) { $envArch.ToLower() } else { 'amd64' }
+    }
+
     Write-Verbose "Setting up environment variables"
+    Write-Verbose "Arch: '$Arch'"
     # https://learn.microsoft.com/en-us/visualstudio/ide/reference/command-prompt-powershell?view=vs-2022#skipautomaticlocation
     Enter-VsDevShell -VsInstallPath $vsPath -SkipAutomaticLocation -DevCmdArguments "-arch=$Arch"
-    
+
     if (-not $KeepModule) {
         Remove-Module Microsoft.VisualStudio.DevShell
     }
