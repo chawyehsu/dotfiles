@@ -445,7 +445,10 @@ $env:NPM_CONFIG_USERCONFIG = Get-NormalizedPath "$env:XDG_CONFIG_HOME/npm/npmrc"
 $env:POWERSHELL_TELEMETRY_OPTOUT = 1
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:VCPKG_DISABLE_METRICS = 1
+# application flags
 $env:VOLTA_FEATURE_PNPM = 1
+$env:ZIG_GLOBAL_CACHE_DIR="$env:XDG_CACHE_HOME/zig"
+$env:ZIG_LOCAL_CACHE_DIR="$env:XDG_CACHE_HOME/zig-local"
 
 #-----------------------#
 #   PowerShell Aliases  #
