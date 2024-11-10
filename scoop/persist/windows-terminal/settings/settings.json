@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions":
-    [
+    "actions": [
         {
-            "command":
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -60,26 +58,23 @@
             "keys": "ctrl+shift+f"
         }
     ],
+    "windowingBehavior": "useAnyExisting",
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "initialCols": 104,
     "initialRows": 36,
-    "newTabMenu":
-    [
+    "newTabMenu": [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles":
-    {
-        "defaults":
-        {
+    "profiles": {
+        "defaults": {
             "bellStyle": "window",
             "colorScheme": "Snazzy",
             "cursorShape": "filledBox",
-            "font":
-            {
+            "font": {
                 "face": "CaskaydiaCove Nerd Font Mono",
                 "size": 11,
                 "weight": "normal"
@@ -87,8 +82,7 @@
             "opacity": 100,
             "useAcrylic": true
         },
-        "list":
-        [
+        "list": [
             {
                 "commandline": "pwsh.exe -nologo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
@@ -161,24 +155,20 @@
             "yellow": "#F3F99D"
         }
     ],
-    "themes":
-    [
+    "themes": [
         {
             "name": "Seamless",
-            "tab":
-            {
+            "tab": {
                 "background": "terminalBackground",
                 "iconStyle": "default",
                 "showCloseButton": "hover",
                 "unfocusedBackground": "terminalBackground"
             },
-            "tabRow":
-            {
+            "tabRow": {
                 "background": "terminalBackground",
                 "unfocusedBackground": "terminalBackground"
             },
-            "window":
-            {
+            "window": {
                 "applicationTheme": "dark",
                 "experimental.rainbowFrame": false,
                 "frame": null,
