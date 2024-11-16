@@ -1,9 +1,11 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
     "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
+    "actions":
+    [
         {
-            "command": {
+            "command":
+            {
                 "action": "copy",
                 "singleLine": false
             },
@@ -58,23 +60,32 @@
             "keys": "ctrl+shift+f"
         }
     ],
-    "windowingBehavior": "useAnyExisting",
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "disabledProfileSources":
+    [
+        "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc",
+        "Windows.Terminal.Wsl",
+        "Windows.Terminal.Azure"
+    ],
     "initialCols": 104,
     "initialRows": 36,
-    "newTabMenu": [
+    "newTabMenu":
+    [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": {
-        "defaults": {
+    "profiles":
+    {
+        "defaults":
+        {
             "bellStyle": "window",
-            "colorScheme": "Snazzy",
+            "colorScheme": "IBM 5153",
             "cursorShape": "filledBox",
-            "font": {
+            "font":
+            {
                 "face": "CaskaydiaCove Nerd Font Mono",
                 "size": 11,
                 "weight": "normal"
@@ -82,7 +93,8 @@
             "opacity": 100,
             "useAcrylic": true
         },
-        "list": [
+        "list":
+        [
             {
                 "commandline": "pwsh.exe -nologo",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
@@ -103,19 +115,13 @@
                 "name": "Command Prompt"
             },
             {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{eec93884-64d0-50c6-9c93-acbb752020e6}",
+                "guid": "{f4ee9684-0c79-5b4e-afa3-623e1d15f462}",
                 "hidden": false,
                 "name": "Developer Command Prompt for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{f5178ebc-f25e-5cc0-9d83-2f3458df180d}",
+                "guid": "{2c3b911c-a917-5047-9ce7-3638970d57a5}",
                 "hidden": false,
                 "name": "Developer PowerShell for VS 2022",
                 "source": "Windows.Terminal.VisualStudio"
@@ -124,6 +130,7 @@
                 "commandline": "nu.exe",
                 "guid": "{80c90094-a95e-4b23-88f4-33eee4e35b39}",
                 "hidden": false,
+                "icon": "none",
                 "name": "Nushell",
                 "startingDirectory": "%USERPROFILE%"
             }
@@ -155,20 +162,24 @@
             "yellow": "#F3F99D"
         }
     ],
-    "themes": [
+    "themes":
+    [
         {
             "name": "Seamless",
-            "tab": {
+            "tab":
+            {
                 "background": "terminalBackground",
                 "iconStyle": "default",
                 "showCloseButton": "hover",
                 "unfocusedBackground": "terminalBackground"
             },
-            "tabRow": {
+            "tabRow":
+            {
                 "background": "terminalBackground",
                 "unfocusedBackground": "terminalBackground"
             },
-            "window": {
+            "window":
+            {
                 "applicationTheme": "dark",
                 "experimental.rainbowFrame": false,
                 "frame": null,
@@ -176,5 +187,6 @@
                 "useMica": false
             }
         }
-    ]
+    ],
+    "windowingBehavior": "useAnyExisting"
 }
