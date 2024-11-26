@@ -620,7 +620,7 @@ if (Test-IsNotWindows) {
         (& starship.exe 'init' 'powershell') | Out-String | Invoke-Expression
     }
     # concfg - https://github.com/lukesampson/concfg
-    if (Test-Command 'concfg') {
+    if ((-not $env:WT_SESSION) -and (Test-Command 'concfg')) {
         concfg tokencolor -n enable
     }
 }
