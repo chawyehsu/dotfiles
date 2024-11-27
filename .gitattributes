@@ -4,3 +4,4 @@
 .minttyrc linguist-language=ini
 .rprofile linguist-language=r
 .config/bat/config linguist-language=ini
+.config/git/config* linguist-language=properties
