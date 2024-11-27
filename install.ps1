@@ -113,6 +113,7 @@ if (-not $NoBackup) {
         '.bash_profile',
         '.bashrc',
         '.cargo/config',
+        '.config/bat',
         '.config/conda',
         '.config/gem',
         '.config/gh/config',
@@ -126,7 +127,7 @@ if (-not $NoBackup) {
         '.config/pixi',
         '.config/powershell/profile.ps1',
         '.config/proxychains/proxychains.conf',
-        '.config/readline/inputrc',
+        '.config/readline',
         '.config/screen/screenrc',
         '.config/starship.toml',
         '.config/tmux',
@@ -176,10 +177,10 @@ if (-not $NoBackup) {
 Set-SymbolicLink -Target '.bash_logout'
 Set-SymbolicLink -Target '.bash_profile'
 Set-SymbolicLink -Target '.bashrc'
-Set-SymbolicLink -Target '.config/bat/config'
+Set-SymbolicLink -Target '.config/bat'
 Set-SymbolicLink -Target '.cargo/config.toml'
 Set-SymbolicLink -Target '.config/conda'
-Set-SymbolicLink -Target '.config/gem/gemrc'
+Set-SymbolicLink -Target '.config/gem'
 Set-SymbolicLink -Target '.config/gh/config.yml'
 Set-SymbolicLink -Target '.config/git/config'
 Set-SymbolicLink -Target '.config/git/ignore'
@@ -192,7 +193,7 @@ Set-SymbolicLink -Target '.gnupg/gpg.conf'
 Set-SymbolicLink -Target '.gradle/gradle.properties'
 Set-SymbolicLink -Target '.config/pixi/config.toml'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
-Set-SymbolicLink -Target '.config/readline/inputrc'
+Set-SymbolicLink -Target '.config/readline'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.config/tmux'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
