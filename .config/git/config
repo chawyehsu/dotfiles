@@ -58,11 +58,14 @@
 	# local->remote: Reject mixed line endings, for binary files that
 	# may contain mixed line endings, follow .gitattributes
 	safecrlf = true
-	# local->remote: LF, unless .gitattributes specifies
-	# remote->local: AS-IS
+	# commit (local->remote): LF, unless specified in .gitattributes
+	# chkout (remote->local): AS-IS
 	autocrlf = input
 	symlinks = true
 	editor = nano
+	# default: blank-at-eol,blank-at-eof,space-before-tab
+	# *trailing-space: a short-hand to blank-at-eol,blank-at-eof
+	whitespace = trailing-space,space-before-tab,tab-in-indent,-cr-at-eol
 
 [init]
 	defaultBranch = main
