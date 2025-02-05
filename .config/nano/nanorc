@@ -9,13 +9,13 @@ set matchbrackets "(<[{)>]}"
 set minibar
 set multibuffer
 set nohelp
-set numbercolor gray,normal
+set numbercolor brightblack,normal
 set stateflags
 set statuscolor normal,normal
 ## 2 is used here and 4size can be inserted by indenting twice
 set tabsize 2
 set tabstospaces
-set titlecolor gray,normal
+set titlecolor white,normal
 set wordchars "<_>."
 ## erase the marked region instead of a single character
 set zap
