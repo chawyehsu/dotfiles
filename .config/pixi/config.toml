@@ -1,4 +1,5 @@
-# Reference: https://pixi.sh/latest/advanced/global_configuration/
+# Reference: https://pixi.sh/latest/reference/pixi_configuration/
+[shell]
 change-ps1 = false
 
 [mirrors]
