@@ -4,4 +4,4 @@ memory=4GB
 processors=2
 swap=8GB
 # Only available for Windows 11
-#guiApplications=false
+guiApplications=false
