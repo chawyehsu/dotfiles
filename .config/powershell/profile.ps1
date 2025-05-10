@@ -446,7 +446,7 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
     $localBinPath = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
     Add-ToPath $localBinPath
     # cargo bin
-    $cargoHome = Get-FirstNonEmpty @($env:CARGO_HOME, "$Script:UNI_HOME/.cargo")
+    $cargoHome = Get-FirstNonEmpty @($env:CARGO_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.cargo"))
     $cargoPath = Get-NormalizedPath "$cargoHome/bin"
     Add-ToPath $cargoPath
     # deno bin
