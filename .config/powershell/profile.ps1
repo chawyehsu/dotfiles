@@ -428,7 +428,7 @@ $env:EDITOR = 'nano'
 # Rustup mirror
 $env:RUSTUP_DIST_SERVER = 'https://mirrors.ustc.edu.cn/rust-static'
 # sccache
-$env:SCCACHE_CACHE_SIZE = if ($env:SCCACHE_CACHE_SIZE) { $env:SCCACHE_CACHE_SIZE } else { '20G' }
+$env:SCCACHE_CACHE_SIZE = Get-FirstNonEmpty @($env:SCCACHE_CACHE_SIZE, '20G')
 # Node.js COLOR
 $env:FORCE_COLOR = 'true'
 # Show git dirty state
@@ -480,8 +480,8 @@ $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:VCPKG_DISABLE_METRICS = 1
 # application flags
 $env:VOLTA_FEATURE_PNPM = 1
-$env:ZIG_GLOBAL_CACHE_DIR = "$env:XDG_CACHE_HOME/zig"
-$env:ZIG_LOCAL_CACHE_DIR = "$env:XDG_CACHE_HOME/zig-local"
+$env:ZIG_GLOBAL_CACHE_DIR = Get-NormalizedPath "$env:XDG_CACHE_HOME/zig"
+$env:ZIG_LOCAL_CACHE_DIR = Get-NormalizedPath "$env:XDG_CACHE_HOME/zig-local"
 
 #-----------------------#
 #   PowerShell Aliases  #
