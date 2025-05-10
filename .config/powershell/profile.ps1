@@ -10,15 +10,6 @@
 
 
 #-----------------------#
-#   Internal variables  #
-#-----------------------#
-# Define an UNIform $HOME variable in the scope of this script.
-# $env:USERPROFILE goes first since $env:HOME might be defined in Windows.
-$Script:UNI_HOME = $env:USERPROFILE, $env:HOME | Where-Object {
-    -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
-
-
-#-----------------------#
 #   Internal functions  #
 #-----------------------#
 function Test-IsNotWindows {
@@ -98,6 +89,39 @@ function Test-Command {
     return [bool](Get-Command -Name $Command `
             -CommandType Application -ErrorAction SilentlyContinue)
 }
+function Get-FirstNonEmpty {
+    <#
+    .SYNOPSIS
+        Get the first non-empty value from the given values.
+    .DESCRIPTION
+        This function will return the first non-empty value from the given
+        values.
+    .PARAMETER Values
+        The values to check.
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [AllowEmptyString()]
+        [string[]]
+        $Values
+    )
+
+    return $Values | Where-Object { -not [String]::IsNullOrEmpty($_) } | Select-Object -First 1
+}
+
+
+#-----------------------#
+#   Internal variables  #
+#-----------------------#
+# Define an UNIform $HOME variable in the scope of this script.
+# $env:USERPROFILE goes first since $env:HOME might be defined in Windows.
+$Script:UNI_HOME = Get-FirstNonEmpty -Values @(
+    $env:USERPROFILE, # Windows
+    $env:HOME, # Unix-like
+    [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile) # Fallback via .NET API
+)
+
 
 #-----------------------#
 # PowerShell PSReadLine #
@@ -412,10 +436,10 @@ $env:GIT_PS1_SHOWDIRTYSTATE = 1
 # GitHub CLI config dir
 $env:GH_CONFIG_DIR = Get-NormalizedPath "$Script:UNI_HOME/.config/gh"
 # XDG environment variables
-$env:XDG_CONFIG_HOME = Get-NormalizedPath "$Script:UNI_HOME/.config"
-$env:XDG_CACHE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.cache"
-$env:XDG_DATA_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/share"
-$env:XDG_STATE_HOME = Get-NormalizedPath "$Script:UNI_HOME/.local/state"
+$env:XDG_CONFIG_HOME = Get-FirstNonEmpty @($env:XDG_CONFIG_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.config"))
+$env:XDG_CACHE_HOME = Get-FirstNonEmpty @($env:XDG_CACHE_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.cache"))
+$env:XDG_DATA_HOME = Get-FirstNonEmpty @($env:XDG_DATA_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.local/share"))
+$env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.local/state"))
 # PATH updates
 & {
     # .local bin
