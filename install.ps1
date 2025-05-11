@@ -133,6 +133,7 @@ if (-not $NoBackup) {
         '.config/tmux',
         '.config/volta/hook.json',
         '.config/wget/wgetrc',
+        '.config/zed',
         '.dir_colors',
         '.gnupg/gpg-agent.conf',
         '.gnupg/gpg.conf',
@@ -197,6 +198,7 @@ Set-SymbolicLink -Target '.config/readline'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.config/tmux'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
+Set-SymbolicLink -Target '.config/zed'
 # Link dotfiles (platform specific)
 if (Test-IsWindows) {
     # git config for Windows
