@@ -231,6 +231,8 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
     # Helix
     Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
+    # Zed
+    Set-SymbolicLink -Target '.config/zed' -Path "$env:APPDATA/Zed"
 } else {
     # git config for macOS and Linux
     if ($IsMacOS) {
