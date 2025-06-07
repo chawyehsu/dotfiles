@@ -103,6 +103,7 @@ function Get-FirstNonEmpty {
     param (
         [Parameter(Mandatory = $true, Position = 0)]
         [AllowEmptyString()]
+        [AllowNull()]
         [string[]]
         $Values
     )
