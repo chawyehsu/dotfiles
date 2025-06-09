@@ -18,6 +18,11 @@
   "theme": {
     "mode": "system",
     "light": "Gruvbox Light Hard",
-    "dark": "Ayu Mirage"
+    "dark": "Tokyo Night Storm"
+  },
+  "icon_theme": {
+    "mode": "system",
+    "dark": "VSCode Icons",
+    "light": "VSCode Icons Light"
   }
 }
