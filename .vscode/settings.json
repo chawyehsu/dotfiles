@@ -4,6 +4,7 @@
   "powershell.codeFormatting.useCorrectCasing": true,
   "files.associations": {
     "nanorc": "ini",
-    "*.nanorc": "ini"
+    "*.nanorc": "ini",
+    ".wslconfig": "ini"
   }
 }
