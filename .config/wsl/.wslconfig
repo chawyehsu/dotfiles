@@ -1,7 +1,65 @@
-# Docs: https://docs.microsoft.com/windows/wsl/wsl-config
+## Docs: https://docs.microsoft.com/windows/wsl/wsl-config
+# WSL2 system requirements: Windows 10 19H1 (build 18362) or later, or Windows 11.
 [wsl2]
+processors=4
 memory=4GB
-processors=2
-swap=8GB
-# Only available for Windows 11
+swap=4GB
+# Prevent VHDX file to exceed a certain amount, to limit the maximum size that a
+# distribution file system is allowed to take up. The default value is `1TB`.
+#
+# Note that this config won't take effect on existing distributions/VHDX [1], so
+# you may need to delete existing distributions and re-install them to apply this
+# config.
+#
+# refs:
+# - [1]: https://github.com/microsoft/WSL/issues/4699#issuecomment-2304879165
+defaultVhdSize=64GB
+# This config was initially introduced to work around the vmmem high CPU usage
+# issue [1] of WSL2 date from late 2021. There were discussions about this issue
+# being (potentially) caused by WSLg (first introduced in Apr 2021, officially
+# released in Windows 10 build 21364).
+#
+# WSLg did not support Windows 10 until Windows 10 21H1 with the November 2022
+# update KB5020030 [2][3]. This config takes effect only on Windows versions that
+# support WSLg. (Also note that the WSL component in Microsoft Store supports
+# Windows 20H1 -- version 2004, build 19043, and later [4].)
+#
+# This config was also used as a workaround for the issue WSLg msrdc spamming
+# huge logs [5][6][7].
+#
+# refs:
+# - [1]: https://github.com/microsoft/WSL/issues/6982
+# - [2]: https://github.com/microsoft/wslg/issues/347#issuecomment-1324386194
+# - [3]: https://github.com/microsoft/wslg/issues/567
+# - [4]: https://aka.ms/wslstorepage
+# - [5]: https://github.com/microsoft/WSL/discussions/8486
+# - [6]: https://github.com/microsoft/WSL/discussions/8486#discussioncomment-5560022
+# - [7]: https://github.com/microsoft/WSL/issues/10216
 guiApplications=false
+## WSL2 Networking [1]
+# This config requires Windows 11 22H2 or later [2]. For earlier versions, this
+# config should be placed to the `[experimental]` section [3].
+#
+# refs:
+# - [1]: https://learn.microsoft.com/en-us/windows/wsl/networking
+# - [2]: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings
+# - [3]: https://github.com/microsoft/WSL/releases/tag/2.0.0
+networkingMode=NAT
+# This config enforces WSL to use Windows’ HTTP proxy information. This config
+# requires Windows 11 22H2 or later [1][2].
+#
+# refs:
+# - [1]: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings
+# - [2]: https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/
+; autoProxy=false
+
+# Experimental features may stop working or become stable as WSL continues to evolve.
+[experimental]
+# There's been reports that WSL2 can eat up a lot of disk space [1], and this
+# experimental feature was introduced to mitigate the issue [2][3].
+#
+# refs:
+# - [1]: https://github.com/microsoft/WSL/issues/4699
+# - [2]: https://github.com/microsoft/WSL/issues/4699#issuecomment-1724488285
+# - [3]: https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#experimental-features
+sparseVhd=true
