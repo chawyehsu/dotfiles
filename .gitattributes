@@ -1,4 +1,5 @@
 .wslconfig linguist-language=ini
+wsl.conf linguist-language=ini
 *.conf linguist-language=properties
 .condarc linguist-language=yaml
 .minttyrc linguist-language=ini
