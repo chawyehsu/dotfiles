@@ -9,55 +9,7 @@
                 "action": "copy",
                 "singleLine": false
             },
-            "id": "User.copy.644BA8F2",
-            "keys": "ctrl+c"
-        },
-        {
-            "command":
-            {
-                "action": "splitPane",
-                "split": "auto",
-                "splitMode": "duplicate"
-            },
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "command":
-            {
-                "action": "newTab"
-            },
-            "id": "User.newTab.5DEADB41",
-            "keys": "ctrl+t"
-        },
-        {
-            "command":
-            {
-                "action": "closeTab"
-            },
-            "id": "User.closeTab.0",
-            "keys": "ctrl+w"
-        },
-        {
-            "command":
-            {
-                "action": "prevTab"
-            },
-            "id": "User.prevTab.0",
-            "keys": "alt+left"
-        },
-        {
-            "command":
-            {
-                "action": "nextTab"
-            },
-            "id": "User.nextTab.0",
-            "keys": "alt+right"
-        },
-        {
-            "command": "find",
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.ActionCopy"
         }
     ],
     "copyFormatting": "none",
@@ -65,12 +17,39 @@
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "disabledProfileSources":
     [
-        "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc",
+        "Microsoft.WSL",
         "Windows.Terminal.Wsl",
         "Windows.Terminal.Azure"
     ],
     "initialCols": 104,
     "initialRows": 36,
+    "keybindings":
+    [
+        {
+            "id": "User.ActionCopy",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.OpenNewTab",
+            "keys": "ctrl+t"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": "Terminal.ClosePane",
+            "keys": "ctrl+w"
+        },
+        {
+            "id": "Terminal.PrevTab",
+            "keys": "alt+left"
+        },
+        {
+            "id": "Terminal.NextTab",
+            "keys": "alt+right"
+        }
+    ],
     "newTabMenu":
     [
         {
