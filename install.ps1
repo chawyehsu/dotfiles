@@ -189,8 +189,7 @@ Set-SymbolicLink -Target '.config/mintty'
 Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.dir_colors'
-Set-SymbolicLink -Target '.gnupg/gpg-agent.conf'
-Set-SymbolicLink -Target '.gnupg/gpg.conf'
+Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
 Set-SymbolicLink -Target '.gradle/gradle.properties'
 Set-SymbolicLink -Target '.config/pixi/config.toml'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
@@ -204,6 +203,9 @@ if (Test-IsWindows) {
     # git config for Windows
     Set-SymbolicLink -Target '.config/git/config.win.conf' `
         -Path '.config/git/config.local'
+    # gpg
+    Set-SymbolicLink -Target '.config/gnupg/gpg-agent.win.conf' `
+        -Path '.gnupg/gpg-agent.conf'
     # PowerShell profile
     Set-SymbolicLink -Target '.config/powershell/profile.ps1' `
         -Path $PROFILE.CurrentUserAllHosts
@@ -239,6 +241,9 @@ if (Test-IsWindows) {
         # macOS
         Set-SymbolicLink -Target '.config/git/config.mac.conf' `
             -Path '.config/git/config.local'
+        # gpg
+        Set-SymbolicLink -Target '.config/gnupg/gpg-agent.mac.conf' `
+            -Path '.gnupg/gpg-agent.conf'
     } else {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
