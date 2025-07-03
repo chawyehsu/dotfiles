@@ -518,11 +518,6 @@ Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
 # 'ni' is an alias for 'New-Item', for github:antfu-collective/ni
 Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 
-if (Test-Command 'bat') {
-    $env:BAT_CONFIG_PATH = Get-NormalizedPath "$Script:UNI_HOME/.config/bat/config"
-    Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
-}
-
 #-------------------------------#
 #   Platform-specific Settings  #
 #-------------------------------#
@@ -667,6 +662,11 @@ if (Test-IsNotWindows) {
     if ((-not $env:WT_SESSION) -and (Test-Command 'concfg')) {
         concfg tokencolor -n enable
     }
+}
+
+if (Test-Command 'bat') {
+    $env:BAT_CONFIG_PATH = Get-NormalizedPath "$Script:UNI_HOME/.config/bat/config"
+    Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
 }
 
 if (Test-Command 'zoxide') {
