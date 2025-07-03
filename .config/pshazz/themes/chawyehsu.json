@@ -1,5 +1,5 @@
 {
-    "plugins": [ "git", "ssh", "virtualenv" ],
+    "plugins": [ "ssh", "virtualenv" ],
     "prompt": [
         [ "darkgreen",  "", "$hostname" ],
         [ "darkcyan",   "", " $dir" ],
