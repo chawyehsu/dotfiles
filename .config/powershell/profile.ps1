@@ -135,9 +135,18 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Command history search/completion
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    # Cursor movement
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-    Set-PSReadLineKeyHandler -Key 'Ctrl+f' -Function ForwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+a -Function SelectAll
+    Set-PSReadLineKeyHandler -Key Ctrl+f -Function ForwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+b -Function BackwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+x -Function Cut
+    Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+Shift+LeftArrow -Function SelectBackwardWord
+    Set-PSReadLineKeyHandler -Key Ctrl+Shift+RightArrow -Function SelectForwardWord
+    Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
