@@ -4,8 +4,8 @@ change-ps1 = false
 
 [mirrors]
 "https://conda.anaconda.org/conda-forge" = [
-    "https://mirrors.sustech.edu.cn/anaconda/cloud/conda-forge",
-    "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge"
+    "https://mirror.nju.edu.cn/anaconda/cloud/conda-forge",
+    "https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge"
 ]
 
 [repodata-config]
@@ -13,4 +13,4 @@ disable-jlap = true
 disable-zstd = true
 
 [pypi-config]
-index-url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+index-url = "https://mirrors.ustc.edu.cn/pypi/simple/"
