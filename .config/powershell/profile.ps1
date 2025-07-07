@@ -512,7 +512,7 @@ function Get-WanIp {
 Set-Alias -Name 'wanip' -Value Get-WanIp -Option AllScope
 # Quick terminal->explorer
 # Detect platforms and specific explorer tool
-$nativeOpenCommand = if ($IsMacOS) { 'open' } elseif ($IsLinux) { 'nautilus' } else { 'explorer' }
+$nativeOpenCommand = if ($IsMacOS) { '/usr/bin/open' } elseif ($IsLinux) { 'nautilus' } else { 'explorer' }
 Set-Alias -Name 'open' -Value $nativeOpenCommand -Option AllScope
 function Open-Here { & $nativeOpenCommand $(Get-Location) }
 Set-Alias -Name 'here' -Value Open-Here -Option AllScope
