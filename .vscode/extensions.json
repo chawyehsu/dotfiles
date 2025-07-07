@@ -2,8 +2,5 @@
   "recommendations": [
     "ms-vscode.powershell",
     "editorconfig.editorconfig",
-    "thenuprojectcontributors.vscode-nushell-lang",
-    "tamasfe.even-better-toml",
-    "timonwong.shellcheck"
   ]
 }
