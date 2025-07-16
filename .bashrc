@@ -174,13 +174,17 @@ fi
 function styled_prompt() {
   # Color table
   local   RESET="\[\033[0m\]"
+  # shellcheck disable=SC2034
   local   BLACK="\[\033[0;30m\]"
+  # shellcheck disable=SC2034
   local     RED="\[\033[0;31m\]"
   local   GREEN="\[\033[0;32m\]"
   local  YELLOW="\[\033[0;33m\]"
+  # shellcheck disable=SC2034
   local    BLUE="\[\033[0;34m\]"
   local MAGENTA="\[\033[0;35m\]"
   local    CYAN="\[\033[0;36m\]"
+  # shellcheck disable=SC2034
   local   WHITE="\[\033[0;37m\]"
   # Terminal title
   local TERMTITLE="\[\e]0; \w\a\]"
