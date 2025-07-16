@@ -132,6 +132,8 @@ $Script:UNI_HOME = Get-FirstNonEmpty -Values @(
 # supported and will be skipped.
 $_PSReadLineVersion = (Get-Module -Name 'PSReadline').Version
 if ($_PSReadLineVersion.Major -ge 2) {
+    ## Key bindings:
+    # see: https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/KeyBindings.cs
     # Command history search/completion
     Set-PSReadLineOption -HistorySearchCursorMovesToEnd
     Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
@@ -147,6 +149,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+LeftArrow -Function SelectBackwardWord
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+RightArrow -Function SelectForwardWord
     Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
+    Set-PSReadLineKeyHandler -Key Alt+Backspace -Function BackwardKillWord
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
