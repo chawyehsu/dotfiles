@@ -63,6 +63,10 @@ case "$OSTYPE" in
     _linuxbrew2="$HOME/.linuxbrew/bin/brew" # non sudo
     [[ -f $_linuxbrew2 ]] && eval "$($_linuxbrew2 shellenv)"
 
+    # Bun javascript runtime:
+    _bunexe="$HOME/.bun/bin/bun"
+    [ -f "$_bunexe" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
+
     # Add git-prompt (Arch Linux):
     _gitprompt="/usr/share/git/completion/git-prompt.sh"
     # shellcheck disable=SC1090
