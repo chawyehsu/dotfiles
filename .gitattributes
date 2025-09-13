@@ -4,6 +4,7 @@
 .rprofile linguist-language=r
 .config/bat/config linguist-language=ini
 .config/git/config* linguist-language=properties
+.config/htop/htoprc linguist-language=properties
 .config/zed/keymap.json linguist-language=jsonc
 .config/zed/settings.json linguist-language=jsonc
 wsl.conf linguist-language=ini

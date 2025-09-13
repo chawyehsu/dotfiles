@@ -1,0 +1,5 @@
+enable_mouse=1
+show_cpu_usage=1
+show_cpu_frequency=0
+tree_view=1
+tree_view_always_by_pid=0
