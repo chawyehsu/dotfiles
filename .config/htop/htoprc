@@ -1,11 +1,13 @@
 # Beware! This file is rewritten by htop when settings are changed in the interface.
 # The parser is also very primitive, and not human-friendly.
+degree_fahrenheit=1
 detailed_cpu_time=1
 enable_mouse=1
 hide_kernel_threads=1
 hide_userland_threads=1
+shadow_other_users=1
 show_cpu_usage=1
-show_cpu_frequency=0
+show_cpu_frequency=1
 show_cpu_temperature=1
 tree_sort_key=1
 tree_sort_direction=1
