@@ -1,5 +1,17 @@
+# Beware! This file is rewritten by htop when settings are changed in the interface.
+# The parser is also very primitive, and not human-friendly.
+detailed_cpu_time=1
 enable_mouse=1
+hide_kernel_threads=1
+hide_userland_threads=1
 show_cpu_usage=1
 show_cpu_frequency=0
+show_cpu_temperature=1
+tree_sort_key=1
+tree_sort_direction=1
 tree_view=1
 tree_view_always_by_pid=0
+column_meters_0=Hostname Uptime Systemd Tasks DateTime Blank
+column_meter_modes_0=2 2 2 2 2 2
+column_meters_1=DiskIO NetworkIO Swap Memory AllCPUs Blank
+column_meter_modes_1=1 1 1 1 1 2
