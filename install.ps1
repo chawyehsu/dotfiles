@@ -248,6 +248,9 @@ if (Test-IsWindows) {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
             -Path '.config/git/config.local'
+
+        # htop
+        Set-SymbolicLink -Target '.config/htop/htoprc'
     }
     # PowerShell profile
     Set-SymbolicLink -Target '.config/powershell/profile.ps1'
