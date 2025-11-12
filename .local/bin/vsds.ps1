@@ -80,6 +80,10 @@ function Enter-DevShell {
 
         $vsPath = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
         Write-Verbose "Microsoft Visual Studio: '$vsPath'"
+        if ($vsPath -eq '') {
+            Write-Output "Visual Studio with C++ tools not found."
+            return
+        }
 
         Import-Module (Get-ChildItem $vsPath -File -Filter Microsoft.VisualStudio.DevShell.dll -Recurse).FullName
     }
