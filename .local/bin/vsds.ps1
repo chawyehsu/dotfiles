@@ -17,6 +17,8 @@
 .PARAMETER KeepModule
     Keep the module loaded after setting up the environment.
     Default is $false.
+.PARAMETER Verbose
+    Enable verbose output.
 #>
 param (
     [ValidateSet('x86', 'amd64')]
@@ -26,7 +28,9 @@ param (
     [string]
     $TargetArch,
     [switch]
-    $KeepModule = $false
+    $KeepModule = $false,
+    [switch]
+    $Verbose
 )
 
 Set-StrictMode -Version Latest
@@ -56,6 +60,10 @@ function Test-Command {
 
 function Enter-DevShell {
     $ErrorActionPreference = 'Stop'
+
+    if ($Verbose) {
+        $VerbosePreference = 'Continue'
+    }
 
     if (Test-IsNotWindows) {
         Write-Output "This script is for Windows only."
