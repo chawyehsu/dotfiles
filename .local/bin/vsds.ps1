@@ -89,8 +89,13 @@ function Enter-DevShell {
     }
 
     if (-not $TargetArch) {
-        $envArch = $env:PROCESSOR_ARCHITECTURE
-        $TargetArch = if ($envArch) { $envArch.ToLower() } else { 'amd64' }
+        $TargetArch = switch ($env:PROCESSOR_ARCHITECTURE) {
+            'AMD64' { 'amd64' }
+            'x86'   { 'x86' }
+            'ARM64' { 'arm64' }
+            'ARM'   { 'arm' }
+            default { 'amd64' }
+        }
     }
 
     Write-Verbose "Setting up environment variables"
