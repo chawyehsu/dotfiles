@@ -1,5 +1,6 @@
-## Docs: https://docs.microsoft.com/windows/wsl/wsl-config
+## Docs: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#wslconfig
 # WSL2 system requirements: Windows 10 19H1 (build 18362) or later, or Windows 11.
+# `.wslconfig` requires: Windows 10 20H1 (build 19041) or later.
 [wsl2]
 processors=4
 memory=4GB
@@ -46,7 +47,7 @@ guiApplications=false
 # - [3]: https://github.com/microsoft/WSL/releases/tag/2.0.0
 networkingMode=NAT
 # This config enforces WSL to use Windows’ HTTP proxy information. This config
-# requires Windows 11 22H2 or later [1][2].
+# requires Windows 11 22H2 or later [1][2]. The default value is `true`.
 #
 # refs:
 # - [1]: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings
@@ -55,11 +56,20 @@ networkingMode=NAT
 
 # Experimental features may stop working or become stable as WSL continues to evolve.
 [experimental]
-# There's been reports that WSL2 can eat up a lot of disk space [1], and this
-# experimental feature was introduced to mitigate the issue [2][3].
+# There's been reports that WSL2 can eat up a lot of disk space [1][2], and this
+# experimental feature was introduced to mitigate the issue [3][4] by automatically
+# shrinking the virtual hard disk (VHD).
+#
+# Note there are (potential) downsides of using this feature according to reports,
+# including:
+#   - file system corruption (including guest vhdx and host) and data loss [5]
+#   - `Optimize-VHD` cmdlet would not work on sparse VHDs [6]
 #
 # refs:
-# - [1]: https://github.com/microsoft/WSL/issues/4699
-# - [2]: https://github.com/microsoft/WSL/issues/4699#issuecomment-1724488285
-# - [3]: https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#experimental-features
-sparseVhd=true
+# - [1]: https://superuser.com/questions/1606213
+# - [2]: https://github.com/microsoft/WSL/issues/4699
+# - [3]: https://github.com/microsoft/WSL/issues/4699#issuecomment-1724488285
+# - [4]: https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/#experimental-features
+# - [5]: https://github.com/microsoft/WSL/issues/10609
+# - [6]: https://github.com/microsoft/WSL/issues/4699#issuecomment-3405867359
+sparseVhd=false
