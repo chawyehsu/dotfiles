@@ -29,8 +29,11 @@ debian_install_pwsh() {
     # Get the version of Debian
     # shellcheck disable=SC1091
     source /etc/os-release
-    # stop if VERSION_ID is not supported
-    if [[ "$VERSION_ID" != "11" && "$VERSION_ID" != "12" ]]; then
+    # Define supported Debian versions (add new ones here as needed)
+    SUPPORTED_VERSIONS=("11" "12" "13")
+    # Check if VERSION_ID is supported
+    # shellcheck disable=SC2076
+    if [[ ! " ${SUPPORTED_VERSIONS[*]} " =~ " $VERSION_ID " ]]; then
         echo "Unsupported Debian version: $VERSION_ID"
         exit 1
     fi
