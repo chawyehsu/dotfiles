@@ -244,6 +244,8 @@ if (Test-IsWindows) {
         # gpg
         Set-SymbolicLink -Target '.config/gnupg/gpg-agent.mac.conf' `
             -Path '.gnupg/gpg-agent.conf'
+        # ghostty
+        Set-SymbolicLink -Target '.config/ghostty/config'
     } else {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
