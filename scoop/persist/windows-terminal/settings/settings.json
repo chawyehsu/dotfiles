@@ -61,7 +61,7 @@
         "defaults":
         {
             "bellStyle": "window",
-            "colorScheme": "IBM 5153",
+            "colorScheme": "Selenized Black",
             "cursorShape": "filledBox",
             "font":
             {
@@ -117,6 +117,52 @@
     },
     "schemes":
     [
+        {
+            "background": "#181818",
+            "black": "#252525",
+            "blue": "#368AEB",
+            "brightBlack": "#3B3B3B",
+            "brightBlue": "#368AEB",
+            "brightCyan": "#3FC5B7",
+            "brightGreen": "#70B433",
+            "brightPurple": "#A580E2",
+            "brightRed": "#ED4A46",
+            "brightWhite": "#DEDEDE",
+            "brightYellow": "#DBB32D",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#3FC5B7",
+            "foreground": "#B9B9B9",
+            "green": "#70B433",
+            "name": "Selenized Black",
+            "purple": "#A580E2",
+            "red": "#ED4A46",
+            "selectionBackground": "#FFFFFF",
+            "white": "#DEDEDE",
+            "yellow": "#E67F43"
+        },
+        {
+            "background": "#FBF3DB",
+            "black": "#ECE3CC",
+            "blue": "#006DCE",
+            "brightBlack": "#D5CDB6",
+            "brightBlue": "#006DCE",
+            "brightCyan": "#00978A",
+            "brightGreen": "#428B00",
+            "brightPurple": "#825DC0",
+            "brightRed": "#CC1729",
+            "brightWhite": "#3A4D53",
+            "brightYellow": "#A78300",
+            "cursorColor": "#FFFFFF",
+            "cyan": "#00978A",
+            "foreground": "#53676D",
+            "green": "#428B00",
+            "name": "Selenized Light",
+            "purple": "#825DC0",
+            "red": "#CC1729",
+            "selectionBackground": "#FFFFFF",
+            "white": "#3A4D53",
+            "yellow": "#BC5819"
+        },
         {
             "background": "#282A36",
             "black": "#282A36",
