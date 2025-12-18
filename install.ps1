@@ -117,6 +117,7 @@ if (-not $NoBackup) {
         '.config/conda',
         '.config/gem',
         '.config/gh/config',
+        '.config/ghostty',
         '.config/git/config',
         '.config/git/config.local',
         '.config/git/ignore',
@@ -245,7 +246,7 @@ if (Test-IsWindows) {
         Set-SymbolicLink -Target '.config/gnupg/gpg-agent.mac.conf' `
             -Path '.gnupg/gpg-agent.conf'
         # ghostty
-        Set-SymbolicLink -Target '.config/ghostty/config'
+        Set-SymbolicLink -Target '.config/ghostty'
     } else {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
