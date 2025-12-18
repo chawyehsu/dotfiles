@@ -52,6 +52,6 @@
 command = direct:/usr/local/bin/pwsh -l -i
 
 font-size = 14
-theme = base16-snazzy
+theme = base16-selenized-black
 macos-window-buttons = hidden
 macos-option-as-alt = true
