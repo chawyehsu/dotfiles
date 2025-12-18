@@ -113,6 +113,9 @@
 	# https://github.com/git-for-windows/git/issues/4844#issuecomment-1975141080
 	helper = # empty value, to make it ignore system settings
 
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+
 # Local/private config goes in the include
 [include]
 	path = config.local
