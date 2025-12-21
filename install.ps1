@@ -144,6 +144,8 @@ if (-not $NoBackup) {
         '.screenrc',
         '.volta',
         '.wgetrc'
+        '.zprofile',
+        '.zshrc'
     )
     $DotfilesToBackup = $DotfilesToBackup + $DotfilesToBeLinked
 
@@ -247,6 +249,9 @@ if (Test-IsWindows) {
             -Path '.gnupg/gpg-agent.conf'
         # ghostty
         Set-SymbolicLink -Target '.config/ghostty'
+        # Zsh
+        Set-SymbolicLink -Target '.zprofile'
+        Set-SymbolicLink -Target '.zshrc'
     } else {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
