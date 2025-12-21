@@ -193,6 +193,8 @@ if [ -x "$(command -v bat)" ]; then
 fi
 # Ruby rbenv
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
+# zoxide
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init bash)" && alias cd='z'
 
 #----------------------------#
 # The Chawye's styled prompt #
