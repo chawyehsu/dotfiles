@@ -4,7 +4,7 @@
 #------------------------------------------------------------------------------#
 # Support Platforms:
 #    Windows: Git-Bash/MSYS2/MinGW
-#      macOS: Bash
+#      macOS: Bash, Zsh
 #      Linux: Bash
 #------------------------------------------------------------------------------#
 # Test for an interactive shell.
@@ -21,7 +21,7 @@ export GIT_PS1_SHOWDIRTYSTATE=1
 # Enable Node.js (chalk) color
 export FORCE_COLOR=1
 # Xterm colors
-[ "$TERM" == "xterm" ] && export TERM=xterm-256color
+[ "$TERM" = "xterm" ] && export TERM=xterm-256color
 # XDG environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -29,6 +29,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 # XDG compliance
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
 # PATH updates -
 case "$OSTYPE" in
   darwin*)
@@ -42,6 +43,15 @@ case "$OSTYPE" in
     if [[ -d "/usr/local/sbin" && ":$PATH:" != *":/usr/local/sbin:"* ]]; then
       export PATH="/usr/local/sbin:$PATH"
     fi
+
+    # PATH updates - Add Homebrew:
+    _homebrew="/opt/homebrew/bin/brew"
+    [[ -f $_homebrew ]] && eval "$($_homebrew shellenv)"
+
+    # git-prompt (Homebrew):
+    _gitprompt="$(brew --prefix git)/etc/bash_completion.d/git-prompt.sh"
+    # shellcheck disable=SC1090
+    [ -f "$_gitprompt" ] && source "$_gitprompt"
 
     # bash-completion:
     _bashcomp="/usr/local/etc/bash_completion"
@@ -59,7 +69,7 @@ case "$OSTYPE" in
     _bunexe="$HOME/.bun/bin/bun"
     [ -f "$_bunexe" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
 
-    # Add git-prompt (Arch Linux):
+    # Add git-prompt (system):
     _gitprompt="/usr/share/git/completion/git-prompt.sh"
     # shellcheck disable=SC1090
     [ -f "$_gitprompt" ] && source "$_gitprompt"
@@ -68,6 +78,11 @@ esac
 _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
   export PATH="$_localbin:$PATH"
+fi
+# PATH updates - Add pixi bin:
+_pixibin="$HOME/.pixi/bin"
+if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
+  export PATH="$_pixibin:$PATH"
 fi
 
 #--------------------#
@@ -135,7 +150,7 @@ esac
 #  ssh-agent on Git-Bash/MSYS2/MinGW  #
 #-------------------------------------#
 # ref: https://help.github.com/articles/working-with-ssh-key-passphrases/
-if [ "$OSTYPE" == "msys" ] && [ -x "$(command -v ssh)" ]; then
+if [ "$OSTYPE" = "msys" ] && [ -x "$(command -v ssh)" ]; then
   # ensure .ssh directory exists
   [ ! -d "$HOME/.ssh" ] && mkdir -p "$HOME/.ssh" >| /dev/null
   # test ssh is Win32-OpenSSH or not
@@ -184,21 +199,21 @@ fi
 #----------------------------#
 function styled_prompt() {
   # Color table
-  local   RESET="\[\033[0m\]"
+  local   RESET=$'\033[0m'
   # shellcheck disable=SC2034
-  local   BLACK="\[\033[0;30m\]"
+  local   BLACK=$'\033[0;30m'
   # shellcheck disable=SC2034
-  local     RED="\[\033[0;31m\]"
-  local   GREEN="\[\033[0;32m\]"
-  local  YELLOW="\[\033[0;33m\]"
+  local     RED=$'\033[0;31m'
+  local   GREEN=$'\033[0;32m'
+  local  YELLOW=$'\033[0;33m'
   # shellcheck disable=SC2034
-  local    BLUE="\[\033[0;34m\]"
-  local MAGENTA="\[\033[0;35m\]"
-  local    CYAN="\[\033[0;36m\]"
+  local    BLUE=$'\033[0;34m'
+  local MAGENTA=$'\033[0;35m'
+  local    CYAN=$'\033[0;36m'
   # shellcheck disable=SC2034
-  local   WHITE="\[\033[0;37m\]"
+  local   WHITE=$'\033[0;37m'
   # Terminal title
-  local TERMTITLE="\[\e]0; \w\a\]"
+  local TERMTITLE=$'\e]0; \w\a'
 
   # Special system environment detection: WSL, MSYS2/MinGW
   if [[ "$(uname -r)" == *"icrosoft"* ]]; then
@@ -210,14 +225,21 @@ function styled_prompt() {
   fi
 
   # git-prompt
-  [ "$(type -t __git_ps1)" = 'function' ] && GITPS1="\$(__git_ps1 ' (%s)')"
+  # __git_ps1 not update issue:
+  #  https://askubuntu.com/questions/896445/#comment2153553_1163371
+  [ -n "$(declare -fF '__git_ps1')" ] && GITPS1="\$(__git_ps1 ' (%s)')"
 
   # PS1 command substitution issue with newline:
   #  https://stackoverflow.com/questions/33220492/
   #  https://stackoverflow.com/questions/21517281/
-  # __git_ps1 not update issue:
-  #  https://askubuntu.com/questions/896445/#comment2153553_1163371
   PS1="$TERMTITLE$GREEN\h$DIST $YELLOW\W$CYAN$GITPS1$RESET"$'\n\$ '
+
+  # Zsh support
+  if [ -n "$ZSH_VERSION" ]; then
+    setopt PROMPT_SUBST
+    # shellcheck disable=SC2034
+    PROMPT="$TERMTITLE$GREEN%m$DIST $YELLOW%1~$CYAN$GITPS1$RESET"$'\n\$ '
+  fi
 }
 # This is require to be at the end of .bashrc
 styled_prompt
