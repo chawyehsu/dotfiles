@@ -29,11 +29,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 # XDG compliance
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-# PATH updates - Add `~/.local/bin`:
-_localbin="$HOME/.local/bin"
-if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
-  export PATH="$_localbin:$PATH"
-fi
 # PATH updates -
 case "$OSTYPE" in
   darwin*)
@@ -52,9 +47,6 @@ case "$OSTYPE" in
     _bashcomp="/usr/local/etc/bash_completion"
     # shellcheck disable=SC1090
     [ -f "$_bashcomp" ] && source "$_bashcomp"
-
-    # Ruby rbenv:
-    [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
     ;;
   linux*)
     # PATH updates - Add linuxbrew:
@@ -72,6 +64,12 @@ case "$OSTYPE" in
     # shellcheck disable=SC1090
     [ -f "$_gitprompt" ] && source "$_gitprompt"
 esac
+# PATH updates - Add `~/.local/bin`:
+_localbin="$HOME/.local/bin"
+if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
+  export PATH="$_localbin:$PATH"
+fi
+
 #--------------------#
 #  ls and dircolors  #
 #--------------------#
@@ -132,6 +130,7 @@ case "$OSTYPE" in
     alias here="open ."
     ;;
 esac
+
 #-------------------------------------#
 #  ssh-agent on Git-Bash/MSYS2/MinGW  #
 #-------------------------------------#
@@ -166,11 +165,19 @@ if [ "$OSTYPE" == "msys" ] && [ -x "$(command -v ssh)" ]; then
     ssh-add
   fi
 fi
-#-------------------------------------#
-# Program-languages specific settings #
-#-------------------------------------#
-# conda initialize
+
+#----------------------------------#
+# Cross-platform programs settings #
+#----------------------------------#
+# conda
 [ -x "$(command -v conda)" ] && eval "$(conda 'shell.bash' 'hook')"
+# bat
+if [ -x "$(command -v bat)" ]; then
+  export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/config"
+  alias cat="bat"
+fi
+# Ruby rbenv
+[ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 
 #----------------------------#
 # The Chawye's styled prompt #
@@ -212,4 +219,5 @@ function styled_prompt() {
   #  https://askubuntu.com/questions/896445/#comment2153553_1163371
   PS1="$TERMTITLE$GREEN\h$DIST $YELLOW\W$CYAN$GITPS1$RESET"$'\n\$ '
 }
+# This is require to be at the end of .bashrc
 styled_prompt
