@@ -1,0 +1,3 @@
+# write an extra commit-header named `change-id`
+[git]
+write-change-id-header = true

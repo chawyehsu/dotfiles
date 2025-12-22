@@ -121,6 +121,7 @@ if (-not $NoBackup) {
         '.config/git/config',
         '.config/git/config.local',
         '.config/git/ignore',
+        '.config/jj/config.toml',
         '.config/mintty',
         '.config/nano',
         '.config/npm',
@@ -188,6 +189,7 @@ Set-SymbolicLink -Target '.config/gem'
 Set-SymbolicLink -Target '.config/gh/config.yml'
 Set-SymbolicLink -Target '.config/git/config'
 Set-SymbolicLink -Target '.config/git/ignore'
+Set-SymbolicLink -Target '.config/jj/config.toml' -Path '.jjconfig.toml'
 Set-SymbolicLink -Target '.config/mintty'
 Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/starship.toml'
