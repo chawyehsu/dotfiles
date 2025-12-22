@@ -249,8 +249,6 @@ if (Test-IsWindows) {
         # gpg
         Set-SymbolicLink -Target '.config/gnupg/gpg-agent.mac.conf' `
             -Path '.gnupg/gpg-agent.conf'
-        # ghostty
-        Set-SymbolicLink -Target '.config/ghostty'
         # Zsh
         Set-SymbolicLink -Target '.zprofile'
         Set-SymbolicLink -Target '.zshrc'
@@ -270,4 +268,6 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/pip/pip.ini' -Path '.config/pip/pip.conf'
     # screen
     Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
+    # Ghostty
+    Set-SymbolicLink -Target '.config/ghostty'
 }
