@@ -71,9 +71,15 @@ case "$OSTYPE" in
     [ -f "$_bunexe" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
 
     # Add git-prompt (system):
-    _gitprompt="/usr/share/git/completion/git-prompt.sh"
-    # shellcheck disable=SC1090
-    [ -f "$_gitprompt" ] && source "$_gitprompt"
+    _gitprompts=(
+      "/usr/share/git/completion/git-prompt.sh"
+      "/usr/share/git-core/contrib/completion/git-prompt.sh"
+      "/usr/share/doc/git/contrib/completion/git-prompt.sh"
+    )
+    for _gitprompt in "${_gitprompts[@]}"; do
+      # shellcheck disable=SC1090
+      [ -f "$_gitprompt" ] && source "$_gitprompt" && break
+    done
 esac
 # PATH updates - Add `~/.local/bin`:
 _localbin="$HOME/.local/bin"
