@@ -58,5 +58,5 @@ font-size = 15
 theme = base16-selenized-black
 macos-window-buttons = hidden
 macos-option-as-alt = true
-quit-after-last-window-closed = true
+quit-after-last-window-closed = false
 quit-after-last-window-closed-delay = 10m
