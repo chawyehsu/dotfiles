@@ -127,8 +127,11 @@ $Script:UNI_HOME = Get-FirstNonEmpty -Values @(
 #-----------------------#
 # PowerShell PSReadLine #
 #-----------------------#
-# readline implementation for PowerShell: https://github.com/PowerShell/PSReadLine
-# Most features are only available in PSReadLine v2.0+, older versions are not
+# readline implementation for PowerShell
+# - links:
+#     https://github.com/PowerShell/PSReadLine
+#     https://learn.microsoft.com/en-us/powershell/module/psreadline/about/about_psreadline
+# Most features are only available in PSReadLine v2+, hence older versions are not
 # supported and will be skipped.
 $_PSReadLineVersion = (Get-Module -Name 'PSReadline').Version
 if ($_PSReadLineVersion.Major -ge 2) {
@@ -153,7 +156,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
-    # Predictive IntelliSense
+    ## Predictive IntelliSense
     # It was introduced in v2.1.0, and enabled by default starting from v2.2.6
     # Refs:
     #   https://learn.microsoft.com/en-us/powershell/scripting/learn/shell/using-predictors
@@ -171,7 +174,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
         }
     }
 
-    # CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
+    ## CompletionPredictor (requires PS7.2+ and PSReadLine v2.2.2+)
     # This experimental module needs to be installed manually
     # Ref: https://github.com/PowerShell/CompletionPredictor
     if ((($PSVersionTable.PSVersion.Major -ge 7) -and
@@ -182,7 +185,8 @@ if ($_PSReadLineVersion.Major -ge 2) {
         Import-Module -Name CompletionPredictor
     }
 
-    # Smart Quotes Insert/Delete
+    ## Smart Insert/Delete
+    # Ref: https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
     # The next four key handlers are designed to make entering matched quotes
     # parens, and braces a nicer experience.  I'd like to include functions
     # in the module that do this, but this implementation still isn't as smart
@@ -372,6 +376,8 @@ if ($_PSReadLineVersion.Major -ge 2) {
         }
     }
 
+    ## Toggle Quotes
+    # Ref: https://github.com/PowerShell/PSReadLine/blob/master/PSReadLine/SamplePSReadLineProfile.ps1
     # Each time you press Alt+', this key handler will change the token
     # under or before the cursor.  It will cycle through single quotes,
     # double quotes, or no quotes each time it is invoked.
@@ -426,6 +432,48 @@ if ($_PSReadLineVersion.Major -ge 2) {
                 $extent.StartOffset,
                 $tokenText.Length,
                 $replacement)
+        }
+    }
+
+    ## Unicode Character Input
+    # Allow you to type a Unicode code point, then pressing `Ctrl+d` twice to
+    # transform it into a Unicode char.
+    Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+d' `
+        -BriefDescription ToUnicodeChar `
+        -LongDescription "Transform Unicode code point into a UTF-16 encoded string" `
+        -ScriptBlock {
+        $buffer = $null
+        $cursor = 0
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$buffer, [ref]$cursor)
+
+        # Match '0x' followed by 1-6 hex digits at the end of the buffer
+        $match = [regex]::Match($buffer, '0x([0-9a-fA-F]{1,6})$')
+        if ($match.Success) {
+            $hex = $match.Groups[1].Value
+            $number = 0
+            $isNumber = [int]::TryParse(
+                $hex,
+                [System.Globalization.NumberStyles]::AllowHexSpecifier,
+                $null,
+                [ref]$number)
+
+            if (-not $isNumber) {
+                return
+            }
+
+            if ($number -le 0x10FFFF) {
+                try {
+                    $unicode = [char]::ConvertFromUtf32($number)
+                    # Delete the matched hex string
+                    $start = $match.Index
+                    $length = $match.Length
+                    [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+                    [Microsoft.PowerShell.PSConsoleReadLine]::Delete($start, $length)
+                    [Microsoft.PowerShell.PSConsoleReadLine]::Insert($unicode)
+                } catch {
+                    # Ignore conversion errors
+                }
+            }
         }
     }
 }
