@@ -547,6 +547,7 @@ $env:ZIG_LOCAL_CACHE_DIR = Get-NormalizedPath "$env:XDG_CACHE_HOME/zig-local"
 $env:BUN_INSTALL = Get-NormalizedPath "$Script:UNI_HOME/.bun"
 $env:BUN_INSTALL_BIN = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
 
+
 #-----------------------#
 #   PowerShell Aliases  #
 #-----------------------#
@@ -577,6 +578,7 @@ Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
 Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
 # 'ni' is an alias for 'New-Item', for github:antfu-collective/ni
 Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
+
 
 #-------------------------------#
 #   Platform-specific Settings  #
@@ -672,9 +674,7 @@ if (Test-IsNotWindows) {
     # plugin to avoid this behavior
     Set-Alias -Name 'll' -Value Get-ChildItemWithLl -Option AllScope
 
-    #---------------------------------------------#
-    #    External Applications Tab-Completions    #
-    #---------------------------------------------#
+    ## CLI hooks & Tab completions
     # Anaconda/Miniconda - https://docs.conda.io/en/latest
     #  NOTES: This must be loaded before `pshazz`, since it also changes prompt
     if (Test-Command 'conda') {
@@ -688,7 +688,6 @@ if (Test-IsNotWindows) {
             Set-Alias -Name 'mamba' -Value 'micromamba' -Option AllScope
         }
     }
-
     # WinGet
     if (Test-Command 'winget') {
         Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
@@ -706,9 +705,7 @@ if (Test-IsNotWindows) {
         Import-Module "$SCOOP_HOME\modules\scoop-completion"
     }
 
-    #-----------------------#
-    #    Prompt & Styles    #
-    #-----------------------#
+    ## Prompt & Styles
     # pshazz - https://github.com/lukesampson/pshazz
     if (Test-Command 'pshazz') {
         pshazz init
@@ -724,6 +721,10 @@ if (Test-IsNotWindows) {
     }
 }
 
+
+#----------------------------------------#
+#   CLI tools settings across platforms  #
+#----------------------------------------#
 if (Test-Command 'bat') {
     $env:BAT_CONFIG_PATH = Get-NormalizedPath "$Script:UNI_HOME/.config/bat/config"
     Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
@@ -738,10 +739,7 @@ if (Test-Command 'zoxide') {
     Set-Alias -Name 'cd' -Value 'z' -Option AllScope
 }
 
-
-#------------------------------#
-#   CLI tools tab-completions  #
-#------------------------------#
+## Tab-completions
 @('k3d') | ForEach-Object {
     if (Test-Command $_) {
         (& $_ 'completion' 'powershell') | Out-String | Invoke-Expression
