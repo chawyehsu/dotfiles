@@ -22,7 +22,7 @@ color pink "@[!"'&*./:=?@\^`{}~-]"
 color mint "@\|"
 
 # Menu items.
-color brightred "^\*[[:space:]]+.*::.*"
+color lightred "^\*[[:space:]]+.*::.*"
 
 # Comments.
 color green "@c(omment)?[[:space:]]+.*"

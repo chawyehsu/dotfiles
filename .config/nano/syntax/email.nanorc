@@ -8,10 +8,10 @@ color cyan "^> ?>.*"
 color yellow "^> ?> ?>.*"
 
 # Email addresses.
-color brightmagenta "<[^@]+@[^@]+>"
+color lightmagenta "<[^@]+@[^@]+>"
 
 # URLs.
-color brightblue "(https?|ftp)://\S+\.\S+[^[:space:].)]"
+color lightblue "(https?|ftp)://\S+\.\S+[^[:space:].)]"
 
 # Signatures, even quoted ones.
 color yellow start="^>* ?-- $" end="^>* ?$"

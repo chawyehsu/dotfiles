@@ -9,7 +9,7 @@ set matchbrackets "(<[{)>]}"
 set minibar
 set multibuffer
 set nohelp
-set numbercolor brightblack,normal
+set numbercolor lightblack,normal
 set stateflags
 set statuscolor normal,normal
 ## 2 is used here and 4size can be inserted by indenting twice

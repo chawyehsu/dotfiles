@@ -27,10 +27,10 @@ color red "\<(Number|Object|RegExp|String)\>"
 color red "\<(true|false)\>"
 
 ## String
-color brightyellow "L?\"(\\"|[^"])*\""
-color brightyellow "L?'(\'|[^'])*'"
-color brightcyan "L?`(\`|[^`])*`"
-color brightwhite,blue start="\$\{" end="\}"
+color lightyellow "L?\"(\\"|[^"])*\""
+color lightyellow "L?'(\'|[^'])*'"
+color lightcyan "L?`(\`|[^`])*`"
+color lightwhite,blue start="\$\{" end="\}"
 
 ## Escapes
 color red "\\[0-7][0-7]?[0-7]?|\\x[0-9a-fA-F]+|\\[bfnrt'"\?\\]"
@@ -40,15 +40,15 @@ color magenta start="/\*" end="\*/"
 color magenta "//.*$"
 
 ## JSX Attributes
-color brightblue "\<(key|ref|defaultValue|dangerouslySetInnerHTML|suppressContentEditableWarning|suppressHydrationWarning|autoFocus|contentEditable|spellCheck)\>"
+color lightblue "\<(key|ref|defaultValue|dangerouslySetInnerHTML|suppressContentEditableWarning|suppressHydrationWarning|autoFocus|contentEditable|spellCheck)\>"
 
 ## Emphasis tags
-color brightwhite start="<([biu]|em|strong)[^>]*>" end="</([biu]|em|strong)>"
+color lightwhite start="<([biu]|em|strong)[^>]*>" end="</([biu]|em|strong)>"
 
 ## Tags
 color red start="<" end=">"
-## color brightyellow start="<([biu]|em|strong)[^>]*>" end="</([biu]|em|strong)>"
-color brightyellow ""(\\.|[^"])*""
+## color lightyellow start="<([biu]|em|strong)[^>]*>" end="</([biu]|em|strong)>"
+color lightyellow ""(\\.|[^"])*""
 
 ## Attributes
 color green "[[:space:]](abbr|accept(-charset)?|accesskey|action|[av]?link|alt|archive|axis|background|(bg)?color|border)="

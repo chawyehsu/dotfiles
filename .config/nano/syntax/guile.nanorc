@@ -7,13 +7,13 @@ comment ";"
 # Basic scheme functions
 color green "\<(do|if|lambda|let(rec)?|map|unless|when)\>"
 # Defining things
-color brightcyan "\<define(-macro|-module|-public|-syntax)?\>"
+color lightcyan "\<define(-macro|-module|-public|-syntax)?\>"
 # Quoted symbols
-color brightyellow "'\<(\w|-)+\>"
+color lightyellow "'\<(\w|-)+\>"
 # Chars
-color brightmagenta "#\\(.|\w+)"
+color lightmagenta "#\\(.|\w+)"
 # Booleans
-color brightred "(#t|#f)\>"
+color lightred "(#t|#f)\>"
 # Keywords
 color blue "#?:(\w|[?-])+"
 # Strings

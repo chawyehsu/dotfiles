@@ -17,13 +17,13 @@ color green "<-[[:blank:]]*chan\>|\<chan[[:blank:]]*<-"
 color blue "\<(append|cap|close|complex|copy|delete|imag|len|make|new|panic|print|println|real|recover)\>"
 
 # Control structures.
-color brightyellow "\<(case|default|defer|else|for|go|if|range|select|switch)\>"
+color lightyellow "\<(case|default|defer|else|for|go|if|range|select|switch)\>"
 
 # Control flow.
 color magenta "\<(break|continue|fallthrough|goto|return)\>"
 
 # Declarations.
-color brightcyan "\<(package|import)\>"
+color lightcyan "\<(package|import)\>"
 
 # Literals.
 color red "\<(true|false|nil|iota|_)\>"
@@ -38,11 +38,11 @@ color red ""([^"\]|\\.)*"|'([^'\]|\\.)+'"
 color red start=""([^"\]|\\.)*\\[[:blank:]]*$" end="^([^"\]|\\.)*""
 
 # Comments.
-color brightblue "//.*"
-color brightblue start="/\*" end="\*/"
+color lightblue "//.*"
+color lightblue start="/\*" end="\*/"
 
 # Special comments.
-color brightcyan "//[[:blank:]]*\+build[[:blank:]]+(([a-zA-Z_0-9]+[[:blank:]]*)+,[[:blank:]]*)*[a-zA-Z_0-9]+"
+color lightcyan "//[[:blank:]]*\+build[[:blank:]]+(([a-zA-Z_0-9]+[[:blank:]]*)+,[[:blank:]]*)*[a-zA-Z_0-9]+"
 
 # Trailing whitespace.
 color ,green "[[:space:]]+$"

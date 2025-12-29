@@ -10,11 +10,11 @@ comment "<!--|-->"
 color magenta "^[ 	]*>.*"
 
 # List-item markers:
-color brightmagenta "^(    |	)* ? ? ?(\*|\+|-|[1-9]+\.)( +|	)"
+color lightmagenta "^(    |	)* ? ? ?(\*|\+|-|[1-9]+\.)( +|	)"
 
 # Emphasis and strong:
 color green "\*[^* 	][^*]*\*|_[^_ 	][^_]*_"
-color brightgreen "\*\*[^*]+\*\*|__[^_]+__"
+color lightgreen "\*\*[^*]+\*\*|__[^_]+__"
 
 # Strikethrough:
 color red "~~[^~]+~~"
@@ -23,17 +23,17 @@ color red "~~[^~]+~~"
 color ,blue "  $"
 
 # URLs and links:
-color brightblue "\[[^]]+\]\([^)]+\)"
-color brightmagenta "!?\[[^]]+\]"
+color lightblue "\[[^]]+\]\([^)]+\)"
+color lightmagenta "!?\[[^]]+\]"
 
 # Code snippet, indented code, and fenced code:
-color brightcyan "`[^`]+`"
-color brightcyan "^(    |	)+ *([^*+0-9> 	-]|[*+-]\S|[0-9][^.]).*"
-color brightcyan start="```" end="```$"
+color lightcyan "`[^`]+`"
+color lightcyan "^(    |	)+ *([^*+0-9> 	-]|[*+-]\S|[0-9][^.]).*"
+color lightcyan start="```" end="```$"
 
 # Headings and the underlining of headings:
-color brightyellow "^#.*"
-color brightyellow "^(=+|-+)$"
+color lightyellow "^#.*"
+color lightyellow "^(=+|-+)$"
 
 # HTML tags and comments:
 color cyan "<[^>]+>"

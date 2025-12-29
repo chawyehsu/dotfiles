@@ -1,16 +1,16 @@
 syntax "editorconfig" "\.editorconfig(\.old|\.bak|~)?$"
 
 ## Values
-color brightred "=.*$"
+color lightred "=.*$"
 
 ## Equal sign
 color yellow "="
 
 ## Sections
-color brightgreen "^\s*\[.*\]"
+color lightgreen "^\s*\[.*\]"
 
 ## Keys
 color cyan "^\s*[a-zA-Z0-9_\.]+"
 
 ## Comments
-color brightblack ";.*$"
+color lightblack ";.*$"

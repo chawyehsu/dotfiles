@@ -5,18 +5,18 @@ magic "assembler source"
 comment "//"
 
 color red "\<[A-Z_]{2,}\>"
-color brightgreen "\.(data|subsection|text)"
+color lightgreen "\.(data|subsection|text)"
 color green "\.(align|file|globl|global|hidden|section|size|type|weak)"
-color brightyellow "\.(ascii|asciz|byte|double|float|hword|int|long|short|single|struct|word)"
-color brightred "^[[:blank:]]*[.0-9A-Za-z_]*:"
-color brightcyan "^[[:blank:]]*#[[:blank:]]*(define|undef|include|ifn?def|endif|elif|else|if|warning|error)"
+color lightyellow "\.(ascii|asciz|byte|double|float|hword|int|long|short|single|struct|word)"
+color lightred "^[[:blank:]]*[.0-9A-Za-z_]*:"
+color lightcyan "^[[:blank:]]*#[[:blank:]]*(define|undef|include|ifn?def|endif|elif|else|if|warning|error)"
 
 # Strings and names of included files.
-color brightyellow ""([^"\]|\\.)*"|<[^= 	]*>"
+color lightyellow ""([^"\]|\\.)*"|<[^= 	]*>"
 
 # Comments.
-color brightblue "//.*"
-color brightblue start="/\*" end="\*/"
+color lightblue "//.*"
+color lightblue start="/\*" end="\*/"
 
 # Trailing whitespace.
 color ,green "[[:space:]]+$"

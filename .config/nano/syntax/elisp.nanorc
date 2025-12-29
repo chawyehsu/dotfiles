@@ -5,25 +5,25 @@ magic "Lisp/Scheme program"
 comment ";"
 
 # Basic functions/macros
-color brightcyan "\<(if|when|unless|cond|and|or|lambda|let|progn|while|dolist|dotimes)\>"
-color brightcyan "\<save-((window-)?excursion|restriction)\>"
-color brightcyan "\<eval-(and|when)-compile\>"
+color lightcyan "\<(if|when|unless|cond|and|or|lambda|let|progn|while|dolist|dotimes)\>"
+color lightcyan "\<save-((window-)?excursion|restriction)\>"
+color lightcyan "\<eval-(and|when)-compile\>"
 # Defining functions
-color brightcyan "\<def(un|macro|subst|generic|alias)\>"
-color brightcyan "\<cl-def(un|macro|subst|generic|struct|type)\>"
-color brightcyan "\<define-(derived|minor|generic)-mode\>"
+color lightcyan "\<def(un|macro|subst|generic|alias)\>"
+color lightcyan "\<cl-def(un|macro|subst|generic|struct|type)\>"
+color lightcyan "\<define-(derived|minor|generic)-mode\>"
 # Defining variables
-color brightcyan "\<def(class|const|var(-local|alias)?)\>"
+color lightcyan "\<def(class|const|var(-local|alias)?)\>"
 # Customization functions
-color brightcyan "\<def(custom|face|group|theme)\>"
+color lightcyan "\<def(custom|face|group|theme)\>"
 # Setting values
-color brightcyan "\<(setq(-default|-local)?|setf|push|pop|declare(-function)?)\>"
+color lightcyan "\<(setq(-default|-local)?|setf|push|pop|declare(-function)?)\>"
 # Feature functions
-color brightcyan "\<(require|provide)\>"
+color lightcyan "\<(require|provide)\>"
 # Quoted symbols
-color brightyellow "#?'\<(\w|-)+\>"
+color lightyellow "#?'\<(\w|-)+\>"
 # Booleans
-color brightred "\<(t|nil)\>"
+color lightred "\<(t|nil)\>"
 # Keywords
 color blue ":(\w|[?-])+"
 # Strings

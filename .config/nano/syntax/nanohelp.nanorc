@@ -14,4 +14,4 @@ color normal " \(|\) "
 color cyan "^M-(\)|")"
 
 # Quoted indicators:
-color brightred "'(\^|M-)'"
+color lightred "'(\^|M-)'"
