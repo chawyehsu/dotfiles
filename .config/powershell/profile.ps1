@@ -488,6 +488,7 @@ $env:TZ = 'UTC-8'
 $env:EDITOR = 'nano'
 # Rustup mirror
 $env:RUSTUP_DIST_SERVER = 'https://mirrors.ustc.edu.cn/rust-static'
+$env:RUSTUP_UPDATE_ROOT = 'https://mirrors.ustc.edu.cn/rust-static/rustup'
 # sccache
 $env:SCCACHE_CACHE_SIZE = Get-FirstNonEmpty @($env:SCCACHE_CACHE_SIZE, '20G')
 # Node.js COLOR
