@@ -631,6 +631,22 @@ if (Test-IsNotWindows) {
     if (Test-Command 'starship') {
         (& starship 'init' 'powershell') | Out-String | Invoke-Expression
     }
+
+    # Override PSReadLine colors
+    Set-PSReadLineOption -Colors @{
+        "Command"   = [ConsoleColor]::Cyan
+        "Comment"   = [ConsoleColor]::DarkGray
+        "Keyword"   = [ConsoleColor]::DarkCyan
+        "Member"    = [ConsoleColor]::DarkYellow
+        "Number"    = [ConsoleColor]::Blue
+        "Operator"  = [ConsoleColor]::Gray
+        "Parameter" = [ConsoleColor]::White
+        "String"    = [ConsoleColor]::Green
+        "Type"      = [ConsoleColor]::Magenta
+        "Variable"  = [ConsoleColor]::White
+        # "Emphasis"  = [ConsoleColor]::DarkMagenta
+        # "Error"     = [ConsoleColor]::DarkRed
+    }
 } else {
     $env:COMPUTERNAME = $env:COMPUTERNAME.Substring(0, 1).ToUpper() + $env:COMPUTERNAME.Substring(1).ToLower()
     # Define Scoop home
