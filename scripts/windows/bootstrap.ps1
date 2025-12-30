@@ -1,8 +1,9 @@
 #Requires -Version 5.1
 
-Set-StrictMode -Version Latest
+Set-StrictMode -Version 1.0
 
 $Script:SCOOP_INSTALLER_URL = 'https://raw.githubusercontent.com/ScoopInstaller/Install/ff4eedda58d832b8225d7697510f097ebe8ab071/install.ps1'
+$Script:CONCFG_PRESET_URL = 'https://raw.githubusercontent.com/chawyehsu/base16-concfg/main/presets/base16-selenized-black.json'
 $Script:PROXY = if (Test-Path Env:HTTPS_PROXY) {
     "$env:HTTPS_PROXY"
 } elseif (Test-Path Env:HTTP_PROXY) {
@@ -49,7 +50,7 @@ function Install-Scoop {
     scoop config show_update_log false
     scoop install 7zip
     # dorado/git is chosen because it does not expose (ba)sh executables
-    scoop install https://raw.githubusercontent.com/chawyehsu/dorado/refs/heads/master/bucket/git.json
+    scoop install https://raw.githubusercontent.com/chawyehsu/dorado/master/bucket/git.json
 
     scoop update
     scoop bucket add dorado https://github.com/chawyehsu/dorado
@@ -62,6 +63,14 @@ function Install-Scoop {
     scoop install main/concfg dorado/trash dorado/nano dorado/hok dorado/pixi main/pshazz
 }
 
+function Import-Preferences {
+    if (Test-CommandAvailable 'concfg') {
+        Write-Host -ForegroundColor Green "Importing concfg preset..."
+        concfg clean
+        concfg import $Script:CONCFG_PRESET_URL -yn
+    }
+}
+
 # Main flow
 if (Test-IsNotWindows) {
     Write-Output "This script is for Windows only."
@@ -70,3 +79,4 @@ if (Test-IsNotWindows) {
 
 $ErrorActionPreference = 'Stop'
 Install-Scoop
+Import-Preferences
