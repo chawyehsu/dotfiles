@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Function to check if pixi is installed
+check_pixi_installed() {
+    command -v pixi >/dev/null 2>&1
+}
+
 # Function to install PowerShell on Ubuntu
 ubuntu_install_pwsh() {
     # https://learn.microsoft.com/en-us/powershell/scripting/install/install-ubuntu
@@ -53,6 +58,20 @@ debian_install_pwsh() {
 if [[ "$(uname -s)" != "Linux" ]]; then
     echo "This script is intended for Linux systems only."
     exit 1
+fi
+
+# Check architecture
+ARCH=$(uname -m)
+if [[ "$ARCH" != "x86_64" && "$ARCH" != "aarch64" ]]; then
+    echo "Unsupported architecture: $ARCH. Only x86_64 and aarch64 are supported."
+    exit 1
+fi
+
+# Try installing via pixi if available
+if check_pixi_installed; then
+    echo "Installing PowerShell via pixi..."
+    pixi global install powershell
+    exit 0
 fi
 
 # Check the distribution and call the appropriate function
