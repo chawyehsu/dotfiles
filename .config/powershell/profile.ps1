@@ -753,10 +753,8 @@ if (Test-Command 'bat') {
 }
 
 if (Test-Command 'zoxide') {
-    Invoke-Expression (& {
-            $hook = if ($PSVersionTable.PSVersion.Major -lt 6) { 'prompt' } else { 'pwd' }
-            (zoxide init --hook $hook powershell) -join "`n"
-        })
+    # Requires zoxide v0.9.1+, and it should be placed after `starship` init
+    Invoke-Expression (& { (zoxide init powershell | Out-String) })
     # Overwrite `cd` with `z`
     Set-Alias -Name 'cd' -Value 'z' -Option AllScope
 }
