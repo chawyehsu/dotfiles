@@ -12,3 +12,18 @@ disabled = false
 
 [nodejs]
 symbol = "⬢ "
+
+[git_branch]
+disabled = true
+[git_commit]
+disabled = true
+[git_state]
+disabled = true
+[git_status]
+disabled = true
+
+[custom.jj]
+#command = "jj-starship"
+when = "jj-starship detect"
+shell = ["jj-starship"]
+format = "$output "
