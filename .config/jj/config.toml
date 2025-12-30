@@ -1,3 +1,26 @@
-# write an extra commit-header named `change-id`
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+# doc: https://docs.jj-vcs.dev/latest/config/
+[user]
+name = "Chawye Hsu"
+email = "su+git@chawyehsu.com"
+key = "0F08DA819FFD7B2D519673B65AE5178B3E1624DA"
+
+[signing]
+behavior = "own"
+backend = "gpg"
+
+[ui]
+default-command = "log"
+editor = "nano"
+
 [git]
+fetch = "upstream"
+push = "origin"
+# (batch) sign commits only upon push
+sign-on-push = true
+# write an extra commit-header named `change-id`
 write-change-id-header = true
+
+[working-copy]
+# similar to git's core.autocrlf = input
+eol-conversion = "input"
