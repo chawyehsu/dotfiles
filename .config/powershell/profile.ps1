@@ -601,9 +601,9 @@ if (Test-IsNotWindows) {
 
     function Get-ChildItemWithLs {
         # Ignore some files that I don't want to see when calling ls command
-        $lsIgnore = "'{0}'" -f (@(
-                '$RECYCLE.BIN', 'System Volume Information'
-            ) -join "','")
+        $lsIgnore = @(
+            '$RECYCLE.BIN', 'System Volume Information'
+        ) | ForEach-Object { "--ignore=$_" }
 
         # Find available ls executable
         $lsCmd = @('gls', '/bin/ls') | Where-Object {
@@ -617,7 +617,7 @@ if (Test-IsNotWindows) {
             & $lsCmd -F -G @args
         } else {
             # GNU ls
-            & $lsCmd -F --group-directories-first --color --ignore="{$lsIgnore}" @args
+            & $lsCmd -F --group-directories-first --color @lsIgnore @args
         }
     }
     function Get-ChildItemWithLl { Get-ChildItemWithLs -lh @args }
