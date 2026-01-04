@@ -39,3 +39,7 @@ write-change-id-header = true
 [working-copy]
 # similar to git's core.autocrlf = input
 eol-conversion = "input"
+
+[revset-aliases]
+# https://github.com/jj-vcs/jj/discussions/6890
+_ = "@"
