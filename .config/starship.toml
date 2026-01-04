@@ -27,3 +27,4 @@ disabled = true
 when = "jj-starship detect"
 shell = ["jj-starship"]
 format = "$output "
+use_stdin = true
