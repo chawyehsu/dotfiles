@@ -9,8 +9,23 @@ key = "0F08DA819FFD7B2D519673B65AE5178B3E1624DA"
 behavior = "own"
 backend = "gpg"
 
+[aliases]
+ab = ["absorb"]
+d = ["describe"]
+dm = ["describe", "-m"]
+df = ["diff"]
+drop = ["abandon"]
+l = ["log"]
+lr = ["log", "-r"]
+lg = ["log", "-r", "all()"]
+re = ["restore", "-i"]
+sp = ["split"]
+sq = ["squash", "-i"]
+sqa = ["squash"]
+
 [ui]
 default-command = "log"
+diff-editor = ":builtin"
 editor = "nano"
 
 [git]
