@@ -29,8 +29,6 @@ diff-editor = ":builtin"
 editor = "nano"
 
 [git]
-fetch = "upstream"
-push = "origin"
 # (batch) sign commits only upon push
 sign-on-push = true
 # write an extra commit-header named `change-id`
