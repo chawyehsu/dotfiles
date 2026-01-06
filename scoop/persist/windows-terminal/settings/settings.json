@@ -43,11 +43,11 @@
         },
         {
             "id": "Terminal.PrevTab",
-            "keys": "alt+left"
+            "keys": "ctrl+left"
         },
         {
             "id": "Terminal.NextTab",
-            "keys": "alt+right"
+            "keys": "ctrl+right"
         }
     ],
     "newTabMenu":
