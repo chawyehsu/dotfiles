@@ -519,9 +519,7 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
     Add-ToPath $dotnetPath
     # pixi
     $pixiBinPath = Get-NormalizedPath "$Script:UNI_HOME/.pixi/bin"
-    if (Test-Path $pixiBinPath) {
-        Add-ToPath $pixiBinPath
-    }
+    Add-ToPath $pixiBinPath
     # moonbit
     $moonbitBinPath = Get-NormalizedPath "$Script:UNI_HOME/.moon/bin"
     if (Test-Path $moonbitBinPath) {
