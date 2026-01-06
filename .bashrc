@@ -194,6 +194,7 @@ fi
 _pixibin="$HOME/.pixi/bin"
 if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
   export PATH="$_pixibin:$PATH"
+  [ -x "$(command -v pixi)" ] && eval "$(pixi completion -s bash)"
 fi
 # moonbit
 _moonbitbin="$HOME/.moon/bin"
