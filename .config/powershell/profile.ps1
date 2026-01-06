@@ -143,12 +143,12 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Cursor movement
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Key Alt+f -Function ForwardWord
+    Set-PSReadLineKeyHandler -Key Alt+s -Function BackwardWord
     Set-PSReadLineKeyHandler -Key Ctrl+a -Function SelectAll
-    Set-PSReadLineKeyHandler -Key Ctrl+f -Function ForwardWord
-    Set-PSReadLineKeyHandler -Key Ctrl+b -Function BackwardWord
     Set-PSReadLineKeyHandler -Key Ctrl+x -Function Cut
-    Set-PSReadLineKeyHandler -Key Ctrl+LeftArrow -Function BackwardWord
-    Set-PSReadLineKeyHandler -Key Ctrl+RightArrow -Function ForwardWord
+    Set-PSReadLineKeyHandler -Key Alt+LeftArrow -Function BackwardWord
+    Set-PSReadLineKeyHandler -Key Alt+RightArrow -Function ForwardWord
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+LeftArrow -Function SelectBackwardWord
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+RightArrow -Function SelectForwardWord
     Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
