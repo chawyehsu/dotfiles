@@ -2,9 +2,14 @@
 rustc-wrapper = 'sccache'
 
 [source.crates-io]
-registry = 'https://github.com/rust-lang/crates.io-index'
-replace-with = 'ustc'
+replace-with = 'tuna'
+
 [source.tuna]
-registry = 'https://mirrors.tuna.tsinghua.edu.cn/git/crates.io-index.git'
+registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+[registries.tuna]
+index = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+
 [source.ustc]
-registry = 'https://mirrors.ustc.edu.cn/crates.io-index'
+registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
+[registries.ustc]
+index = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"
