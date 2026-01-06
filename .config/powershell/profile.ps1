@@ -550,6 +550,8 @@ $env:BUN_INSTALL_BIN = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
 #-----------------------#
 #   PowerShell Aliases  #
 #-----------------------#
+function Exit-Shell { exit }
+Set-Alias -Name ':q' -Value Exit-Shell -Option AllScope
 # Efficient helpers
 Set-Alias -Name 'c' -Value 'cls' -Option AllScope
 # Get WAN ip
