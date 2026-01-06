@@ -52,7 +52,7 @@ networkingMode=NAT
 # refs:
 # - [1]: https://learn.microsoft.com/en-us/windows/wsl/wsl-config#main-wsl-settings
 # - [2]: https://devblogs.microsoft.com/commandline/windows-subsystem-for-linux-september-2023-update/
-# autoProxy=false
+autoProxy=false
 
 # Experimental features may stop working or become stable as WSL continues to evolve.
 [experimental]
