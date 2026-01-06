@@ -271,3 +271,10 @@ if (Test-IsWindows) {
     # Ghostty
     Set-SymbolicLink -Target '.config/ghostty'
 }
+
+# WSL
+if ($IsLinux -and (Get-Content '/proc/version' | Select-String -Pattern 'microsoft')) {
+    $root = (Get-NormalizedPath "$PSScriptRoot")
+    Write-Host 'Detected WSL environment. You probably want to apply wsl config for the guest Linux by:' -ForegroundColor Yellow
+    Write-Host "  sudo cp $root/.config/wsl/wsl.conf /etc/wsl.conf" -ForegroundColor Cyan
+}
