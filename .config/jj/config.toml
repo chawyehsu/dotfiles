@@ -27,6 +27,8 @@ s = ["status"]
 sp = ["split"]
 sq = ["squash", "-i"]
 sqa = ["squash"]
+# ref: https://shaddy.dev/notes/jj-tug/
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
 
 [ui]
 default-command = "log"
