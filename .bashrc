@@ -9,6 +9,12 @@
 #------------------------------------------------------------------------------#
 # Test for an interactive shell.
 [[ $- != *i* ]] && return
+
+# Switch to pwsh if it's available and enabled
+_pwshmark="$HOME/.cache/powershell/loginsh.mark"
+_pwshbin="$HOME/.pixi/bin/pwsh"
+[ -f $_pwshmark ] && [ -x $_pwshbin ] && export SHELL=$_pwshbin && exec $_pwshbin -l
+
 #-----------------------#
 # Environment Variables #
 #-----------------------#
