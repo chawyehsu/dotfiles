@@ -266,7 +266,9 @@ if (Test-IsWindows) {
         # Linux
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
             -Path '.config/git/config.local'
-
+        # gpg
+        Set-SymbolicLink -Target '.config/gnupg/gpg-agent.linux.conf' `
+            -Path '.gnupg/gpg-agent.conf'
         # htop
         Set-SymbolicLink -Target '.config/htop/htoprc'
     }
