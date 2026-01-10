@@ -585,6 +585,30 @@ Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 #   Platform-specific Settings  #
 #-------------------------------#
 if (Test-IsNotWindows) {
+    # While POSIX-compliant *nix utilities assume that the `PWD`
+    # environment variable accurately reflects the current working
+    # directory, PowerShell does not follow this convention.
+    #
+    # PowerShell is not merely a shell but a multithreaded automation
+    # framework. It maintains its own notion of the working directory
+    # at the process level, typically initialized to its startup location.
+    #
+    # PowerShell then exposes this internal state through the `$env:PWD`
+    # environment variable. On *nix systems, this creates an insidious
+    # conflict: tools trust `PWD` to follow POSIX semantics, but PowerShell
+    # provides a value derived from its internal state instead. This
+    # discrepancy can lead to unexpected behavior when invoking external
+    # utilities in PowerShell that rely on the environment variable, expecially
+    # when using PowerShell as the login/interactive shell.
+    # 
+    # After digging into and reading some issues, it seems that there is
+    # currently no better option than deleting `$env:PWD`.
+    #
+    # refs:
+    #  - https://github.com/PowerShell/PowerShell/issues/7388
+    #  - https://github.com/PowerShell/PowerShell/issues/17149
+    #  - https://github.com/PowerShell/PowerShell/issues/19446
+    Remove-Item Env:PWD
     # gpg requires this to display passphrase prompt
     $env:GPG_TTY = $(tty)
 
