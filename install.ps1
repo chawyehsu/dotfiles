@@ -241,6 +241,16 @@ if (Test-IsWindows) {
     # Zed
     Set-SymbolicLink -Target '.config/zed' -Path "$env:APPDATA/Zed"
 } else {
+    # gnupg directory permission fix
+    $gnupgPath = Join-Path $DSTROOT '.gnupg'
+    if (Test-Path $gnupgPath) {
+        Write-Host "Updated permissions for gnupg directory at $gnupgPath" -ForegroundColor Yellow
+        chown -R $(whoami) $gnupgPath
+        # `--%` (skip args parsing) is needed as we are in pwsh
+        find $gnupgPath --% -type d -exec chmod 700 {} ;
+        find $gnupgPath --% -type f -exec chmod 600 {} ;
+    }
+
     # git config for macOS and Linux
     if ($IsMacOS) {
         # macOS
