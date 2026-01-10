@@ -593,13 +593,14 @@ if (Test-IsNotWindows) {
     # framework. It maintains its own notion of the working directory
     # at the process level, typically initialized to its startup location.
     #
-    # PowerShell then exposes this internal state through the `$env:PWD`
-    # environment variable. On *nix systems, this creates an insidious
-    # conflict: tools trust `PWD` to follow POSIX semantics, but PowerShell
-    # provides a value derived from its internal state instead. This
-    # discrepancy can lead to unexpected behavior when invoking external
-    # utilities in PowerShell that rely on the environment variable, expecially
-    # when using PowerShell as the login/interactive shell.
+    # PowerShell then exposes this internal state for its multithreaded
+    # programming environment through the `$env:PWD` environment variable.
+    # On *nix systems, this creates an insidious conflict: tools trust `PWD`
+    # to follow POSIX semantics, but PowerShell provides a value derived from
+    # its internal state instead. This discrepancy can lead to unexpected
+    # behavior when invoking external utilities in PowerShell that rely on
+    # the environment variable, expecially when using PowerShell as the
+    # login/interactive shell.
     # 
     # After digging into and reading some issues, it seems that there is
     # currently no better option than deleting `$env:PWD`.
