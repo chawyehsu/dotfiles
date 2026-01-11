@@ -40,7 +40,7 @@ disabled = true
 os = "linux"
 command = "printf '(WSL)'"
 shell = ["sh"]
-when = "test -n $WSL_DISTRO_NAME"
+when = 'test -n "$WSL_DISTRO_NAME"'
 format = "[$output]($style)"
 style = "purple"
 
