@@ -20,7 +20,7 @@
 	ci = commit -s
 	cm = commit -s -m
 	co = checkout
-	df = diff
+	df = diff --word-diff=color
 	lg = log -n 10 --graph --pretty=format:'%C(yellow)%h%Creset %Cgreen(%cr) %C(bold blue)%an%Creset:%Cred%d%Creset %s' --abbrev-commit --date=relative
 	sw = switch
 	a = add
