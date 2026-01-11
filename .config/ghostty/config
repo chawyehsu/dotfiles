@@ -58,6 +58,7 @@ font-size = 15
 theme = base16-selenized-black
 macos-window-buttons = hidden
 macos-option-as-alt = true
+macos-titlebar-style = tabs
 quit-after-last-window-closed = false
 quit-after-last-window-closed-delay = 10m
 background-opacity = 0.97
