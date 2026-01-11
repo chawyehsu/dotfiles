@@ -142,6 +142,7 @@ if (-not $NoBackup) {
         '.cargo/config',
         '.config/bat',
         '.config/conda',
+        '.config/fastfetch/config.jsonc',
         '.config/gem',
         '.config/gh/config',
         '.config/ghostty',
@@ -213,6 +214,7 @@ Set-SymbolicLink -Target '.bashrc'
 Set-SymbolicLink -Target '.config/bat'
 Set-SymbolicLink -Target '.cargo/config.toml'
 Set-SymbolicLink -Target '.config/conda'
+Set-SymbolicLink -Target '.config/fastfetch/config.jsonc'
 Set-SymbolicLink -Target '.config/gem'
 Set-SymbolicLink -Target '.config/gh/config.yml'
 Set-SymbolicLink -Target '.config/git/config'
