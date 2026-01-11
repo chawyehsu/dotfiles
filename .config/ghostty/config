@@ -71,6 +71,7 @@ keybind = shift+alt+arrow_left=goto_split:left
 keybind = shift+alt+arrow_right=goto_split:right
 
 # Options
+term = xterm-256color
 maximize = true
 window-width = 92
 window-height = 30
