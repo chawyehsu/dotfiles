@@ -62,3 +62,5 @@ quit-after-last-window-closed = false
 quit-after-last-window-closed-delay = 10m
 background-opacity = 0.97
 background-blur = 10
+gtk-titlebar-style = tabs
+gtk-wide-tabs = false
