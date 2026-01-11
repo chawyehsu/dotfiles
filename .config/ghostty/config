@@ -52,6 +52,7 @@
 command = direct:/usr/local/bin/pwsh -nol -l -i
 
 # Keybindings
+keybind = ctrl+alt+arrow_down=toggle_maximize
 keybind = ctrl+arrow_left=previous_tab
 keybind = ctrl+arrow_right=next_tab
 keybind = ctrl+t=new_tab
@@ -85,3 +86,4 @@ background-opacity = 0.97
 background-blur = 10
 gtk-titlebar-style = tabs
 gtk-wide-tabs = false
+gtk-titlebar-hide-when-maximized = true
