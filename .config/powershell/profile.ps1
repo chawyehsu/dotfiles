@@ -148,7 +148,6 @@ if ($_PSReadLineVersion.Major -ge 2) {
     Set-PSReadLineKeyHandler -Key Alt+f -Function ForwardWord
     Set-PSReadLineKeyHandler -Key Alt+s -Function BackwardWord
     Set-PSReadLineKeyHandler -Key Alt+b -Function BeginningOfLine
-    Set-PSReadLineKeyHandler -Key Alt+n -Function EndOfLine
     Set-PSReadLineKeyHandler -Key Ctrl+a -Function SelectAll
     Set-PSReadLineKeyHandler -Key Ctrl+x -Function Cut
     Set-PSReadLineKeyHandler -Key Alt+LeftArrow -Function BackwardWord
@@ -158,8 +157,31 @@ if ($_PSReadLineVersion.Major -ge 2) {
     Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
     Set-PSReadLineKeyHandler -Key Alt+Backspace -Function BackwardKillWord
     Set-PSReadLineKeyHandler -Key Alt+Delete -Function KillWord
+    Set-PSReadLineKeyHandler -Key Alt+Shift+Backspace -Function BackwardKillLine
+    Set-PSReadLineKeyHandler -Key Alt+Shift+Delete -Function KillLine
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
+
+    ## EndOfLineOrAcceptSuggestion
+    # A more convenient key binding for accepting suggestions or moving to end
+    # of line, instead of the default `RightArrow` key.
+    # ref: https://github.com/PowerShell/PSReadLine/issues/3705
+    Set-PSReadLineKeyHandler -Key Alt+n `
+        -BriefDescription EndOfLineOrAcceptSuggestion `
+        -LongDescription 'Move the cursor to the end of the current editing line or accept the suggestion' `
+        -ScriptBlock {
+        param($key, $arg)
+
+        $line = $null
+        $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+        if ($cursor -eq $line.Length) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::AcceptSuggestion($key, $arg)
+        } else {
+            [Microsoft.PowerShell.PSConsoleReadLine]::EndOfLine($key, $arg)
+        }
+    }
 
     ## Predictive IntelliSense
     # It was introduced in v2.1.0, and enabled by default starting from v2.2.6
