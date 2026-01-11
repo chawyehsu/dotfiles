@@ -143,8 +143,12 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Cursor movement
     Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
     Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Key Alt+h -Function BackwardChar
+    Set-PSReadLineKeyHandler -Key Alt+l -Function ForwardChar
     Set-PSReadLineKeyHandler -Key Alt+f -Function ForwardWord
     Set-PSReadLineKeyHandler -Key Alt+s -Function BackwardWord
+    Set-PSReadLineKeyHandler -Key Alt+b -Function BeginningOfLine
+    Set-PSReadLineKeyHandler -Key Alt+n -Function EndOfLine
     Set-PSReadLineKeyHandler -Key Ctrl+a -Function SelectAll
     Set-PSReadLineKeyHandler -Key Ctrl+x -Function Cut
     Set-PSReadLineKeyHandler -Key Alt+LeftArrow -Function BackwardWord
@@ -601,7 +605,7 @@ if (Test-IsNotWindows) {
     # behavior when invoking external utilities in PowerShell that rely on
     # the environment variable, expecially when using PowerShell as the
     # login/interactive shell.
-    # 
+    #
     # After digging into and reading some issues, it seems that there is
     # currently no better option than deleting `$env:PWD`.
     #
