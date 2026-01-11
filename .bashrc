@@ -230,8 +230,6 @@ if [ -x "$(command -v bat)" ]; then
 fi
 # Ruby rbenv
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
-# zoxide
-[ -x "$(command -v zoxide)" ] && eval "$(zoxide init $shtype)" && alias cd='z'
 
 #----------------------------#
 # The Chawye's styled prompt #
@@ -282,7 +280,7 @@ function styled_prompt() {
     PROMPT="$TERMTITLE$GREEN%m$DIST $YELLOW%1~$CYAN$GITPS1$RESET"$'\n\$ '
   fi
 }
-# This is require to be at the end of .bashrc
+
 # starship
 if [ -x "$(command -v starship)" ]; then
   # `--print-full-init` is explicitly used to avoid 2-phase init
@@ -291,3 +289,6 @@ if [ -x "$(command -v starship)" ]; then
 else
   styled_prompt
 fi
+
+# zoxide
+[ -x "$(command -v zoxide)" ] && eval "$(zoxide init $shtype)" && alias cd='z'
