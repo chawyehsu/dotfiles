@@ -49,7 +49,7 @@
 # resize-overlay-duration = 4s 200ms
 #
 # ============
-command = direct:/usr/local/bin/pwsh -l -i
+command = direct:/usr/local/bin/pwsh -nol -l -i
 
 # Keybindings
 keybind = ctrl+arrow_left=previous_tab
