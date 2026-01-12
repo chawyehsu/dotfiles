@@ -646,6 +646,8 @@ Set-Alias -Name 'export' -Value Get-AllEnv -Option AllScope
 
 # Remove PowerShell's troublesome built-in aliases
 # NOTE: I'd like to use Remove-Alias, but it doesn't work in PowerShell 5.1
+Remove-Item -Force 'Alias:\curl' -ErrorAction SilentlyContinue
+Remove-Item -Force 'Alias:\wget' -ErrorAction SilentlyContinue
 # 'r' is an alias for 'Invoke-History', for the R programming language
 Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
 # 'ni' is an alias for 'New-Item', for github:antfu-collective/ni
