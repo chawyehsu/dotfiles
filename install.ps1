@@ -142,6 +142,7 @@ if (-not $NoBackup) {
         '.cargo/config',
         '.config/bat',
         '.config/conda',
+        '.config/containers/containers.conf',
         '.config/fastfetch/config.jsonc',
         '.config/gem',
         '.config/gh/config',
@@ -270,6 +271,10 @@ if (Test-IsWindows) {
                 -Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
         }
 
+        # containers
+        Set-SymbolicLink -Target '.config/containers/containers.conf' `
+            -Path "$env:APPDATA/containers/containers.conf"
+
         # pip on Windows only uses %APPDATA%/pip
         Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
         # R for Windows
@@ -323,6 +328,8 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
     # Ghostty
     Set-SymbolicLink -Target '.config/ghostty'
+    # containers
+    Set-SymbolicLink -Target '.config/containers/containers.conf'
 }
 
 if ($NoDomestic) {
