@@ -19,6 +19,8 @@ _pwshbin="$HOME/.pixi/bin/pwsh"
 #-----------------------#
 # Environment Variables #
 #-----------------------#
+# Xterm colors
+[ "$TERM" = "xterm" ] && export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export TZ=UTC-8
 # default editor
@@ -27,8 +29,6 @@ export EDITOR=nano
 export GIT_PS1_SHOWDIRTYSTATE=1
 # Enable Node.js (chalk) color
 export FORCE_COLOR=1
-# Xterm colors
-[ "$TERM" = "xterm" ] && export TERM=xterm-256color
 # XDG environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -37,10 +37,12 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # XDG compliance
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-# Rustup
-export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
+  export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+  # Rustup
+  export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
+  export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+fi
 # PATH updates -
 case "$OSTYPE" in
   darwin*)

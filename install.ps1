@@ -294,6 +294,14 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/ghostty'
 }
 
+if ($NoDomestic) {
+    # non-domestic mark
+    $cacheDir = Join-Path $DSTROOT '.cache'
+    $markPath = Join-Path $cacheDir '.nodomestic'
+    New-Item -ItemType Directory -Path $cacheDir -Force -ErrorAction Ignore | Out-Null
+    New-Item -ItemType File -Path $markPath -Force -ErrorAction Ignore | Out-Null
+}
+
 # WSL
 if ($IsLinux -and (Get-Content '/proc/version' | Select-String -Pattern 'microsoft')) {
     $root = (Get-NormalizedPath "$PSScriptRoot")
