@@ -2,6 +2,7 @@
 set -euo pipefail
 
 DOTFILES_REPO_URL="https://github.com/chawyehsu/dotfiles"
+DOTFILES_DEST="$HOME/workspace/repos/github.com/chawyehsu/dotfiles"
 
 test_command() {
   command -v "$1" >/dev/null 2>&1
@@ -32,10 +33,9 @@ minimal_install() {
     exit 1
   fi
 
-  local dest="$HOME/workspace/repos/github.com/chawyehsu/dotfiles"
-  if ! [[ -d "$dest/.git" ]]; then
-    mkdir -p "$(dirname "$dest")"
-    git clone "$DOTFILES_REPO_URL" "$dest"
+  if ! [[ -d "$DOTFILES_DEST/.git" ]]; then
+    mkdir -p "$(dirname "$DOTFILES_DEST")"
+    git clone "$DOTFILES_REPO_URL" "$DOTFILES_DEST"
   fi
 }
 
@@ -95,14 +95,17 @@ fi
 
 pixi global install go-ghq powershell bat
 
-# update ghq.root
-cat > "$HOME/.gitconfig" << EOF
+if ! [[ -d "$DOTFILES_DEST/.git" ]]; then
+  # update ghq.root
+  cat > "$HOME/.gitconfig" << EOF
 [ghq]
   root = ~/workspace/repos
 EOF
-# clone dotfiles repo
-ghq get "$DOTFILES_REPO_URL"
 
-pushd "$(ghq root)/github.com/chawyehsu/dotfiles"
-pwsh -nop install.ps1 -AssumeYes
-popd
+  # clone dotfiles repo
+  ghq get "$DOTFILES_REPO_URL"
+
+  pushd "$DOTFILES_DEST"
+  pwsh -nop install.ps1 -AssumeYes
+  popd
+fi
