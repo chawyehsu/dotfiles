@@ -689,7 +689,9 @@ if (Test-IsNotWindows) {
 
     # starship - https://github.com/starship/starship
     if (Test-Command 'starship') {
-        (& starship 'init' 'powershell') | Out-String | Invoke-Expression
+        # `--print-full-init` is explicitly used to avoid 2-phase init
+        # overhead, see: https://github.com/starship/starship/issues/2637
+        Invoke-Expression (& starship init powershell --print-full-init | Out-String)
     }
 
     # Override PSReadLine colors
@@ -789,7 +791,9 @@ if (Test-IsNotWindows) {
     # starship - https://github.com/starship/starship (Windows Terminal only)
     if ($env:WT_SESSION -and
         (Test-Command 'starship.exe')) {
-        (& starship.exe 'init' 'powershell') | Out-String | Invoke-Expression
+        # `--print-full-init` is explicitly used to avoid 2-phase init
+        # overhead, see: https://github.com/starship/starship/issues/2637
+        Invoke-Expression (& starship init powershell --print-full-init | Out-String)
     }
     # concfg - https://github.com/lukesampson/concfg
     if ((-not $env:WT_SESSION) -and (Test-Command 'concfg')) {
