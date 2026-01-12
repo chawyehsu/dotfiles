@@ -808,8 +808,7 @@ if (Test-IsNotWindows) {
         pshazz init
     }
     # starship - https://github.com/starship/starship (Windows Terminal only)
-    if ($env:WT_SESSION -and
-        (Test-Command 'starship.exe')) {
+    if ((Test-Command 'starship.exe') -and ($env:WT_SESSION -or $env:TERM -like 'xterm-*')) {
         # `--print-full-init` is explicitly used to avoid 2-phase init
         # overhead, see: https://github.com/starship/starship/issues/2637
         Invoke-Expression (& starship init powershell --print-full-init | Out-String)
