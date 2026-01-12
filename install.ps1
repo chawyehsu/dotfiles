@@ -223,35 +223,42 @@ if (Test-IsWindows) {
     # gpg
     Set-SymbolicLink -Target '.config/gnupg/gpg-agent.win.conf' `
         -Path '.gnupg/gpg-agent.conf'
-    # PowerShell profile
-    Set-SymbolicLink -Target '.config/powershell/profile.ps1' `
-        -Path $PROFILE.CurrentUserAllHosts
+
     # Scoop, pshazz and concfg
     Set-SymbolicLink -Target '.config/concfg'
     Set-SymbolicLink -Target '.config/pshazz'
     Set-SymbolicLink -Target '.config/scoop/config.json'
-    # pip on Windows only uses %APPDATA%/pip
-    Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
+
     # proxychains
     Set-SymbolicLink -Target '.config/proxychains/proxychains.conf' `
         -Path '.proxychains/proxychains.conf'
-    # R for Windows
-    Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
-    # Windows Terminal
-    Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
-        -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
-    if (Test-Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState") {
+
+    # Additional Windows-only links not for MSYS environment
+    if (-not (Test-Path env:\MSYSTEM)) {
+        # PowerShell profile
+        Set-SymbolicLink -Target '.config/powershell/profile.ps1' `
+            -Path $PROFILE.CurrentUserAllHosts
+        # Windows Terminal
         Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
-            -Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+            -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
+        if (Test-Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState") {
+            Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
+                -Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+        }
+
+        # pip on Windows only uses %APPDATA%/pip
+        Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
+        # R for Windows
+        Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
+        # WSL host config
+        Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
+        # Nushell
+        Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
+        # Helix
+        Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
+        # Zed
+        Set-SymbolicLink -Target '.config/zed' -Path "$env:APPDATA/Zed"
     }
-    # WSL host config
-    Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
-    # Nushell
-    Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
-    # Helix
-    Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
-    # Zed
-    Set-SymbolicLink -Target '.config/zed' -Path "$env:APPDATA/Zed"
 } else {
     # gnupg directory permission fix
     $gnupgPath = Join-Path $DSTROOT '.gnupg'
