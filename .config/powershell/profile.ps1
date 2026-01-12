@@ -517,6 +517,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
 #--------------------------#
 $env:LANG = 'en_US.UTF-8'
 $env:TZ = 'UTC-8'
+$env:PYTHONUTF8 = '1'
 # default editor
 $env:EDITOR = 'nano'
 # sccache

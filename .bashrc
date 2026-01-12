@@ -26,6 +26,7 @@ shtype="bash"
 [ "$TERM" = "xterm" ] && export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export TZ=UTC-8
+export PYTHONUTF8=1
 # default editor
 export EDITOR=nano
 # Always display git dirty state
