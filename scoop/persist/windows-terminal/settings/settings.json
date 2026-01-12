@@ -39,16 +39,27 @@
     ],
     "initialCols": 84,
     "initialRows": 28,
-    "launchMode": "maximized",
     "keybindings":
     [
+        {
+            "id": "Terminal.MoveFocusDown",
+            "keys": "alt+shift+down"
+        },
+        {
+            "id": "User.ActionCopy",
+            "keys": "ctrl+c"
+        },
         {
             "id": "Terminal.OpenNewTab",
             "keys": "ctrl+t"
         },
         {
-            "id": "User.ActionCopy",
-            "keys": "ctrl+c"
+            "id": "Terminal.MoveFocusUp",
+            "keys": "alt+shift+up"
+        },
+        {
+            "id": "Terminal.SplitPaneDown",
+            "keys": "win+shift+d"
         },
         {
             "id": "User.ScrollUp",
@@ -60,27 +71,15 @@
         },
         {
             "id": "Terminal.SplitPaneRight",
-            "keys": "shift+alt+d"
-        },
-        {
-            "id": "Terminal.SplitPaneDown",
-            "keys": "win+shift+d"
-        },
-        {
-            "id": "Terminal.MoveFocusUp",
-            "keys": "shift+alt+up"
-        },
-        {
-            "id": "Terminal.MoveFocusDown",
-            "keys": "shift+alt+down"
+            "keys": "alt+shift+d"
         },
         {
             "id": "Terminal.MoveFocusLeft",
-            "keys": "shift+alt+left"
+            "keys": "alt+shift+left"
         },
         {
             "id": "Terminal.MoveFocusRight",
-            "keys": "shift+alt+right"
+            "keys": "alt+shift+right"
         },
         {
             "id": "Terminal.ResizePaneDown",
@@ -111,6 +110,7 @@
             "keys": "ctrl+left"
         }
     ],
+    "launchMode": "maximized",
     "newTabMenu":
     [
         {
