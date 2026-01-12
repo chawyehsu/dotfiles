@@ -244,6 +244,7 @@ Set-SymbolicLink -Target '.config/conda'
 Set-SymbolicLink -Target '.config/fastfetch/config.jsonc'
 Set-SymbolicLink -Target '.config/gem'
 Set-SymbolicLink -Target '.config/gh/config.yml'
+Set-SymbolicLink -Target '.config/ghostty'
 Set-SymbolicLink -Target '.config/git/config'
 Set-SymbolicLink -Target '.config/git/ignore'
 Set-SymbolicLink -Target '.config/jj/config.toml'
@@ -370,8 +371,6 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/pip/pip.ini' -Path '.config/pip/pip.conf'
     # screen
     Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
-    # Ghostty
-    Set-SymbolicLink -Target '.config/ghostty'
     # Helix
     Set-SymbolicLink -Target '.config/helix'
     # containers
