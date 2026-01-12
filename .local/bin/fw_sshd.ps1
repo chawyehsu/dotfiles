@@ -7,11 +7,20 @@
     This PowerShell script checks for the existence of a firewall rule named
     "OpenSSH-Server-In-TCP". If the rule does not exist, it creates the rule
     to allow inbound TCP traffic on port 22.
+.PARAMETER Profile
+    The network profile for which the firewall rule should be applied.
+    Valid values are 'Private', 'Public', 'Domain', and 'Any'.
+    Default is 'Private'.
+.PARAMETER AssumeYes
+    If specified, the script will automatically create the firewall rule without
+    prompting for confirmation. Default is to prompt before creating the rule.
 #>
 param(
     [Parameter(Mandatory = $false)]
     [ValidateSet('Private', 'Public', 'Domain', 'Any')]
-    [string]$Profile = 'Private'
+    [string]$Profile = 'Private',
+    [Parameter(Mandatory = $false)]
+    [switch]$AssumeYes
 )
 
 if (($PSVersionTable.PSVersion.Major) -gt 5) {
@@ -21,13 +30,32 @@ if (($PSVersionTable.PSVersion.Major) -gt 5) {
     }
 }
 
-if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
+$ErrorActionPreference = 'Stop'
+
+if (!([bool](Get-Command -Name 'sshd' -CommandType Application -ErrorAction SilentlyContinue))) {
+    Write-Host "OpenSSH Server (sshd) is not available on this system." -ForegroundColor DarkYellow
+    Write-Host "Hint: install via 'winget install Microsoft.OpenSSH.Preview'"
+}
+
+if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" `
+    -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
     $ScriptBlock = {
-        New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' -DisplayName 'OpenSSH Server (sshd)' -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22 -Profile Private
+        New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' `
+            -DisplayName 'OpenSSH Server (sshd)' -Enabled True `
+            -Direction Inbound -Protocol TCP -Action Allow `
+            -LocalPort 22 -Profile $Profile
     }
 
-    Start-Process powershell -Verb RunAs -WindowStyle Hidden -Wait -ArgumentList "-NoProfile -Command $($ScriptBlock.ToString())"
+    if (-not $AssumeYes) {
+        $confirmation = Read-Host "Firewall rule 'OpenSSH-Server-In-TCP' does not exist. Do you want to create it? (y/N)"
+        if ($confirmation -ne 'Y' -and $confirmation -ne 'y') {
+            exit 0
+        }
+    }
+
+    Start-Process powershell -Verb RunAs -WindowStyle Hidden -Wait `
+        -ArgumentList "-NoProfile -Command $($ScriptBlock.ToString())"
     Write-Host "Firewall Rule 'OpenSSH-Server-In-TCP' has been created successfully." -ForegroundColor DarkGreen
 } else {
-    Write-Output "Firewall rule 'OpenSSH-Server-In-TCP' has already been created."
+    Write-Host "Firewall rule 'OpenSSH-Server-In-TCP' has already been created."
 }
