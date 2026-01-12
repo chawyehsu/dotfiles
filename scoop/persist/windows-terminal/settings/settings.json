@@ -10,6 +10,22 @@
                 "singleLine": false
             },
             "id": "User.ActionCopy"
+        },
+        {
+            "command":
+            {
+                "action": "scrollUp",
+                "rowsToScroll": 5
+            },
+            "id": "User.ScrollUp"
+        },
+        {
+            "command":
+            {
+                "action": "scrollDown",
+                "rowsToScroll": 5
+            },
+            "id": "User.ScrollDown"
         }
     ],
     "copyFormatting": "none",
@@ -26,28 +42,40 @@
     "keybindings":
     [
         {
-            "id": "User.ActionCopy",
-            "keys": "ctrl+c"
-        },
-        {
             "id": "Terminal.OpenNewTab",
             "keys": "ctrl+t"
         },
         {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
+            "id": "User.ActionCopy",
+            "keys": "ctrl+c"
+        },
+        {
+            "id": "Terminal.SplitPaneDown",
+            "keys": "win+shift+d"
+        },
+        {
+            "id": "User.ScrollUp",
+            "keys": "alt+up"
+        },
+        {
+            "id": "User.ScrollDown",
+            "keys": "alt+down"
+        },
+        {
+            "id": "Terminal.SplitPaneRight",
+            "keys": "shift+d"
         },
         {
             "id": "Terminal.ClosePane",
             "keys": "ctrl+w"
         },
         {
-            "id": "Terminal.PrevTab",
-            "keys": "ctrl+left"
-        },
-        {
             "id": "Terminal.NextTab",
             "keys": "ctrl+right"
+        },
+        {
+            "id": "Terminal.PrevTab",
+            "keys": "ctrl+left"
         }
     ],
     "newTabMenu":
