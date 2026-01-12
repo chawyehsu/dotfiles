@@ -136,6 +136,7 @@ if (-not $NoBackup) {
         '.config/readline',
         '.config/screen/screenrc',
         '.config/starship.toml',
+        '.config/tig/config',
         '.config/tmux',
         '.config/volta/hook.json',
         '.config/wget/wgetrc',
@@ -202,6 +203,7 @@ Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
 Set-SymbolicLink -Target '.config/readline'
 Set-SymbolicLink -Target '.config/starship.toml'
+Set-SymbolicLink -Target '.config/tig/config'
 Set-SymbolicLink -Target '.config/tmux'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
 Set-SymbolicLink -Target '.config/zed'

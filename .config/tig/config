@@ -1,0 +1,6 @@
+set blame-view = date:yes,local author:full file-name:auto line-number:yes,interval=1 text
+
+color  cursor       black    white
+color  cursor-blur  black    white  bold
+color  title-focus  default  black
+color  title-blur   black    white
