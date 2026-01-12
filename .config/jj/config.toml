@@ -31,7 +31,7 @@ sq = ["squash", "-i"]
 sqa = ["squash"]
 # ref:
 # - https://shaddy.dev/notes/jj-tug/
-# - https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028 
+# - https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028
 tug = ["bookmark", "move", "--from", "nearest_bookmark(@-)", "--to", "nearest_nonempty(@)"]
 # git
 g = ["git"]
@@ -63,3 +63,7 @@ _ = "@"
 # handy revsets from https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028
 'nearest_bookmark(to)' = 'heads(::to & bookmarks())'
 'nearest_nonempty(to)' = 'heads(::to ~ empty())'
+
+[templates]
+commit_trailers = '''
+format_signed_off_by_trailer(self)'''
