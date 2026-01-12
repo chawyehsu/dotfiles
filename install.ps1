@@ -234,6 +234,7 @@ Set-SymbolicLink -Target '.config/tig/config'
 Set-SymbolicLink -Target '.config/tmux'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
 Set-SymbolicLink -Target '.config/zed'
+Set-SymbolicLink -Target '.local/bin/omg.ps1' -Path '.local/bin/omg.ps1'
 # dotfiles with domestic variant
 if ($NoDomestic) {
     Set-SymbolicLink -Target '.config/pixi/config.toml'
