@@ -10,6 +10,7 @@ set minibar
 set multibuffer
 set nohelp
 set numbercolor lightblack,normal
+set positionlog
 set stateflags
 set statuscolor normal,normal
 ## 2 is used here and 4size can be inserted by indenting twice
