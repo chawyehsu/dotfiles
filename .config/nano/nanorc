@@ -12,6 +12,8 @@ set multibuffer
 set nohelp
 set numbercolor lightblack,normal
 set positionlog
+# external spell checker: https://github.com/crate-ci/typos
+set speller "typos -w"
 set stateflags
 set statuscolor normal,normal
 ## 2 is used here and 4size can be inserted by indenting twice
@@ -47,6 +49,8 @@ bind M-M mark main
 bind Sh-M-H chopwordleft main
 bind Sh-M-L chopwordright main
 bind Sh-M-T tabstospaces main
+bind Sh-M-F formatter main
+bind Sh-M-P speller main
 
 # text search and replace
 bind ^F whereis all
