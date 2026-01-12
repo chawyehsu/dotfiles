@@ -131,6 +131,7 @@
                 "weight": "normal"
             },
             "opacity": 100,
+            "scrollbarState": "hidden",
             "useAcrylic": true
         },
         "list":
