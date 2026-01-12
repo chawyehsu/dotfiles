@@ -1,12 +1,12 @@
 {
   "aria2-enabled": false,
-  "last_update": "2026-02-21T17:42:28.294404+00:00",
+  "last_update": "2026-06-14T13:14:41.419505+00:00",
   "use_isolated_path": true,
   "use_lessmsi": true,
   "use_sqlite_cache": true,
   "proxy": "127.0.0.1:7890",
   "scoop_branch": "develop",
   "scoop_repo": "https://github.com/scoopinstaller/scoop",
-  "shim": "scoopcs",
+  "shim": "kiennq",
   "show_update_log": false
 }
