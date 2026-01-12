@@ -11,6 +11,8 @@
 .PARAMETER NoBackup
     Do not backup existing dotfiles. Default is to create a backup when a same
     dotfile already exists.
+.PARAMETER NoDomestic
+    Use dotfiles not optimized for domestic (China) network environment.
 .LINK
     https://github.com/chawyehsu/dotfiles
 #>
@@ -18,7 +20,9 @@ param(
     [Parameter(Mandatory = $false)]
     [string]$BackupDir = "~/dotfiles.backup$(Get-Date -Format 'yyyyMMddHHmmss')",
     [Parameter(Mandatory = $false)]
-    [Switch]$NoBackup
+    [Switch]$NoBackup,
+    [Parameter(Mandatory = $false)]
+    [Switch]$NoDomestic
 )
 
 Set-StrictMode -Version Latest
@@ -195,14 +199,20 @@ Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.dir_colors'
 Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
-Set-SymbolicLink -Target '.gradle/gradle.properties'
-Set-SymbolicLink -Target '.config/pixi/config.toml'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
 Set-SymbolicLink -Target '.config/readline'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.config/tmux'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
 Set-SymbolicLink -Target '.config/zed'
+# dotfiles with domestic variant
+if ($NoDomestic) {
+    Set-SymbolicLink -Target '.config/pixi/config.toml'
+} else {
+    Set-SymbolicLink -Target '.gradle/gradle.properties'
+    Set-SymbolicLink -Target '.config/pixi/config.domestic.toml' `
+        -Path '.config/pixi/config.toml'
+}
 # Link dotfiles (platform specific)
 if (Test-IsWindows) {
     # git config for Windows
