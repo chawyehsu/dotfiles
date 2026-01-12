@@ -633,13 +633,14 @@ if (Test-IsNotWindows) {
     # login/interactive shell.
     #
     # After digging into and reading some issues, it seems that there is
-    # currently no better option than deleting `$env:PWD`.
+    # currently no better option than deleting `$env:PWD`. `SilentlyContinue`
+    # used to suppress errors in case the variable has been removed already.
     #
     # refs:
     #  - https://github.com/PowerShell/PowerShell/issues/7388
     #  - https://github.com/PowerShell/PowerShell/issues/17149
     #  - https://github.com/PowerShell/PowerShell/issues/19446
-    Remove-Item Env:PWD
+    Remove-Item Env:PWD -ErrorAction SilentlyContinue
     # gpg requires this to display passphrase prompt
     $env:GPG_TTY = $(tty)
 
