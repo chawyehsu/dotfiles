@@ -1,7 +1,7 @@
 # reuse .bashrc settings
 [ -f "$HOME/.bashrc" ] && source "$HOME/.bashrc"
 
-# zle keybinds
+# zle keybinds (zsh does not use readline)
 bindkey "^[A" history-search-backward
 bindkey "^[B" history-search-forward
 bindkey "^[1~" beginning-of-line

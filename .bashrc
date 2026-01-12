@@ -3,7 +3,7 @@
 # This bashrc file is created by Chawye Hsu, licensed under the MIT license.
 #------------------------------------------------------------------------------#
 # Support Platforms:
-#    Windows: Git-Bash/MSYS2/MinGW
+#    Windows: Git-Bash/MSYS2
 #      macOS: Bash, Zsh
 #      Linux: Bash
 #------------------------------------------------------------------------------#
@@ -97,11 +97,6 @@ case "$OSTYPE" in
       [ -f "$_gitprompt" ] && source "$_gitprompt" && break
     done
 esac
-# PATH updates - Add `~/.cargo/bin`:
-_cargobin="$HOME/.cargo/bin"
-if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
-  export PATH="$_cargobin:$PATH"
-fi
 # PATH updates - Add `~/.local/bin`:
 _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
@@ -210,6 +205,11 @@ fi
 # Cross-platform programs settings #
 #----------------------------------#
 # PATHs
+# PATH updates - Add `~/.cargo/bin`:
+_cargobin="$HOME/.cargo/bin"
+if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
+  export PATH="$_cargobin:$PATH"
+fi
 # PATH updates - Add pixi bin:
 _pixibin="$HOME/.pixi/bin"
 if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
@@ -234,6 +234,7 @@ fi
 #----------------------------#
 # The Chawye's styled prompt #
 #----------------------------#
+# Override global prompt command to set terminal title
 PROMPT_COMMAND='echo -ne "\033]0;$0\a"'
 
 function styled_prompt() {
@@ -285,6 +286,7 @@ function styled_prompt() {
 if [ -x "$(command -v starship)" ]; then
   # `--print-full-init` is explicitly used to avoid 2-phase init
   # overhead, see: https://github.com/starship/starship/issues/2637
+  # shellcheck disable=SC1090
   source <(starship init $shtype --print-full-init)
 else
   styled_prompt
