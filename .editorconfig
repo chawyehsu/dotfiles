@@ -11,6 +11,9 @@ end_of_line = lf
 [*.md]
 trim_trailing_whitespace = false
 
+[*.sh]
+indent_size = 2
+
 [.vscode/{settings,extensions}.json]
 end_of_line = lf
 indent_size = 2
