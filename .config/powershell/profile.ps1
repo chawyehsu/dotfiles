@@ -157,6 +157,7 @@ if ($_PSReadLineVersion.Major -ge 2) {
     Set-PSReadLineKeyHandler -Key Ctrl+Shift+RightArrow -Function SelectForwardWord
     Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
     Set-PSReadLineKeyHandler -Key Alt+Backspace -Function BackwardKillWord
+    Set-PSReadLineKeyHandler -Key Alt+Delete -Function KillWord
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
