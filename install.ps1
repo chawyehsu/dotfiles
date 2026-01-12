@@ -125,6 +125,7 @@ if (-not $NoBackup) {
         '.gemrc',
         '.gitconfig',
         '.gvimrc',
+        '.jjconfig.toml',
         '.inputrc',
         '.mintty',
         '.nanorc',
@@ -219,7 +220,8 @@ Set-SymbolicLink -Target '.config/gem'
 Set-SymbolicLink -Target '.config/gh/config.yml'
 Set-SymbolicLink -Target '.config/git/config'
 Set-SymbolicLink -Target '.config/git/ignore'
-Set-SymbolicLink -Target '.config/jj/config.toml' -Path '.jjconfig.toml'
+Set-SymbolicLink -Target '.config/jj/config.toml'
+Set-SymbolicLink -Target '.config/jj/conf.d'
 Set-SymbolicLink -Target '.config/mintty'
 Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/starship.toml'
@@ -274,7 +276,11 @@ if (Test-IsWindows) {
         # containers
         Set-SymbolicLink -Target '.config/containers/containers.conf' `
             -Path "$env:APPDATA/containers/containers.conf"
-
+        # jj
+        Set-SymbolicLink -Target '.config/jj/config.toml' `
+            -Path "$env:APPDATA/jj/config.toml"
+        Set-SymbolicLink -Target '.config/jj/conf.d' `
+            -Path "$env:APPDATA/jj/conf.d"
         # pip on Windows only uses %APPDATA%/pip
         Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
         # R for Windows
