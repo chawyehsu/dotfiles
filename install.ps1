@@ -99,25 +99,25 @@ function Backup-Item([String]$Path) {
     }
 }
 
-function Set-SymbolicLink([String]$Target, [String]$Path) {
-    if (!$Path) { $Path = $Target }
+function Set-SymbolicLink([String]$Source, [String]$Dest) {
+    if (!$Dest) { $Dest = $Source }
 
-    $src = if ([System.IO.Path]::IsPathRooted($Target)) {
-        Get-NormalizedPath $Path
+    $Source = if ([System.IO.Path]::IsPathRooted($Source)) {
+        Get-NormalizedPath $Source
     } else {
-        (Join-Path $SRCROOT $Target)
+        (Join-Path $SRCROOT $Source)
     }
 
-    $DestPath = if ([System.IO.Path]::IsPathRooted($Path)) {
-        Get-NormalizedPath $Path
+    $Dest = if ([System.IO.Path]::IsPathRooted($Dest)) {
+        Get-NormalizedPath $Dest
     } else {
-        (Join-Path $DSTROOT $Path)
+        (Join-Path $DSTROOT $Dest)
     }
 
-    New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
+    New-Item -Type SymbolicLink -Path $Dest -Target $Source -Force | Out-Null
     Write-Host "Linked" -ForegroundColor Green -NoNewline
-    Write-Host " $($DestPath.ToString())" -NoNewline
-    Write-Host " -> $($Target.ToString())" -ForegroundColor DarkGray
+    Write-Host " $($Dest.ToString())" -NoNewline
+    Write-Host " -> $($Source.ToString())" -ForegroundColor DarkGray
 }
 
 #--------------#
@@ -178,16 +178,16 @@ foreach ($Link in $Links) {
         Backup-Item $p
     }
 
-    # Resolve source: domestic variant, explicit target, or self
+    # Resolve source: domestic variant, explicit source, or self
     if ($Link.psobject.Properties['domestic'] -and -not $NoDomestic) {
         $source = $Link.domestic
-    } elseif ($Link.psobject.Properties['target']) {
-        $source = $Link.target
+    } elseif ($Link.psobject.Properties['source']) {
+        $source = $Link.source
     } else {
         $source = $Link.path
     }
 
-    Set-SymbolicLink -Target $source -Path $path
+    Set-SymbolicLink -Source $source -Dest $path
 }
 
 # gnupg directory permission fix (non-Windows)
