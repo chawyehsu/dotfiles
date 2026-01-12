@@ -120,7 +120,7 @@ case "$OSTYPE" in
       alias ls="ls -F -G" # BSD/macOS ls
     fi
     ;;
-  linux*|msys*)
+  linux*|cygwin*|msys*)
     # Too many unconcerned files and directories in Windows $HOME, ignore them.
     ignoreList=("_viminfo" "navdb.csv" "NTUSER*" "ntuser*" "Local Settings*" \
       "Application Data*" "My Documents*" "NetHood*" "PrintHood*" "Recent*" \
@@ -152,7 +152,7 @@ case "$OSTYPE" in
   darwin*)
     alias here="open ."
     ;;
-  msys*)
+  cygwin*|msys*)
     # winpty fixes
     alias ipconfig="winpty ipconfig"
     alias nslookup="winpty nslookup"
