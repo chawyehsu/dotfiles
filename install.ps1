@@ -1,5 +1,5 @@
 #!/usr/bin/env pwsh
-#Requires -Version 7
+#Requires -Version 5.1
 
 <#
 .SYNOPSIS
@@ -25,23 +25,29 @@ param(
     [Switch]$NoDomestic
 )
 
-Set-StrictMode -Version Latest
-
-Write-Host 'This will overwrite all current local dotfiles' -ForegroundColor Red
-if ($NoBackup) {
-    Write-Host '[CAUTION!] No backup will be created' -ForegroundColor Red
-} else {
-    Write-Host "A backup will be created at $BackupDir" -ForegroundColor Yellow
-}
-Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
+Set-StrictMode -Version 3.0
 
 $SRCROOT = (Resolve-Path "$PSScriptRoot/")
 $DSTROOT = (Resolve-Path (($env:HOME, $env:USERPROFILE |
             Where-Object { -not [String]::IsNullOrEmpty($_) } |
             Select-Object -First 1).ToString().TrimEnd('/') + '/'))
 
+function Test-IsAdministrator {
+    return ([Security.Principal.WindowsPrincipal]`
+            [Security.Principal.WindowsIdentity]::GetCurrent()`
+    ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
 function Test-IsWindows() {
     return $env:OS -eq 'Windows_NT' -or $IsWindows
+}
+
+function Test-IsLinux() {
+    if ($PSVersionTable.PSVersion.Major -eq 5) {
+        return $false
+    }
+
+    return $IsLinux
 }
 
 function Get-NormalizedPath ([String]$in) {
@@ -87,6 +93,23 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
     New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
 }
 
+#--------------#
+#  Main logic  #
+#--------------#
+if ($PSVersionTable.PSVersion.Major -eq 5) {
+    if (-not (Test-IsAdministrator)) {
+        Write-Host 'Run this script as administrator to allow symbolic link creation.' -ForegroundColor Yellow
+        exit 1
+    }
+}
+
+Write-Host 'This will overwrite all current local dotfiles' -ForegroundColor Red
+if ($NoBackup) {
+    Write-Host '[CAUTION!] No backup will be created' -ForegroundColor Red
+} else {
+    Write-Host "A backup will be created at $BackupDir" -ForegroundColor Yellow
+}
+Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
 
 # Backup
 if (-not $NoBackup) {
@@ -312,8 +335,11 @@ if ($NoDomestic) {
 }
 
 # WSL
-if ($IsLinux -and (Get-Content '/proc/version' | Select-String -Pattern 'microsoft')) {
-    $root = (Get-NormalizedPath "$PSScriptRoot")
-    Write-Host 'Detected WSL environment. You probably want to apply wsl config for the guest Linux by:' -ForegroundColor Yellow
-    Write-Host "  sudo cp $root/.config/wsl/wsl.conf /etc/wsl.conf" -ForegroundColor Cyan
+if (Test-IsLinux) {
+    $IsWSL = Get-Content '/proc/version' | Select-String -Pattern 'microsoft'
+    if ($IsWSL) {
+        $root = (Get-NormalizedPath "$PSScriptRoot")
+        Write-Host 'Detected WSL environment. You probably want to apply wsl config for the guest Linux by:' -ForegroundColor Yellow
+        Write-Host "  sudo cp $root/.config/wsl/wsl.conf /etc/wsl.conf" -ForegroundColor Cyan
+    }
 }
