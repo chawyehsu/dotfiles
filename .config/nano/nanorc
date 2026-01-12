@@ -55,6 +55,8 @@ bind ^F whereis all
 bind ^B findprevious main
 bind ^N findnext main
 bind ^R replace main
+bind ^B findprevious help
+bind ^N findnext help
 
 # indent and comment
 bind M-P whitespacedisplay main
