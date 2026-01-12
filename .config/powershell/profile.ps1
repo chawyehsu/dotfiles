@@ -621,6 +621,8 @@ Remove-Item -Force 'Alias:\r' -ErrorAction SilentlyContinue
 # 'ni' is an alias for 'New-Item', for github:antfu-collective/ni
 Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 
+function Invoke-PixiRun { & pixi run @args }
+Set-Alias -Name 'px' -Value Invoke-PixiRun -Option AllScope
 
 #-------------------------------#
 #   Platform-specific Settings  #
