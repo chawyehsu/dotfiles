@@ -18,7 +18,19 @@ function Test-CommandAvailable {
     return [Boolean](Get-Command $Command -ErrorAction SilentlyContinue)
 }
 
+function Import-Preferences {
+    if (Test-CommandAvailable 'concfg') {
+        Write-Host -ForegroundColor Green "Importing concfg preset..."
+        concfg clean
+        concfg import $Script:CONCFG_PRESET_URL -yn
+    }
+}
+
 function Install-Scoop {
+    if ($env:NO_SCOOP) {
+        return
+    }
+
     if (Test-CommandAvailable 'scoop') {
         Write-Host -ForegroundColor Yellow "Scoop is already installed."
         return
@@ -55,14 +67,8 @@ function Install-Scoop {
 
     # essential packages
     scoop install main/concfg dorado/trash dorado/nano dorado/hok dorado/pixi main/pshazz
-}
 
-function Import-Preferences {
-    if (Test-CommandAvailable 'concfg') {
-        Write-Host -ForegroundColor Green "Importing concfg preset..."
-        concfg clean
-        concfg import $Script:CONCFG_PRESET_URL -yn
-    }
+    Import-Preferences
 }
 
 function Install-WinGet {
@@ -86,7 +92,6 @@ try {
     $ErrorActionPreference = 'Stop'
     Install-WinGet
     Install-Scoop
-    Import-Preferences
 } finally {
     $ErrorActionPreference = $oldErrorActionPreference
 }
