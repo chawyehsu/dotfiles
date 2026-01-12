@@ -39,6 +39,7 @@
     ],
     "initialCols": 84,
     "initialRows": 28,
+    "launchMode": "maximized",
     "keybindings":
     [
         {
