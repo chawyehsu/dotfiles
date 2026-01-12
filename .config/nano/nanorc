@@ -40,10 +40,7 @@ bind ^] nextbuf main
 # text edit
 bind ^X cut main
 bind ^C copy main
-## (TODO:) ^V doesn't work:
-## https://github.com/okibcn/nano-for-windows/issues/21
-#bind ^V paste main
-bind ^D paste main
+bind ^V paste main
 ## Binding mark with ^M is not good, since it aliases to `Enter`,
 ## hence M-M is used here.. See nanorc manpage for details.
 bind M-M mark main
