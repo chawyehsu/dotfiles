@@ -153,10 +153,12 @@ case "$OSTYPE" in
     alias here="open ."
     ;;
   cygwin*|msys*)
-    # winpty fixes
-    alias ipconfig="winpty ipconfig"
-    alias nslookup="winpty nslookup"
-    alias ping="winpty ping"
+    if [ -x "$(command -v winpty)" ]; then
+      # winpty fixes
+      alias ipconfig="winpty ipconfig"
+      alias nslookup="winpty nslookup"
+      alias ping="winpty ping"
+    fi
     # Emulate ifconfig on Windows MSYS
     alias ifconfig="ipconfig"
     alias open="explorer"
