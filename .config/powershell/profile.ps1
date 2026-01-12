@@ -165,6 +165,8 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
+    Remove-PSReadLineKeyHandler -Chord Alt+d
+
     ## EndOfLineOrAcceptSuggestion
     # A more convenient key binding for accepting suggestions or moving to end
     # of line, instead of the default `RightArrow` key.
