@@ -2,15 +2,9 @@
 
 Set-StrictMode -Version 1.0
 
-$Script:SCOOP_INSTALLER_URL = 'https://raw.githubusercontent.com/ScoopInstaller/Install/ff4eedda58d832b8225d7697510f097ebe8ab071/install.ps1'
+$Script:SCOOP_INSTALLER_URL = 'https://raw.githubusercontent.com/ScoopInstaller/Install/1e2f334083d609986d8c8bc9e31ae8e87c39fab4/install.ps1'
 $Script:CONCFG_PRESET_URL = 'https://raw.githubusercontent.com/chawyehsu/base16-concfg/main/presets/base16-selenized-black.json'
-$Script:PROXY = if (Test-Path Env:HTTPS_PROXY) {
-    "$env:HTTPS_PROXY"
-} elseif (Test-Path Env:HTTP_PROXY) {
-    "$env:HTTP_PROXY"
-} else {
-    $null
-}
+$Script:PROXY = $env:HTTPS_PROXY, $env:HTTP_PROXY | Where-Object { $_ -ne $null } | Select-Object -First 1
 
 function Test-IsNotWindows {
     return ((Test-Path Variable:\IsWindows) -and (-not $IsWindows))
@@ -71,12 +65,28 @@ function Import-Preferences {
     }
 }
 
+function Install-WinGet {
+    # WinGet in Windows Sandbox
+    if (($env:USERNAME -eq 'WDAGUtilityAccount') -and (-not (Test-CommandAvailable 'winget'))) {
+        Write-Host "Installing WinGet..."
+        Install-PackageProvider -Name NuGet -Force | Out-Null
+        Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery | Out-Null
+        Repair-WinGetPackageManager -AllUsers
+    }
+}
+
 # Main flow
 if (Test-IsNotWindows) {
     Write-Output "This script is for Windows only."
     return
 }
 
-$ErrorActionPreference = 'Stop'
-Install-Scoop
-Import-Preferences
+$oldErrorActionPreference = $ErrorActionPreference
+try {
+    $ErrorActionPreference = 'Stop'
+    Install-WinGet
+    Install-Scoop
+    Import-Preferences
+} finally {
+    $ErrorActionPreference = $oldErrorActionPreference
+}
