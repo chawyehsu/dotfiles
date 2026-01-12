@@ -189,8 +189,7 @@ if (-not $NoBackup) {
             'pip',
             'Rconsole',
             "$env:APPDATA/pip",
-            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json",
-            "$env:APPDATA/nushell"
+            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
         )
         $DotfilesToBackup = $DotfilesToBackup + $DotfilesWindowsOnly
     }
@@ -277,8 +276,6 @@ if (Test-IsWindows) {
         Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
         # WSL host config
         Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
-        # Nushell
-        Set-SymbolicLink -Target '.config/nushell' -Path "$env:APPDATA/nushell"
         # Helix
         Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
         # Zed
