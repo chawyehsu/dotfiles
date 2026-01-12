@@ -7,7 +7,7 @@
     This PowerShell script checks for the existence of a firewall rule named
     "OpenSSH-Server-In-TCP". If the rule does not exist, it creates the rule
     to allow inbound TCP traffic on port 22.
-.PARAMETER Profile
+.PARAMETER NetProfile
     The network profile for which the firewall rule should be applied.
     Valid values are 'Private', 'Public', 'Domain', and 'Any'.
     Default is 'Private'.
@@ -18,7 +18,7 @@
 param(
     [Parameter(Mandatory = $false)]
     [ValidateSet('Private', 'Public', 'Domain', 'Any')]
-    [string]$Profile = 'Private',
+    [string]$NetProfile = 'Private',
     [Parameter(Mandatory = $false)]
     [switch]$AssumeYes
 )
@@ -40,10 +40,12 @@ if (!([bool](Get-Command -Name 'sshd' -CommandType Application -ErrorAction Sile
 if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" `
     -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
     $ScriptBlock = {
+        param ([string]$NetProfile)
         New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' `
-            -DisplayName 'OpenSSH Server (sshd)' -Enabled True `
+            -DisplayName 'OpenSSH SSH Server (sshd)' -Enabled True `
+            -Description 'Inbound rule for OpenSSH SSH Server (sshd)' `
             -Direction Inbound -Protocol TCP -Action Allow `
-            -LocalPort 22 -Profile $Profile
+            -LocalPort 22 -Profile $NetProfile
     }
 
     if (-not $AssumeYes) {
@@ -53,8 +55,12 @@ if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" `
         }
     }
 
-    Start-Process powershell -Verb RunAs -WindowStyle Hidden -Wait `
-        -ArgumentList "-NoProfile -Command $($ScriptBlock.ToString())"
+    $process = Start-Process powershell -Verb RunAs -WindowStyle Hidden -PassThru -Wait `
+        -ArgumentList "-NoProfile -Command (Invoke-Command -ScriptBlock {$ScriptBlock} -ArgumentList '$NetProfile')"
+    if ($process.ExitCode -ne 0) {
+        Write-Host "Failed to create firewall rule 'OpenSSH-Server-In-TCP'. Exit code: $($process.ExitCode)" -ForegroundColor DarkRed
+        exit 1
+    }
     Write-Host "Firewall Rule 'OpenSSH-Server-In-TCP' has been created successfully." -ForegroundColor DarkGreen
 } else {
     Write-Host "Firewall rule 'OpenSSH-Server-In-TCP' has already been created."
