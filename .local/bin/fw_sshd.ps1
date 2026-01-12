@@ -32,36 +32,44 @@ if (($PSVersionTable.PSVersion.Major) -gt 5) {
 
 $ErrorActionPreference = 'Stop'
 
-if (!([bool](Get-Command -Name 'sshd' -CommandType Application -ErrorAction SilentlyContinue))) {
+$sshdCommand = Get-Command -Name 'sshd' -CommandType Application -ErrorAction SilentlyContinue
+
+if (!([bool]$sshdCommand)) {
     Write-Host "OpenSSH Server (sshd) is not available on this system." -ForegroundColor DarkYellow
     Write-Host "Hint: install via 'winget install Microsoft.OpenSSH.Preview'"
 }
 
-if (!(Get-NetFirewallRule -Name "OpenSSH-Server-In-TCP" `
-    -ErrorAction SilentlyContinue | Select-Object Name, Enabled)) {
-    $ScriptBlock = {
-        param ([string]$NetProfile)
-        New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' `
-            -DisplayName 'OpenSSH SSH Server (sshd)' -Enabled True `
-            -Description 'Inbound rule for OpenSSH SSH Server (sshd)' `
-            -Direction Inbound -Protocol TCP -Action Allow `
-            -LocalPort 22 -Profile $NetProfile
-    }
-
-    if (-not $AssumeYes) {
-        $confirmation = Read-Host "Firewall rule 'OpenSSH-Server-In-TCP' does not exist. Do you want to create it? (y/N)"
-        if ($confirmation -ne 'Y' -and $confirmation -ne 'y') {
-            exit 0
-        }
-    }
-
-    $process = Start-Process powershell -Verb RunAs -WindowStyle Hidden -PassThru -Wait `
-        -ArgumentList "-NoProfile -Command (Invoke-Command -ScriptBlock {$ScriptBlock} -ArgumentList '$NetProfile')"
-    if ($process.ExitCode -ne 0) {
-        Write-Host "Failed to create firewall rule 'OpenSSH-Server-In-TCP'. Exit code: $($process.ExitCode)" -ForegroundColor DarkRed
-        exit 1
-    }
-    Write-Host "Firewall Rule 'OpenSSH-Server-In-TCP' has been created successfully." -ForegroundColor DarkGreen
-} else {
-    Write-Host "Firewall rule 'OpenSSH-Server-In-TCP' has already been created."
+$Rules = Get-NetFirewallRule -DisplayName "OpenSSH*Server*sshd)" -ErrorAction SilentlyContinue
+if ($Rules | Select-Object Name, Enabled) {
+    Write-Host "Existing OpenSSH Server firewall rules:"
+    $Rules | Select-Object Name, DisplayName, Enabled | Format-Table -AutoSize
+    exit 0
 }
+
+$ProgramPath = $sshdCommand.Source
+$ScriptBlock = {
+    param (
+        [string]$NetProfile,
+        [string]$ProgramPath
+    )
+    New-NetFirewallRule -Name 'OpenSSH-Server-In-TCP' `
+        -DisplayName 'OpenSSH SSH Server (sshd)' -Enabled True `
+        -Description 'Inbound rule for OpenSSH SSH Server (sshd)' `
+        -Direction Inbound -Protocol TCP -Action Allow `
+        -LocalPort 22 -Program $ProgramPath -Profile $NetProfile
+}
+
+if (-not $AssumeYes) {
+    $confirmation = Read-Host "Firewall rule 'OpenSSH-Server-In-TCP' does not exist. Do you want to create it? (y/N)"
+    if ($confirmation -ne 'Y' -and $confirmation -ne 'y') {
+        exit 0
+    }
+}
+
+$process = Start-Process powershell -Verb RunAs -WindowStyle Hidden -PassThru -Wait `
+    -ArgumentList "-NoProfile -Command (Invoke-Command -ScriptBlock {$ScriptBlock} -ArgumentList '$NetProfile', '$ProgramPath')"
+if ($process.ExitCode -ne 0) {
+    Write-Host "Failed to create firewall rule 'OpenSSH-Server-In-TCP'. Exit code: $($process.ExitCode)" -ForegroundColor DarkRed
+    exit 1
+}
+Write-Host "Firewall Rule 'OpenSSH-Server-In-TCP' has been created successfully." -ForegroundColor DarkGreen
