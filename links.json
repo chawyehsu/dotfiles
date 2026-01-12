@@ -27,6 +27,7 @@
   { "path": ".config/vivid", "replace": [".dir_colors"] },
   { "path": ".wgetrc", "source": ".config/wget/wgetrc" },
   { "path": ".local/bin/omg.ps1" },
+  { "path": ".local/bin/youtube-cover.ps1" },
 
   { "path": ".cargo/config.toml", "domestic": ".cargo/config.domestic.toml" },
   { "path": ".config/pixi/config.toml", "domestic": ".config/pixi/config.domestic.toml" },
@@ -56,6 +57,8 @@
   { "path": ".config/pshazz", "os": ["windows"] },
   { "path": ".config/scoop/config.json", "os": ["windows"] },
   { "path": ".gnupg/gpg-agent.conf", "source": ".config/gnupg/gpg-agent.win.conf", "os": ["windows"] },
+  { "path": ".local/bin/fwc.ps1", "os": ["windows"] },
+  { "path": ".local/bin/vsds.ps1", "os": ["windows"] },
   { "path": ".proxychains/proxychains.conf", "source": ".config/proxychains/proxychains.conf", "os": ["windows"] },
   { "path": ".wslconfig", "source": ".config/wsl/.wslconfig", "os": ["windows"] },
   { "path": "scoop/persist/pixi/config.toml", "source": ".config/pixi/config.toml", "domestic": ".config/pixi/config.domestic.toml", "os": ["windows"] },
