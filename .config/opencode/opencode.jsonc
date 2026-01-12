@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "opencode-models-discovery@0.10.0"
+  ],
+  "provider": {
+    "cliproxyapi": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "CLIProxyAPI",
+      "options": {
+        "baseURL": "http://100.64.0.1:8317/v1"
+      }
+    }
+  }
+}

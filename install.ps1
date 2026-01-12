@@ -182,6 +182,7 @@ if (-not $NoBackup) {
         '.config/mintty',
         '.config/nano',
         '.config/npm',
+        '.config/opencode/opencode.jsonc',
         '.config/pip',
         '.config/pixi',
         '.config/powershell/profile.ps1',
@@ -255,6 +256,7 @@ Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/npm/npmrc'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
+Set-SymbolicLink -Target '.config/opencode/opencode.jsonc'
 Set-SymbolicLink -Target '.config/pnpm/rc'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
 Set-SymbolicLink -Target '.config/readline'
