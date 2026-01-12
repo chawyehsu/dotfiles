@@ -29,6 +29,10 @@ sq = ["squash", "-i"]
 sqa = ["squash"]
 # ref: https://shaddy.dev/notes/jj-tug/
 tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+# git
+g = ["git"]
+gf = ["git", "fetch"]
+gp = ["git", "push"]
 
 [ui]
 default-command = "log"
