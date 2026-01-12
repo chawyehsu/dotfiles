@@ -17,9 +17,9 @@ disabled = true
 format = " in [$path]($style)[$read_only]($read_only_style) "
 
 [hostname]
-ssh_only = false
 disabled = false
-format = "[$ssh_symbol$hostname]($style)"
+ssh_only = false
+format = "[$hostname]($style)"
 
 [nodejs]
 symbol = "⬢ "
