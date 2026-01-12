@@ -11,3 +11,4 @@
 .config/zed/settings.json linguist-language=jsonc
 wsl.conf linguist-language=ini
 tmux.conf linguist-language=sh
+containers.conf linguist-language=toml
