@@ -1,3 +1,9 @@
-cache=${XDG_CACHE_HOME}/npm
+# Docs:
+# - https://docs.npmjs.com/cli/configuring-npm/npmrc
+# - https://docs.npmjs.com/cli/using-npm/config
+#
 loglevel=http
-store-dir=${XDG_DATA_HOME}/pnpm-store
+# https://docs.npmjs.com/cli/using-npm/config#cache
+cache=${XDG_CACHE_HOME}/npm
+# https://docs.npmjs.com/cli/using-npm/config#min-release-age
+min-release-age=3
