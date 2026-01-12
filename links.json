@@ -58,6 +58,7 @@
   { "path": ".gnupg/gpg-agent.conf", "target": ".config/gnupg/gpg-agent.win.conf", "os": ["windows"] },
   { "path": ".proxychains/proxychains.conf", "target": ".config/proxychains/proxychains.conf", "os": ["windows"] },
   { "path": ".wslconfig", "target": ".config/wsl/.wslconfig", "os": ["windows"] },
+  { "path": "scoop/persist/pixi/config.toml", "target": ".config/pixi/config.toml", "domestic": ".config/pixi/config.domestic.toml", "os": ["windows"] },
   { "path": "Rconsole", "target": ".config/r/Rconsole", "os": ["windows"] },
   { "path": "$env:APPDATA/containers/containers.conf", "target": ".config/containers/containers.conf", "os": ["windows"] },
   { "path": "$env:APPDATA/containers/registries.conf", "target": ".config/containers/registries.conf", "os": ["windows"] },

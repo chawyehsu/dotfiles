@@ -1,3 +1,5 @@
 # Reference: https://pixi.sh/latest/reference/pixi_configuration/
+default-channels = ["https://prefix.dev/chawyehsu", "https://prefix.dev/conda-forge"]
+
 [shell]
 change-ps1 = false

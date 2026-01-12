@@ -103,13 +103,13 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
     if (!$Path) { $Path = $Target }
 
     $src = if ([System.IO.Path]::IsPathRooted($Target)) {
-        Get-NormalizedPath  $Path
+        Get-NormalizedPath $Path
     } else {
         (Join-Path $SRCROOT $Target)
     }
 
     $DestPath = if ([System.IO.Path]::IsPathRooted($Path)) {
-        Get-NormalizedPath  $Path
+        Get-NormalizedPath $Path
     } else {
         (Join-Path $DSTROOT $Path)
     }
