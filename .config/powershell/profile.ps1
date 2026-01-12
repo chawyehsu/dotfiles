@@ -753,6 +753,11 @@ if (Test-IsNotWindows) {
     # Define Scoop home
     $SCOOP_HOME = "$Script:UNI_HOME\scoop"
 
+    # `pinentry-wukong` requires this to display passphrase prompt in tty/tui mode
+    if (Test-Command 'pinentry-wukong') {
+        $env:GPG_TTY = "/conhost/$PID"
+    }
+
     # The expandable variable `%SCOOP_PATH%` is not getting expanded when shell-in
     # from SSH, and I have no idea why. As a workaround, replace it with the actual
     # path when detecting SSH session.
