@@ -99,7 +99,14 @@ function Backup-Item([String]$Path) {
     }
 }
 
-function Set-SymbolicLink([String]$Source, [String]$Dest) {
+function Set-SymbolicLink {
+    param (
+        [Parameter(Mandatory = $true)]
+        [string]$Source,
+        [Parameter(Mandatory = $false)]
+        [string]$Dest
+    )
+
     if (!$Dest) { $Dest = $Source }
 
     $Source = if ([System.IO.Path]::IsPathRooted($Source)) {
