@@ -1,0 +1,5 @@
+# Docs: https://bun.com/docs/runtime/bunfig
+"$schema" = "https://json.schemastore.org/bunfig.json"
+
+[install]
+minimumReleaseAge = 259200 # seconds (3 days)
