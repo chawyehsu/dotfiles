@@ -1,6 +1,6 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "$schema": "https://raw.githubusercontent.com/microsoft/terminal/refs/heads/main/doc/cascadia/profiles.schema.json",
     "actions":
     [
         {
