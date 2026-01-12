@@ -725,6 +725,14 @@ if (Test-IsNotWindows) {
     # Define Scoop home
     $SCOOP_HOME = "$Script:UNI_HOME\scoop"
 
+
+    # The expandable variable `%SCOOP_PATH%` is not getting expanded when shell-in
+    # from SSH, and I have no idea why. As a workaround, replace it with the actual
+    # path when detecting SSH session.
+    if ($env:SSH_TTY -and $env:SCOOP_PATH) {
+        $env:PATH = $env:PATH -replace '%SCOOP_PATH%',$env:SCOOP_PATH
+    }
+
     # env Path update
     & {
         # dotnet
