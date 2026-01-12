@@ -1,6 +1,7 @@
 # https://www.nano-editor.org/dist/latest/nanorc.5.html
 # https://www.nano-editor.org/dist/latest/cheatsheet.html
 include "~/.config/nano/syntax/*.nanorc"
+set afterends
 set autoindent
 set brackets ""')>]}"
 set constantshow
