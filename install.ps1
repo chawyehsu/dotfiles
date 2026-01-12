@@ -42,6 +42,25 @@ function Test-IsAdministrator {
     ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
+function Test-Command {
+    <#
+    .SYNOPSIS
+        Test if the given command exists.
+    .PARAMETER Command
+        The command to check.
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $true, Position = 0)]
+        [ValidateNotNullOrEmpty()]
+        [string]
+        $Command
+    )
+
+    return [bool](Get-Command -Name $Command `
+            -CommandType Application -ErrorAction SilentlyContinue)
+}
+
 function Test-IsWindows() {
     return $env:OS -eq 'Windows_NT' -or $IsWindows
 }
@@ -128,6 +147,7 @@ if (-not $NoBackup) {
     # dotfiles deprecated in favor of XDG compliance
     $DotfilesDeprecated = @(
         '.condarc',
+        '.dir_colors',
         '.gemrc',
         '.gitconfig',
         '.gvimrc',
@@ -173,7 +193,6 @@ if (-not $NoBackup) {
         '.config/volta/hook.json',
         '.config/wget/wgetrc',
         '.config/zed',
-        '.dir_colors',
         '.gnupg/gpg-agent.conf',
         '.gnupg/gpg.conf',
         '.gradle/gradle.properties',
@@ -231,13 +250,13 @@ Set-SymbolicLink -Target '.config/jj/conf.d'
 Set-SymbolicLink -Target '.config/mintty'
 Set-SymbolicLink -Target '.config/nano'
 Set-SymbolicLink -Target '.config/starship.toml'
-Set-SymbolicLink -Target '.dir_colors'
 Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
 Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
 Set-SymbolicLink -Target '.config/readline'
 Set-SymbolicLink -Target '.config/starship.toml'
 Set-SymbolicLink -Target '.config/tig/config'
 Set-SymbolicLink -Target '.config/tmux'
+Set-SymbolicLink -Target '.config/vivid'
 Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
 Set-SymbolicLink -Target '.config/zed'
 Set-SymbolicLink -Target '.local/bin/omg.ps1' -Path '.local/bin/omg.ps1'
@@ -292,6 +311,10 @@ if (Test-IsWindows) {
         Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
         # R for Windows
         Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
+        # vivid
+        if (Test-Command 'vivid') {
+            Set-SymbolicLink -Target '.config/vivid' -Path "$env:APPDATA/vivid"
+        }
         # WSL host config
         Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
         # Helix
