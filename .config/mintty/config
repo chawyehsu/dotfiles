@@ -1,3 +1,32 @@
+# selenized-black theme for Mintty
+# Scheme Author: Jan Warchol (https://github.com/jan-warchol/selenized) / adapted to base16 by ali
+# Scheme System: base16
+# Template Author: Tinted Terminal (https://github.com/tinted-theming/tinted-terminal)
+
+# The 16 color palette
+Black       = #181818
+Red         = #ed4a46
+Green       = #70b433
+Yellow      = #dbb32d
+Blue        = #368aeb
+Magenta     = #a580e2
+Cyan        = #3fc5b7
+White       = #b9b9b9
+BoldBlack   = #777777
+BoldRed     = #ed4a46
+BoldGreen   = #70b433
+BoldYellow  = #dbb32d
+BoldBlue    = #368aeb
+BoldMagenta = #a580e2
+BoldCyan    = #3fc5b7
+BoldWhite   = #dedede
+
+# Background & foreground colors
+BackgroundColour = #181818
+ForegroundColour = #b9b9b9
+CursorColour     = #b9b9b9
+
+# Additional settings
 OpaqueWhenFocused=no
 Term=xterm-256color
 FontSmoothing=full
@@ -17,25 +46,4 @@ BellFlash=no
 BellType=0
 Columns=90
 Locale=C
-Rows=26
-
-# via https://github.com/iamthad/base16-mintty
-ForegroundColour=120,124,153
-BackgroundColour=22,22,30
-CursorColour=120,124,153
-Black=22,22,30
-BoldBlack=68,75,106
-Red=247,118,142
-BoldRed=255,158,100
-Green=65,166,181
-BoldGreen=26,27,38
-Yellow=224,175,104
-BoldYellow=47,53,73
-Blue=122,162,247
-BoldBlue=120,124,153
-Magenta=187,154,247
-BoldMagenta=203,204,209
-Cyan=125,207,255
-BoldCyan=209,134,22
-White=120,124,153
-BoldWhite=213,214,219
+Rows=30
