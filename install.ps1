@@ -367,6 +367,8 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
     # Ghostty
     Set-SymbolicLink -Target '.config/ghostty'
+    # Helix
+    Set-SymbolicLink -Target '.config/helix'
     # containers
     Set-SymbolicLink -Target '.config/containers/containers.conf'
 }
