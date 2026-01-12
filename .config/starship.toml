@@ -1,10 +1,17 @@
-command_timeout = 9999
+command_timeout = 1999
 add_newline = false
+format = '$username$hostname$directory${custom.wsl}$all'
 
 [conda]
 symbol = "venv:"
 style = "bold blue"
 ignore_base = false
+
+[username]
+disabled = true
+
+[battery]
+disabled = true
 
 [hostname]
 ssh_only = false
@@ -21,6 +28,14 @@ disabled = true
 disabled = true
 [git_status]
 disabled = true
+
+[custom.wsl]
+os = "linux"
+command = "printf '%s' '(WSL)'"
+shell = ["sh"]
+when = "test -n $WSL_DISTRO_NAME"
+format = "[$output]($style) "
+style = "purple"
 
 [custom.jj]
 #command = "jj-starship"
