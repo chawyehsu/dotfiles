@@ -165,7 +165,8 @@ if ($_PSReadLineVersion.Major -ge 2) {
     # Copy selected text to clipboard
     Set-PSReadLineKeyHandler -Chord 'Ctrl+d,Ctrl+c' -Function CaptureScreen
 
-    Remove-PSReadLineKeyHandler -Chord Alt+d
+    Set-PSReadLineKeyHandler -Key Alt+e -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Key Alt+d -Function HistorySearchForward
 
     ## EndOfLineOrAcceptSuggestion
     # A more convenient key binding for accepting suggestions or moving to end
