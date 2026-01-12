@@ -9,9 +9,5 @@ change-ps1 = false
     "https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge"
 ]
 
-[repodata-config]
-disable-jlap = true
-disable-zstd = true
-
 [pypi-config]
 index-url = "https://mirrors.cernet.edu.cn/pypi/web/simple"

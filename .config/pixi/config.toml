@@ -1,7 +1,3 @@
 # Reference: https://pixi.sh/latest/reference/pixi_configuration/
 [shell]
 change-ps1 = false
-
-[repodata-config]
-disable-jlap = true
-disable-zstd = true
