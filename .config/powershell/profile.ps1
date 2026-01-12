@@ -558,6 +558,7 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
     # bun
     $bunBinPath = Get-NormalizedPath "$Script:UNI_HOME/.bun/bin"
     if (Test-Path $bunBinPath) {
+        $env:BUN_INSTALL = Get-NormalizedPath "$Script:UNI_HOME/.bun"
         Add-ToPath $bunBinPath
     }
     # .local bin (put it at last to make local tools have higher priority than others)
@@ -595,9 +596,6 @@ $env:VCPKG_DISABLE_METRICS = 1
 $env:VOLTA_FEATURE_PNPM = 1
 $env:ZIG_GLOBAL_CACHE_DIR = Get-NormalizedPath "$env:XDG_CACHE_HOME/zig"
 $env:ZIG_LOCAL_CACHE_DIR = Get-NormalizedPath "$env:XDG_CACHE_HOME/zig-local"
-# Bun Install
-$env:BUN_INSTALL = Get-NormalizedPath "$Script:UNI_HOME/.bun"
-$env:BUN_INSTALL_BIN = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
 
 
 #-----------------------#
