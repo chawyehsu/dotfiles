@@ -9,6 +9,7 @@
 .config/git/config* linguist-language=gitconfig
 .config/git/ignore linguist-language=gitignore
 .config/htop/htoprc linguist-language=ini
+.config/pnpm/rc linguist-language=ini
 .config/zed/keymap.json linguist-language=jsonc
 .config/zed/settings.json linguist-language=jsonc
 wsl.conf linguist-language=ini
