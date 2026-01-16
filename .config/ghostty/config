@@ -55,7 +55,9 @@ command = direct:/usr/local/bin/pwsh -l -i
 keybind = ctrl+arrow_left=previous_tab
 keybind = ctrl+arrow_right=next_tab
 keybind = ctrl+t=new_tab
-keybind = ctrl+w=close_tab
+keybind = ctrl+w=close_surface
+keybind = shift+d=new_split:right
+keybind = super+shift+d=new_split:down
 
 # Options
 maximize = true
