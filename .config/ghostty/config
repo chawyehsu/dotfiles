@@ -58,6 +58,8 @@ keybind = ctrl+t=new_tab
 keybind = ctrl+w=close_surface
 keybind = shift+d=new_split:right
 keybind = super+shift+d=new_split:down
+keybind = alt+arrow_up=scroll_page_lines:-5
+keybind = alt+arrow_down=scroll_page_lines:5
 
 # Options
 maximize = true
