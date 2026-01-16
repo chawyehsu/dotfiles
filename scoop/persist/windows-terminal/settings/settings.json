@@ -51,16 +51,48 @@
             "keys": "ctrl+c"
         },
         {
-            "id": "Terminal.SplitPaneDown",
-            "keys": "win+shift+d"
-        },
-        {
             "id": "User.ScrollUp",
             "keys": "alt+up"
         },
         {
             "id": "User.ScrollDown",
             "keys": "alt+down"
+        },
+        {
+            "id": "Terminal.SplitPaneDown",
+            "keys": "win+shift+d"
+        },
+        {
+            "id": "Terminal.MoveFocusUp",
+            "keys": "shift+alt+up"
+        },
+        {
+            "id": "Terminal.MoveFocusDown",
+            "keys": "shift+alt+down"
+        },
+        {
+            "id": "Terminal.MoveFocusLeft",
+            "keys": "shift+alt+left"
+        },
+        {
+            "id": "Terminal.MoveFocusRight",
+            "keys": "shift+alt+right"
+        },
+        {
+            "id": "Terminal.ResizePaneDown",
+            "keys": "ctrl+shift+down"
+        },
+        {
+            "id": "Terminal.ResizePaneLeft",
+            "keys": "ctrl+shift+left"
+        },
+        {
+            "id": "Terminal.ResizePaneRight",
+            "keys": "ctrl+shift+right"
+        },
+        {
+            "id": "Terminal.ResizePaneUp",
+            "keys": "ctrl+shift+up"
         },
         {
             "id": "Terminal.SplitPaneRight",
