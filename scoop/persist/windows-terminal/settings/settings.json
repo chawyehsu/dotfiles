@@ -59,6 +59,10 @@
             "keys": "alt+down"
         },
         {
+            "id": "Terminal.SplitPaneRight",
+            "keys": "shift+alt+d"
+        },
+        {
             "id": "Terminal.SplitPaneDown",
             "keys": "win+shift+d"
         },
@@ -93,10 +97,6 @@
         {
             "id": "Terminal.ResizePaneUp",
             "keys": "ctrl+shift+up"
-        },
-        {
-            "id": "Terminal.SplitPaneRight",
-            "keys": "shift+d"
         },
         {
             "id": "Terminal.ClosePane",
