@@ -49,7 +49,7 @@
 # resize-overlay-duration = 4s 200ms
 #
 # ============
-command = direct:/usr/local/bin/pwsh -nol -l -i
+command = direct:/usr/local/bin/pwsh -l -i -nol
 
 # Keybindings
 keybind = ctrl+alt+arrow_down=toggle_maximize
