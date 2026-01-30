@@ -19,6 +19,7 @@ drop = ["abandon"]
 l = ["log"]
 lr = ["log", "-r"]
 lg = ["log", "-r", "all()"]
+n = ["new"]
 rb = ["rebase"]
 rbo = ["rebase", "-o"]
 rbt = ["rebase", "-o", "trunk()"]
@@ -28,15 +29,21 @@ s = ["status"]
 sp = ["split"]
 sq = ["squash", "-i"]
 sqa = ["squash"]
-# ref: https://shaddy.dev/notes/jj-tug/
-tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]
+# ref:
+# - https://shaddy.dev/notes/jj-tug/
+# - https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028 
+tug = ["bookmark", "move", "--from", "nearest_bookmark(@-)", "--to", "nearest_nonempty(@)"]
 # git
 g = ["git"]
 gf = ["git", "fetch"]
 gp = ["git", "push"]
+gpb = ["git", "push", "-b"]
+gr = ["git", "remote"]
+gra = ["git", "remote", "add"]
+grl = ["git", "remote", "list"]
 
 [ui]
-default-command = "log"
+default-command = "status"
 diff-editor = ":builtin"
 editor = "nano"
 
@@ -53,3 +60,6 @@ eol-conversion = "input"
 [revset-aliases]
 # https://github.com/jj-vcs/jj/discussions/6890
 _ = "@"
+# handy revsets from https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028
+'nearest_bookmark(to)' = 'heads(::to & bookmarks())'
+'nearest_nonempty(to)' = 'heads(::to ~ empty())'
