@@ -1,6 +1,6 @@
 command_timeout = 1999
 add_newline = false
-format = '$username$hostname$directory${custom.wsl}$all'
+format = '$username$hostname${custom.wsl}$directory$all'
 
 [conda]
 symbol = "venv:"
@@ -13,9 +13,13 @@ disabled = true
 [battery]
 disabled = true
 
+[directory]
+format = " in [$path]($style)[$read_only]($read_only_style) "
+
 [hostname]
 ssh_only = false
 disabled = false
+format = "[$ssh_symbol$hostname]($style)"
 
 [nodejs]
 symbol = "⬢ "
@@ -29,12 +33,15 @@ disabled = true
 [git_status]
 disabled = true
 
+[pijul_channel]
+disabled = true
+
 [custom.wsl]
 os = "linux"
-command = "printf '%s' '(WSL)'"
+command = "printf '(WSL)'"
 shell = ["sh"]
 when = "test -n $WSL_DISTRO_NAME"
-format = "[$output]($style) "
+format = "[$output]($style)"
 style = "purple"
 
 [custom.jj]
