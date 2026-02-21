@@ -232,16 +232,12 @@ fi
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 # zoxide
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init $shtype)" && alias cd='z'
-# starship
-if [ -x "$(command -v starship)" ]; then
-  # `--print-full-init` is explicitly used to avoid 2-phase init
-  # overhead, see: https://github.com/starship/starship/issues/2637
-  source <(starship init $shtype --print-full-init)
-fi
 
 #----------------------------#
 # The Chawye's styled prompt #
 #----------------------------#
+PROMPT_COMMAND='echo -ne "\033]0;$0\a"'
+
 function styled_prompt() {
   # Color table
   local   RESET=$'\033[0m'
@@ -258,7 +254,7 @@ function styled_prompt() {
   # shellcheck disable=SC2034
   local   WHITE=$'\033[0;37m'
   # Terminal title
-  local TERMTITLE=$'\e]0; \w\a'
+  local TERMTITLE=$'\033]0;$0\a'
 
   # Special system environment detection: WSL, MSYS2/MinGW
   if [[ "$(uname -r)" == *"icrosoft"* ]]; then
@@ -287,4 +283,11 @@ function styled_prompt() {
   fi
 }
 # This is require to be at the end of .bashrc
-styled_prompt
+# starship
+if [ -x "$(command -v starship)" ]; then
+  # `--print-full-init` is explicitly used to avoid 2-phase init
+  # overhead, see: https://github.com/starship/starship/issues/2637
+  source <(starship init $shtype --print-full-init)
+else
+  styled_prompt
+fi
