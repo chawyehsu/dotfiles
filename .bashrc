@@ -97,6 +97,11 @@ case "$OSTYPE" in
       [ -f "$_gitprompt" ] && source "$_gitprompt" && break
     done
 esac
+# PATH updates - Add `~/.cargo/bin`:
+_cargobin="$HOME/.cargo/bin"
+if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
+  export PATH="$_cargobin:$PATH"
+fi
 # PATH updates - Add `~/.local/bin`:
 _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
