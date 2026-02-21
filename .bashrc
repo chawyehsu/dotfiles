@@ -227,6 +227,12 @@ fi
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
 # zoxide
 [ -x "$(command -v zoxide)" ] && eval "$(zoxide init $shtype)" && alias cd='z'
+# starship
+if [ -x "$(command -v starship)" ]; then
+  # `--print-full-init` is explicitly used to avoid 2-phase init
+  # overhead, see: https://github.com/starship/starship/issues/2637
+  source <(starship init $shtype --print-full-init)
+fi
 
 #----------------------------#
 # The Chawye's styled prompt #
