@@ -1,6 +1,6 @@
 command_timeout = 1999
 add_newline = false
-format = '$username$hostname${custom.wsl}$directory$all'
+format = '$username$hostname${custom.wsl}$shell$directory$all'
 
 [conda]
 symbol = "venv:"
@@ -35,6 +35,11 @@ disabled = true
 
 [pijul_channel]
 disabled = true
+
+[shell]
+disabled = false
+format = " [$indicator]($style)"
+style = "blue"
 
 [custom.wsl]
 os = "linux"
