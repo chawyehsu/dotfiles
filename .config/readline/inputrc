@@ -25,3 +25,6 @@ set bell-style none
 "\en": end-of-line
 "\e[3;3~": kill-word
 "\e\b": backward-kill-word
+"\C-z": undo
+"\C-\b": backward-kill-line
+"\e[3;5~": kill-line

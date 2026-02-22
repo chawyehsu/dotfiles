@@ -103,6 +103,17 @@ if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
   export PATH="$_localbin:$PATH"
 fi
 
+#------------------#
+#  keybind compat  #
+#------------------#
+if [ -x "$(command -v stty)" ]; then
+  # unbind Ctrl-z for SIGTSTP
+  # https://superuser.com/questions/476704/
+  # https://unix.stackexchange.com/questions/314284/
+  # https://superuser.com/questions/1031835/
+  stty susp undef
+fi
+
 #--------------------#
 #  ls and dircolors  #
 #--------------------#

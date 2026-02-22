@@ -159,6 +159,8 @@ if ($_PSReadLineVersion.Major -ge 2) {
     Set-PSReadLineKeyHandler -Key Shift+Insert -Function Paste
     Set-PSReadLineKeyHandler -Key Alt+Backspace -Function BackwardKillWord
     Set-PSReadLineKeyHandler -Key Alt+Delete -Function KillWord
+    Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function BackwardKillLine
+    Set-PSReadLineKeyHandler -Key Ctrl+Delete -Function KillLine
     # (TODO: this doesn't seem to work on non-Windows platforms)
     Set-PSReadLineKeyHandler -Key Alt+Shift+Backspace -Function BackwardKillLine
     Set-PSReadLineKeyHandler -Key Alt+Shift+Delete -Function KillLine

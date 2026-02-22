@@ -15,4 +15,10 @@ bindkey "^[l" forward-char
 bindkey "^[b" beginning-of-line
 bindkey "^[n" end-of-line
 bindkey "^[3;3~" kill-word
+# Alt+Backspace
 bindkey "^[^H" backward-kill-word
+bindkey "^Z" undo
+# Ctrl+Backspace
+bindkey "^H" backward-kill-line
+# Ctrl+Delete
+bindkey "^[[3;5~" kill-line
