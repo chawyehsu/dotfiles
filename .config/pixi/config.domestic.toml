@@ -4,6 +4,7 @@ change-ps1 = false
 
 [mirrors]
 "https://conda.anaconda.org/conda-forge" = [
+    "https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge",
     "https://mirror.nju.edu.cn/anaconda/cloud/conda-forge",
     "https://mirrors.ustc.edu.cn/anaconda/cloud/conda-forge"
 ]
