@@ -17,6 +17,7 @@ bindkey "^[n" end-of-line
 bindkey "^[3;3~" kill-word
 # Alt+Backspace
 bindkey "^[^H" backward-kill-word
+bindkey "^A" kill-whole-line
 bindkey "^Z" undo
 # Ctrl+Backspace
 bindkey "^H" backward-kill-line
