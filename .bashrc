@@ -297,8 +297,12 @@ function styled_prompt() {
 if [ -x "$(command -v starship)" ]; then
   # `--print-full-init` is explicitly used to avoid 2-phase init
   # overhead, see: https://github.com/starship/starship/issues/2637
-  # shellcheck disable=SC1090
-  source <(starship init $shtype --print-full-init)
+  # also: https://github.com/starship/starship/blob/master/src/init/mod.rs#L108
+  if [ "$shtype" = "zsh" ]; then
+    source <(starship init zsh --print-full-init)
+  else
+    eval -- "$(starship init $shtype --print-full-init)"
+  fi
 else
   styled_prompt
 fi
