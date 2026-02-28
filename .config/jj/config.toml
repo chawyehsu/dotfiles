@@ -41,6 +41,8 @@ gpb = ["git", "push", "-b"]
 gr = ["git", "remote"]
 gra = ["git", "remote", "add"]
 grl = ["git", "remote", "list"]
+w = ["workspace"]
+wl = ["workspace", "list"]
 
 [ui]
 default-command = "status"
