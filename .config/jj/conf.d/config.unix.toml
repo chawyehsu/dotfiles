@@ -1,0 +1,5 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
+--when.platforms = ["unix"]
+
+[aliases]
+wa = ["util", "exec", "--", "/bin/sh", "-c", 'repo=$(dirname "$(jj git root)"); wsroot="$repo/.jjws"; [ ! -d "$wsroot" ] && mkdir "$wsroot"; jj workspace add --name "$0" "$wsroot/$0"']

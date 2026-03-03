@@ -1,3 +1,4 @@
+#:schema https://docs.jj-vcs.dev/latest/config-schema.json
 --when.platforms = ["windows"]
 
 [aliases]
