@@ -3,3 +3,4 @@
 
 [aliases]
 wa = ["util", "exec", "--", "powershell", "-nop", "-command", '&{$repo=$(Resolve-Path "$(jj git root)\..\"); $wsroot="$repo\.jjws"; if(!(Test-Path $wsroot)){New-Item -ItemType Directory -Path $wsroot | Out-Null}; jj workspace add --name $args "$wsroot\$args"}']
+wfr = ["util", "exec", "--", "powershell", "-nop", "-command", '&{$repo=$(Resolve-Path "$(jj git root)\..\"); $wsroot="$repo\.jjws"; if(!($args)){Write-Host "Error: No workspace name specified"; exit 1}; jj workspace forget $args; if(Test-Path "$wsroot\$args"){Remove-Item -Recurse -Force "$wsroot\$args"}}']

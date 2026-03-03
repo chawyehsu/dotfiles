@@ -41,8 +41,12 @@ gpb = ["git", "push", "-b"]
 gr = ["git", "remote"]
 gra = ["git", "remote", "add"]
 grl = ["git", "remote", "list"]
+# workspace
 w = ["workspace"]
 wl = ["workspace", "list"]
+wr = ["workspace", "root", "--name"]
+wn = ["workspace", "rename"]
+wu = ["workspace", "update-stale"]
 
 [ui]
 default-command = "status"

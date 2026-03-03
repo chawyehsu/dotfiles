@@ -3,3 +3,4 @@
 
 [aliases]
 wa = ["util", "exec", "--", "/bin/sh", "-c", 'repo=$(dirname "$(jj git root)"); wsroot="$repo/.jjws"; [ ! -d "$wsroot" ] && mkdir "$wsroot"; jj workspace add --name "$0" "$wsroot/$0"']
+wfr = ["util", "exec", "--", "/bin/sh", "-c", 'repo=$(dirname "$(jj git root)"); wsroot="$repo/.jjws"; [ "$0" = "/bin/sh" ] && echo "Error: No workspace name specified" && exit 1; jj workspace forget $0 $@ && [ -d "$wsroot/$0" ] && rm -rf "$wsroot/$0"']
