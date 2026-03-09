@@ -537,6 +537,15 @@ $env:XDG_DATA_HOME = Get-FirstNonEmpty @($env:XDG_DATA_HOME, $(Get-NormalizedPat
 $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.local/state"))
 # PATH updates
 & {
+    # macOS Homebrew
+    if ($IsMacOS) {
+        $brewPath = Get-NormalizedPath "/opt/homebrew/bin/brew"
+        if (Test-Path $brewPath) {
+            $env:HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+            & "$brewPath" shellenv | Invoke-Expression
+        }
+    }
+
     # pixi global (put it at first to make pixi-installed tools the baseline)
     $pixiBinPath = Get-NormalizedPath "$Script:UNI_HOME/.pixi/bin"
     Add-ToPath $pixiBinPath
@@ -556,10 +565,12 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
         Add-ToPath $moonbitBinPath
     }
     # bun
-    $bunBinPath = Get-NormalizedPath "$Script:UNI_HOME/.bun/bin"
-    if (Test-Path $bunBinPath) {
+    if (Test-Command 'bun') {
         $env:BUN_INSTALL = Get-NormalizedPath "$Script:UNI_HOME/.bun"
-        Add-ToPath $bunBinPath
+        $bunBinPath = Get-NormalizedPath "$env:BUN_INSTALL/bin"
+        if (Test-Path $bunBinPath) {
+            Add-ToPath $bunBinPath
+        }
     }
     # .local bin (put it at last to make local tools have higher priority than others)
     $localBinPath = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
@@ -672,13 +683,6 @@ if (Test-IsNotWindows) {
         $env:NAME = $env:NAME.Substring(0, 1).ToUpper() + $env:NAME.Substring(1).ToLower()
     }
 
-    # macOS Homebrew
-    if ($IsMacOS) {
-        # Set non-default Git remote for Homebrew/brew.
-        $env:HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
-        $(/opt/homebrew/bin/brew shellenv) | Invoke-Expression
-    }
-
     function Get-ChildItemWithLs {
         # Ignore some files that I don't want to see when calling ls command
         $lsIgnore = @(
@@ -739,7 +743,6 @@ if (Test-IsNotWindows) {
     $env:COMPUTERNAME = $env:COMPUTERNAME.Substring(0, 1).ToUpper() + $env:COMPUTERNAME.Substring(1).ToLower()
     # Define Scoop home
     $SCOOP_HOME = "$Script:UNI_HOME\scoop"
-
 
     # The expandable variable `%SCOOP_PATH%` is not getting expanded when shell-in
     # from SSH, and I have no idea why. As a workaround, replace it with the actual
