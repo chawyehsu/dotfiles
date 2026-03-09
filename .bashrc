@@ -122,10 +122,16 @@ _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
   export PATH="$_localbin:$PATH"
 fi
+# Homebrew envs
+if [ -x "$(command -v brew)" ]; then
+  # less aggressive checks and upgrades on dependents
+  export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+  export HOMEBREW_NO_ANALYTICS=1
+fi
+# Domestic-specific
 if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
   # Homebrew
   if [ -x "$(command -v brew)" ]; then
-    export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.nju.edu.cn/git/homebrew/brew.git"
     export HOMEBREW_API_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles"
