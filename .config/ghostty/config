@@ -53,7 +53,9 @@
 #   /usr/bin:/bin:/usr/sbin:/sbin:/Applications/Ghostty.app/Contents/MacOS
 #
 # therefore, pwsh has to be in one of these PATHs to be accessible. I link
-# it to Ghostty's contents directory as SIP makes system PATHs read-only.
+# it to Ghostty's contents directory as SIP makes system PATHs read-only,
+# but this requires relinking whenever the Ghostty app is updated. command:
+#   ln -s /opt/homebrew/bin/pwsh /Applications/Ghostty.app/Contents/MacOS/pwsh
 #
 # refs:
 # - https://ghostty.org/docs/help/macos-login-shells
