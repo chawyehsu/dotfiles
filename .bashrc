@@ -106,10 +106,12 @@ if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
   export PATH="$_cargobin:$PATH"
 fi
 # PATH updates - bun bin:
-_bunbin="$HOME/.bun/bin"
-if [[ -d "$_bunbin" && ":$PATH:" != *":$_bunbin:"* ]]; then
+if [ -x "$(command -v bun)" ]; then
   export BUN_INSTALL="$HOME/.bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
+  _bunbin="$BUN_INSTALL/bin"
+  if [[ -d "$_bunbin" && ":$PATH:" != *":$_bunbin:"* ]]; then
+    export PATH="$_bunbin:$PATH"
+  fi
 fi
 # PATH updates - moonbit bin:
 _moonbitbin="$HOME/.moon/bin"
