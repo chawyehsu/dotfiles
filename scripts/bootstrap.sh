@@ -92,7 +92,7 @@ if ! test_command git; then
   pixi global install git
 fi
 
-pixi global install go-ghq powershell bat
+pixi global install go-ghq powershell bat git-credential-manager
 
 if ! [[ -d "$DOTFILES_DEST/.git" ]]; then
   # update ghq.root
