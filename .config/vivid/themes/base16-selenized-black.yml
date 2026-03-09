@@ -9,7 +9,7 @@ colors:
   cyan:    "3fc5b7"
   blue:    "368aeb"
   magenta: "a580e2"
-  base01:  "777777"
+  base03:  "777777"
 
 core:
   normal_text: {}
@@ -77,7 +77,7 @@ text:
     font-style: bold
 
   licenses:
-    foreground: base01
+    foreground: base03
 
   configuration:
     foreground: yellow
@@ -113,4 +113,4 @@ executable:
   font-style: bold
 
 unimportant:
-  foreground: base01
+  foreground: base03
