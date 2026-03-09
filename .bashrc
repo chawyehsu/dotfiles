@@ -179,7 +179,7 @@ case "$OSTYPE" in
       alias ls="ls -F -G" # BSD/macOS ls
     fi
     ;;
-  linux*|cygwin*|msys*)
+  cygwin*|msys*)
     # Too many unconcerned files and directories in Windows $HOME, ignore them.
     ignoreList=("_viminfo" "navdb.csv" "NTUSER*" "ntuser*" "Local Settings*" \
       "Application Data*" "My Documents*" "NetHood*" "PrintHood*" "Recent*" \
@@ -191,6 +191,9 @@ case "$OSTYPE" in
 
     # shellcheck disable=SC2139
     alias ls="ls -F --group-directories-first --color --ignore={$lsIgnore}"
+    ;;
+  linux*)
+    alias ls="ls -F --group-directories-first --color"
     ;;
 esac
 alias l="ls"
