@@ -83,7 +83,9 @@ function Get-NormalizedPath ([String]$in) {
 
 function Backup-Item([String]$Path) {
     if (Test-Path $Path) {
-        Write-Output "Backup $Path"
+        if (-not $NoBackup) {
+            Write-Host "Backed up $Path" -ForegroundColor DarkGray
+        }
         $ItemPathNoQualifier = Split-Path $Path -NoQualifier
         $BackupPath = (Join-Path $BackupDir $ItemPathNoQualifier)
         if (Test-Path $BackupPath) {
@@ -112,7 +114,7 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
         (Join-Path $DSTROOT $Path)
     }
 
-    Write-Output "$($DestPath.ToString()) -> $($src.ToString())"
+    Write-Host "Linked $($DestPath.ToString()) -> $($src.ToString())"
     New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
 }
 
@@ -136,206 +138,55 @@ if (-not $AssumeYes) {
     Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
 }
 
-# Backup
-if (-not $NoBackup) {
-    $BackupDir = Get-NormalizedPath $BackupDir
-    if (-not (Test-Path $BackupDir)) {
-        New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+$BackupDir = Get-NormalizedPath $BackupDir
+if (-not (Test-Path $BackupDir)) {
+    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+}
+
+# Load link definitions
+$LinksFile = Join-Path $SRCROOT 'links.json'
+$Links = Get-Content -Raw $LinksFile | ConvertFrom-Json
+
+foreach ($Link in $Links) {
+    # Platform filter
+    if ($Link.psobject.Properties['os']) {
+        $match = $false
+        foreach ($os in $Link.os) {
+            switch ($os) {
+                'windows' { if (Test-IsWindows)        { $match = $true } }
+                'macos'   { if ($IsMacOS)              { $match = $true } }
+                'linux'   { if (Test-IsLinux)          { $match = $true } }
+                'unix'    { if (-not (Test-IsWindows)) { $match = $true } }
+            }
+        }
+        if (-not $match) { continue }
     }
 
-    $DotfilesToBackup = @()
-    # dotfiles deprecated in favor of XDG compliance
-    $DotfilesDeprecated = @(
-        '.condarc',
-        '.dir_colors',
-        '.gemrc',
-        '.gitconfig',
-        '.gvimrc',
-        '.jjconfig.toml',
-        '.inputrc',
-        '.mintty',
-        '.nanorc',
-        '.npmrc',
-        '.tmux.conf',
-        '.vimrc'
-    )
-    $DotfilesToBackup = $DotfilesToBackup + $DotfilesDeprecated
-
-    # dotfiles to be linked
-    $DotfilesToBeLinked = @(
-        '.bash_logout',
-        '.bash_profile',
-        '.bashrc',
-        '.cargo/config',
-        '.config/bat',
-        '.config/conda',
-        '.config/containers/containers.conf',
-        '.config/containers/registries.conf',
-        '.config/fastfetch/config.jsonc',
-        '.config/gem',
-        '.config/gh/config',
-        '.config/ghostty',
-        '.config/git/config',
-        '.config/git/config.local',
-        '.config/git/ignore',
-        '.config/jj/config.toml',
-        '.config/mintty',
-        '.config/nano',
-        '.config/npm',
-        '.config/opencode/opencode.jsonc',
-        '.config/pip',
-        '.config/pixi',
-        '.config/powershell/profile.ps1',
-        '.config/proxychains/proxychains.conf',
-        '.config/readline',
-        '.config/screen/screenrc',
-        '.config/starship.toml',
-        '.config/tig/config',
-        '.config/tmux',
-        '.config/volta/hook.json',
-        '.config/wget/wgetrc',
-        '.config/zed',
-        '.gnupg/gpg-agent.conf',
-        '.gnupg/gpg.conf',
-        '.gradle/gradle.properties',
-        '.pip',
-        '.profile',
-        '.rprofile',
-        '.screenrc',
-        '.volta',
-        '.wgetrc'
-        '.zprofile',
-        '.zshrc'
-    )
-    $DotfilesToBackup = $DotfilesToBackup + $DotfilesToBeLinked
-
-    # Windows only
-    if (Test-IsWindows) {
-        $DotfilesWindowsOnly = @(
-            '.config/concfg',
-            '.config/pshazz',
-            '.config/scoop/config.json',
-            '.wslconfig',
-            'pip',
-            'Rconsole',
-            "$env:APPDATA/pip",
-            "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
-        )
-        $DotfilesToBackup = $DotfilesToBackup + $DotfilesWindowsOnly
-    }
-
-    $DotfilesToBackup | ForEach-Object {
-        $Path = if ([System.IO.Path]::IsPathRooted($_)) {
-            Get-NormalizedPath "$_"
+    # Back up original files
+    $deprecated = if ($Link.psobject.Properties['replace']) { $Link.replace } else { @() }
+    @($Link.path) + @($deprecated) | ForEach-Object {
+        $path = if ([System.IO.Path]::IsPathRooted($_)) {
+            Get-NormalizedPath $_
         } else {
             Get-NormalizedPath "$DSTROOT/$_"
         }
-        Backup-Item $Path
+        Backup-Item $path
     }
 
-    Write-Host "Backup created at $BackupDir" -ForegroundColor Green
-}
-
-# Link dotfiles
-Set-SymbolicLink -Target '.bash_logout'
-Set-SymbolicLink -Target '.bash_profile'
-Set-SymbolicLink -Target '.bashrc'
-Set-SymbolicLink -Target '.config/bat'
-Set-SymbolicLink -Target '.config/.bunfig.toml'
-Set-SymbolicLink -Target '.config/conda'
-Set-SymbolicLink -Target '.config/fastfetch/config.jsonc'
-Set-SymbolicLink -Target '.config/gem'
-Set-SymbolicLink -Target '.config/gh/config.yml'
-Set-SymbolicLink -Target '.config/ghostty'
-Set-SymbolicLink -Target '.config/git/config'
-Set-SymbolicLink -Target '.config/git/ignore'
-Set-SymbolicLink -Target '.config/jj/config.toml'
-Set-SymbolicLink -Target '.config/jj/conf.d'
-Set-SymbolicLink -Target '.config/mintty'
-Set-SymbolicLink -Target '.config/nano'
-Set-SymbolicLink -Target '.config/npm/npmrc'
-Set-SymbolicLink -Target '.config/starship.toml'
-Set-SymbolicLink -Target '.config/gnupg/gpg.conf' -Path '.gnupg/gpg.conf'
-Set-SymbolicLink -Target '.config/opencode/opencode.jsonc'
-Set-SymbolicLink -Target '.config/pnpm/rc'
-Set-SymbolicLink -Target '.config/r/.rprofile' -Path '.rprofile'
-Set-SymbolicLink -Target '.config/readline'
-Set-SymbolicLink -Target '.config/starship.toml'
-Set-SymbolicLink -Target '.config/tig/config'
-Set-SymbolicLink -Target '.config/tmux'
-Set-SymbolicLink -Target '.config/vivid'
-Set-SymbolicLink -Target '.config/wget/wgetrc' -Path '.wgetrc'
-Set-SymbolicLink -Target '.config/zed'
-Set-SymbolicLink -Target '.local/bin/omg.ps1' -Path '.local/bin/omg.ps1'
-# dotfiles with domestic variant
-if ($NoDomestic) {
-    Set-SymbolicLink -Target '.cargo/config.toml'
-    Set-SymbolicLink -Target '.config/pixi/config.toml'
-} else {
-    Set-SymbolicLink -Target '.gradle/gradle.properties'
-    Set-SymbolicLink -Target '.cargo/config.domestic.toml' `
-        -Path '.cargo/config.toml'
-    Set-SymbolicLink -Target '.config/pixi/config.domestic.toml' `
-        -Path '.config/pixi/config.toml'
-}
-# Link dotfiles (platform specific)
-if (Test-IsWindows) {
-    # git config for Windows
-    Set-SymbolicLink -Target '.config/git/config.win.conf' `
-        -Path '.config/git/config.local'
-    # gpg
-    Set-SymbolicLink -Target '.config/gnupg/gpg-agent.win.conf' `
-        -Path '.gnupg/gpg-agent.conf'
-
-    # Scoop, pshazz and concfg
-    Set-SymbolicLink -Target '.config/concfg'
-    Set-SymbolicLink -Target '.config/pshazz'
-    Set-SymbolicLink -Target '.config/scoop/config.json'
-
-    # proxychains
-    Set-SymbolicLink -Target '.config/proxychains/proxychains.conf' `
-        -Path '.proxychains/proxychains.conf'
-
-    # Additional Windows-only links not for MSYS environment
-    if (-not (Test-Path env:\MSYSTEM)) {
-        # PowerShell profile
-        Set-SymbolicLink -Target '.config/powershell/profile.ps1' `
-            -Path $PROFILE.CurrentUserAllHosts
-        # Windows Terminal
-        Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
-            -Path "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json"
-        if (Test-Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState") {
-            Set-SymbolicLink -Target 'scoop/persist/windows-terminal/settings/settings.json' `
-                -Path "$env:LOCALAPPDATA/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
-        }
-
-        # containers
-        Set-SymbolicLink -Target '.config/containers/containers.conf' `
-            -Path "$env:APPDATA/containers/containers.conf"
-        Set-SymbolicLink -Target '.config/containers/registries.conf' `
-            -Path "$env:APPDATA/containers/registries.conf"
-        # jj
-        Set-SymbolicLink -Target '.config/jj/config.toml' `
-            -Path "$env:APPDATA/jj/config.toml"
-        Set-SymbolicLink -Target '.config/jj/conf.d' `
-            -Path "$env:APPDATA/jj/conf.d"
-        # pip on Windows only uses %APPDATA%/pip
-        Set-SymbolicLink -Target '.config/pip' -Path "$env:APPDATA/pip"
-        # R for Windows
-        Set-SymbolicLink -Target '.config/r/Rconsole' -Path 'Rconsole'
-        # vivid
-        if (Test-Command 'vivid') {
-            Set-SymbolicLink -Target '.config/vivid' -Path "$env:APPDATA/vivid"
-        }
-        # WSL host config
-        Set-SymbolicLink -Target '.config/wsl/.wslconfig' -Path '.wslconfig'
-        # Helix
-        Set-SymbolicLink -Target '.config/helix' -Path "$env:APPDATA/helix"
-        # Zed
-        Set-SymbolicLink -Target '.config/zed' -Path "$env:APPDATA/Zed"
+    # Resolve source: domestic variant, explicit target, or self
+    if ($Link.psobject.Properties['domestic'] -and -not $NoDomestic) {
+        $source = $Link.domestic
+    } elseif ($Link.psobject.Properties['target']) {
+        $source = $Link.target
+    } else {
+        $source = $Link.path
     }
-} else {
-    # gnupg directory permission fix
+
+    Set-SymbolicLink -Target $source -Path $Link.path
+}
+
+# gnupg directory permission fix (non-Windows)
+if (-not (Test-IsWindows)) {
     $gnupgPath = Join-Path $DSTROOT '.gnupg'
     if (Test-Path $gnupgPath) {
         Write-Host "Updated permissions for gnupg directory at $gnupgPath" -ForegroundColor Yellow
@@ -344,42 +195,6 @@ if (Test-IsWindows) {
         find $gnupgPath --% -type d -exec chmod 700 {} ;
         find $gnupgPath --% -type f -exec chmod 600 {} ;
     }
-
-    # git config for macOS and Linux
-    if ($IsMacOS) {
-        # macOS
-        Set-SymbolicLink -Target '.config/git/config.mac.conf' `
-            -Path '.config/git/config.local'
-        # gpg
-        Set-SymbolicLink -Target '.config/gnupg/gpg-agent.mac.conf' `
-            -Path '.gnupg/gpg-agent.conf'
-        # Zsh
-        Set-SymbolicLink -Target '.zprofile'
-        Set-SymbolicLink -Target '.zshrc'
-    } else {
-        # Linux
-        Set-SymbolicLink -Target '.profile'
-        Set-SymbolicLink -Target '.config/git/config.linux.conf' `
-            -Path '.config/git/config.local'
-        # gpg
-        Set-SymbolicLink -Target '.config/gnupg/gpg-agent.linux.conf' `
-            -Path '.gnupg/gpg-agent.conf'
-        # htop
-        Set-SymbolicLink -Target '.config/htop/htoprc'
-    }
-    # PowerShell profile
-    Set-SymbolicLink -Target '.config/powershell/profile.ps1'
-    # Volta Hooks
-    Set-SymbolicLink -Target '.config/volta' -Path '.volta'
-    # pip
-    Set-SymbolicLink -Target '.config/pip/pip.ini' -Path '.config/pip/pip.conf'
-    # screen
-    Set-SymbolicLink -Target '.config/screen/screenrc' -Path '.screenrc'
-    # Helix
-    Set-SymbolicLink -Target '.config/helix'
-    # containers
-    Set-SymbolicLink -Target '.config/containers/containers.conf'
-    Set-SymbolicLink -Target '.config/containers/registries.conf'
 }
 
 if ($NoDomestic) {
@@ -397,5 +212,12 @@ if (Test-IsLinux) {
         $root = (Get-NormalizedPath "$PSScriptRoot")
         Write-Host 'Detected WSL environment. You probably want to apply wsl config for the guest Linux by:' -ForegroundColor Yellow
         Write-Host "  sudo cp $root/.config/wsl/wsl.conf /etc/wsl.conf" -ForegroundColor Cyan
+    }
+}
+
+# Delete backup if NoBackup is specified
+if ($NoBackup) {
+    if (Test-Path $BackupDir) {
+        Remove-Item -Path $BackupDir -Recurse -Force
     }
 }

@@ -20,3 +20,6 @@ indent_size = 2
 
 [containers.conf]
 indent_size = 2
+
+[links.json]
+indent_size = 2
