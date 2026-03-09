@@ -125,6 +125,7 @@ fi
 if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
   # Homebrew
   if [ -x "$(command -v brew)" ]; then
+    export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
     export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.nju.edu.cn/git/homebrew/brew.git"
     export HOMEBREW_API_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles/api"
     export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles"

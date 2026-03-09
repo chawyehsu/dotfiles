@@ -536,6 +536,7 @@ $env:GIT_PS1_SHOWDIRTYSTATE = 1
     if ($IsMacOS) {
         $brewPath = Get-NormalizedPath "/opt/homebrew/bin/brew"
         if (Test-Path $brewPath) {
+            $env:HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
             if (-not (Test-Path "$env:XDG_CACHE_HOME/.nodomestic")) {
                 $env:HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.nju.edu.cn/git/homebrew/brew.git"
                 $env:HOMEBREW_API_DOMAIN = "https://mirrors.cernet.edu.cn/homebrew-bottles/api"
