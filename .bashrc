@@ -177,6 +177,7 @@ case "$OSTYPE" in
     ;;
 esac
 alias px="pixi run"
+alias oc="opencode"
 
 #-------------------------------------#
 #  ssh-agent on Git-Bash/MSYS2/MinGW  #

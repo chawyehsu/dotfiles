@@ -623,6 +623,7 @@ Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 
 function Invoke-PixiRun { & pixi run @args }
 Set-Alias -Name 'px' -Value Invoke-PixiRun -Option AllScope
+Set-Alias -Name 'oc' -Value 'opencode' -Option AllScope
 
 #-------------------------------#
 #   Platform-specific Settings  #
