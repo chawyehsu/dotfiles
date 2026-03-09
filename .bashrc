@@ -102,6 +102,22 @@ _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
   export PATH="$_localbin:$PATH"
 fi
+# PATH updates - Add `~/.cargo/bin`:
+_cargobin="$HOME/.cargo/bin"
+if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
+  export PATH="$_cargobin:$PATH"
+fi
+# PATH updates - Add pixi bin:
+_pixibin="$HOME/.pixi/bin"
+if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
+  export PATH="$_pixibin:$PATH"
+  [ -x "$(command -v pixi)" ] && eval "$(pixi completion -s $shtype)"
+fi
+# PATH updates - Add moonbit bin:
+_moonbitbin="$HOME/.moon/bin"
+if [[ -d "$_moonbitbin" && ":$PATH:" != *":$_moonbitbin:"* ]]; then
+  export PATH="$_moonbitbin:$PATH"
+fi
 
 #------------------#
 #  keybind compat  #
@@ -231,23 +247,6 @@ fi
 #----------------------------------#
 # Cross-platform programs settings #
 #----------------------------------#
-# PATHs
-# PATH updates - Add `~/.cargo/bin`:
-_cargobin="$HOME/.cargo/bin"
-if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
-  export PATH="$_cargobin:$PATH"
-fi
-# PATH updates - Add pixi bin:
-_pixibin="$HOME/.pixi/bin"
-if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
-  export PATH="$_pixibin:$PATH"
-  [ -x "$(command -v pixi)" ] && eval "$(pixi completion -s $shtype)"
-fi
-# moonbit
-_moonbitbin="$HOME/.moon/bin"
-if [[ -d "$_moonbitbin" && ":$PATH:" != *":$_moonbitbin:"* ]]; then
-  export PATH="$_moonbitbin:$PATH"
-fi
 # conda
 [ -x "$(command -v conda)" ] && eval "$(conda "shell.$shtype" 'hook')"
 # bat
