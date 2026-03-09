@@ -542,7 +542,7 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
         $brewPath = Get-NormalizedPath "/opt/homebrew/bin/brew"
         if (Test-Path $brewPath) {
             if (-not (Test-Path "$env:XDG_CACHE_HOME/.nodomestic")) {
-                $env:HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.zju.edu.cn/git/homebrew/brew.git"
+                $env:HOMEBREW_BREW_GIT_REMOTE = "https://mirrors.nju.edu.cn/git/homebrew/brew.git"
                 $env:HOMEBREW_API_DOMAIN = "https://mirrors.cernet.edu.cn/homebrew-bottles/api"
                 $env:HOMEBREW_BOTTLE_DOMAIN = "https://mirrors.cernet.edu.cn/homebrew-bottles"
             }
