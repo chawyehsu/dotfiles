@@ -170,6 +170,7 @@ if (-not $NoBackup) {
         '.config/bat',
         '.config/conda',
         '.config/containers/containers.conf',
+        '.config/containers/registries.conf',
         '.config/fastfetch/config.jsonc',
         '.config/gem',
         '.config/gh/config',
@@ -307,6 +308,8 @@ if (Test-IsWindows) {
         # containers
         Set-SymbolicLink -Target '.config/containers/containers.conf' `
             -Path "$env:APPDATA/containers/containers.conf"
+        Set-SymbolicLink -Target '.config/containers/registries.conf' `
+            -Path "$env:APPDATA/containers/registries.conf"
         # jj
         Set-SymbolicLink -Target '.config/jj/config.toml' `
             -Path "$env:APPDATA/jj/config.toml"
@@ -373,6 +376,7 @@ if (Test-IsWindows) {
     Set-SymbolicLink -Target '.config/helix'
     # containers
     Set-SymbolicLink -Target '.config/containers/containers.conf'
+    Set-SymbolicLink -Target '.config/containers/registries.conf'
 }
 
 if ($NoDomestic) {
