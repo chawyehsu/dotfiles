@@ -14,5 +14,6 @@
 .rprofile linguist-language=r
 .wslconfig linguist-language=ini
 containers.conf linguist-language=toml
+registries.conf linguist-language=toml
 tmux.conf linguist-language=sh
 wsl.conf linguist-language=ini
