@@ -162,15 +162,18 @@ foreach ($Link in $Links) {
         if (-not $match) { continue }
     }
 
+    # Expand environment variables in path
+    $path = $ExecutionContext.InvokeCommand.ExpandString($Link.path)
+
     # Back up original files
     $deprecated = if ($Link.psobject.Properties['replace']) { $Link.replace } else { @() }
-    @($Link.path) + @($deprecated) | ForEach-Object {
-        $path = if ([System.IO.Path]::IsPathRooted($_)) {
+    @($path) + @($deprecated) | ForEach-Object {
+        $p = if ([System.IO.Path]::IsPathRooted($_)) {
             Get-NormalizedPath $_
         } else {
             Get-NormalizedPath "$DSTROOT/$_"
         }
-        Backup-Item $path
+        Backup-Item $p
     }
 
     # Resolve source: domestic variant, explicit target, or self
@@ -182,7 +185,7 @@ foreach ($Link in $Links) {
         $source = $Link.path
     }
 
-    Set-SymbolicLink -Target $source -Path $Link.path
+    Set-SymbolicLink -Target $source -Path $path
 }
 
 # gnupg directory permission fix (non-Windows)
