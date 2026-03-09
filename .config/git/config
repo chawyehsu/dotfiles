@@ -44,9 +44,23 @@
 	# Automatically set up tracking upstream for new branches
 	autoSetupRemote = true
 	default = simple
+	# Also push (annotated) tags associated with commits to push
+	# This removes the `git push --tag` step working with annotated
+	# tags `git tag -a`.
+  followTags = true
+
+[column]
+  # Show branch/tag in columns if the output is to the terminal
+  # `column.ui` can be used to enable for all supported commands
+  branch = auto
+  tag = auto
 
 [branch]
 	autosetuprebase = always
+	sort = -committerdate
+
+[tag]
+  sort = version:refname
 
 [core]
 	trustctime = false
