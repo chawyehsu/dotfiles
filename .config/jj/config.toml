@@ -52,6 +52,7 @@ tug = ["bookmark", "move", "--from", "nearest_bookmark(@-)", "--to", "nearest_no
 g = ["git"]
 gc = ["git", "clone"]
 gf = ["git", "fetch"]
+gfu = ["git", "fetch", "--remote", "upstream"]
 gi = ["git", "init"]
 gp = ["git", "push"]
 gpb = ["git", "push", "-b"]
