@@ -537,9 +537,9 @@ $env:XDG_DATA_HOME = Get-FirstNonEmpty @($env:XDG_DATA_HOME, $(Get-NormalizedPat
 $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.local/state"))
 # PATH updates
 & {
-    # .local bin
-    $localBinPath = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
-    Add-ToPath $localBinPath
+    # pixi global (put it at first to make pixi-installed tools the baseline)
+    $pixiBinPath = Get-NormalizedPath "$Script:UNI_HOME/.pixi/bin"
+    Add-ToPath $pixiBinPath
     # cargo bin
     $cargoHome = Get-FirstNonEmpty @($env:CARGO_HOME, $(Get-NormalizedPath "$Script:UNI_HOME/.cargo"))
     $cargoPath = Get-NormalizedPath "$cargoHome/bin"
@@ -550,9 +550,6 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
     # dotnet
     $dotnetPath = Get-NormalizedPath "$Script:UNI_HOME/.dotnet/tools"
     Add-ToPath $dotnetPath
-    # pixi
-    $pixiBinPath = Get-NormalizedPath "$Script:UNI_HOME/.pixi/bin"
-    Add-ToPath $pixiBinPath
     # moonbit
     $moonbitBinPath = Get-NormalizedPath "$Script:UNI_HOME/.moon/bin"
     if (Test-Path $moonbitBinPath) {
@@ -563,6 +560,9 @@ $env:XDG_STATE_HOME = Get-FirstNonEmpty @($env:XDG_STATE_HOME, $(Get-NormalizedP
     if (Test-Path $bunBinPath) {
         Add-ToPath $bunBinPath
     }
+    # .local bin (put it at last to make local tools have higher priority than others)
+    $localBinPath = Get-NormalizedPath "$Script:UNI_HOME/.local/bin"
+    Add-ToPath $localBinPath
 }
 if (-not (Test-Path "$env:XDG_CACHE_HOME/.nodomestic")) {
     # Rustup mirror

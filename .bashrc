@@ -82,10 +82,6 @@ case "$OSTYPE" in
     _linuxbrew2="$HOME/.linuxbrew/bin/brew" # non sudo
     [[ -f $_linuxbrew2 ]] && eval "$($_linuxbrew2 shellenv)"
 
-    # Bun javascript runtime:
-    _bunexe="$HOME/.bun/bin/bun"
-    [ -f "$_bunexe" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
-
     # Add git-prompt (system):
     _gitprompts=(
       "/usr/share/git/completion/git-prompt.sh"
@@ -97,26 +93,34 @@ case "$OSTYPE" in
       [ -f "$_gitprompt" ] && source "$_gitprompt" && break
     done
 esac
-# PATH updates - Add `~/.local/bin`:
-_localbin="$HOME/.local/bin"
-if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
-  export PATH="$_localbin:$PATH"
-fi
-# PATH updates - Add `~/.cargo/bin`:
-_cargobin="$HOME/.cargo/bin"
-if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
-  export PATH="$_cargobin:$PATH"
-fi
-# PATH updates - Add pixi bin:
+# PATH updates - pixi global:
+# (put it at first to make pixi-installed tools the baseline)
 _pixibin="$HOME/.pixi/bin"
 if [[ -d "$_pixibin" && ":$PATH:" != *":$_pixibin:"* ]]; then
   export PATH="$_pixibin:$PATH"
   [ -x "$(command -v pixi)" ] && eval "$(pixi completion -s $shtype)"
 fi
-# PATH updates - Add moonbit bin:
+# PATH updates - cargo bin:
+_cargobin="$HOME/.cargo/bin"
+if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
+  export PATH="$_cargobin:$PATH"
+fi
+# PATH updates - bun bin:
+_bunbin="$HOME/.bun/bin"
+if [[ -d "$_bunbin" && ":$PATH:" != *":$_bunbin:"* ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
+fi
+# PATH updates - moonbit bin:
 _moonbitbin="$HOME/.moon/bin"
 if [[ -d "$_moonbitbin" && ":$PATH:" != *":$_moonbitbin:"* ]]; then
   export PATH="$_moonbitbin:$PATH"
+fi
+# PATH updates - local bin:
+# (put it at last to make local tools have higher priority than others)
+_localbin="$HOME/.local/bin"
+if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
+  export PATH="$_localbin:$PATH"
 fi
 
 #------------------#
