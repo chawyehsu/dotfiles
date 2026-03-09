@@ -62,13 +62,18 @@ case "$OSTYPE" in
     fi
 
     # PATH updates - Add Homebrew:
-    _homebrew="/opt/homebrew/bin/brew"
-    [[ -f $_homebrew ]] && eval "$($_homebrew shellenv)"
+    _homebrewbin="/opt/homebrew/bin"
+    if [[ -d "$_homebrewbin" && ":$PATH:" != *":$_homebrewbin:"* ]]; then
+      _homebrew="$_homebrewbin/brew"
+      [[ -f $_homebrew ]] && eval "$($_homebrew shellenv)"
+    fi
 
     # git-prompt (Homebrew):
-    _gitprompt="$(brew --prefix git)/etc/bash_completion.d/git-prompt.sh"
-    # shellcheck disable=SC1090
-    [ -f "$_gitprompt" ] && source "$_gitprompt"
+    if [ -x "$(command -v brew)" ]; then
+      _gitprompt="$(brew --prefix git)/etc/bash_completion.d/git-prompt.sh"
+      # shellcheck disable=SC1090
+      [ -f "$_gitprompt" ] && source "$_gitprompt"
+    fi
 
     # bash-completion:
     _bashcomp="/usr/local/etc/bash_completion"
