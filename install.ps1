@@ -13,6 +13,8 @@
     dotfile already exists.
 .PARAMETER NoDomestic
     Use dotfiles not optimized for domestic (China) network environment.
+.PARAMETER AssumeYes
+    Assume yes for all prompts. Default is to prompt before proceeding.
 .LINK
     https://github.com/chawyehsu/dotfiles
 #>
@@ -22,7 +24,9 @@ param(
     [Parameter(Mandatory = $false)]
     [Switch]$NoBackup,
     [Parameter(Mandatory = $false)]
-    [Switch]$NoDomestic
+    [Switch]$NoDomestic,
+    [Parameter(Mandatory = $false)]
+    [Switch]$AssumeYes
 )
 
 Set-StrictMode -Version 3.0
@@ -109,7 +113,9 @@ if ($NoBackup) {
 } else {
     Write-Host "A backup will be created at $BackupDir" -ForegroundColor Yellow
 }
-Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
+if (-not $AssumeYes) {
+    Read-Host 'Press ENTER to continue or Ctrl+C to cancel'
+}
 
 # Backup
 if (-not $NoBackup) {
