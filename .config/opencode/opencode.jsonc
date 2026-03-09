@@ -3,6 +3,7 @@
   "plugin": [
     "opencode-models-discovery@0.12.0"
   ],
+  "autoupdate": false,
   "provider": {
     "cliproxyapi": {
       "npm": "@ai-sdk/openai-compatible",
