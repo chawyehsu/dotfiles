@@ -60,7 +60,7 @@ install_os_prerequisites() {
     case "$ID" in
       fedora)
         # `ncurses` for `clear` command
-        sudo dnf update -y && sudo dnf install -y ncurses
+        sudo dnf update -y && sudo dnf install -y ncurses gawk
         ;;
       *)
         echo "Unknown Linux distribution: $ID"
@@ -69,14 +69,13 @@ install_os_prerequisites() {
   fi
 }
 
+install_os_prerequisites
 check_disk_space
 
 if [[ "$MINIMAL_MODE" == "1" ]]; then
   minimal_install
   exit 0
 fi
-
-install_os_prerequisites
 
 if ! test_command pixi; then
   echo "Installing pixi..."
