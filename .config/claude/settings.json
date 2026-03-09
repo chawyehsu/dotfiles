@@ -17,5 +17,6 @@
   },
   "extraKnownMarketplaces": {},
   "autoUpdatesChannel": "stable",
+  "cleanupPeriodDays": 365,
   "disableDeepLinkRegistration": "disable"
 }
