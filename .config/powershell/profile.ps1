@@ -581,6 +581,7 @@ if (Test-Command 'vivid') {
     if ($vividGenerated -like 'Error*') {
         Write-Host "Error generating LS_COLORS with vivid: $vividGenerated" -ForegroundColor Red
     } else {
+        # NOTE: BSD/macOS ls does not support `LS_COLORS`
         $env:LS_COLORS = $vividGenerated
     }
 }

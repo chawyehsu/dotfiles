@@ -132,6 +132,7 @@ if [ -x "$(command -v vivid)" ]; then
   if [[ "$_generated" == *"rror"* ]]; then
     echo "Error generating LS_COLORS with vivid: $_generated" >&2
   else
+    # NOTE: BSD/macOS ls does not support `LS_COLORS`
     export LS_COLORS=$_generated
   fi
 fi
