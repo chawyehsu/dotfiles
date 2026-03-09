@@ -1,7 +1,7 @@
 local({
-    # Use TUNA CRAN mirror
+    # Use CRAN mirror
     repos <- getOption("repos")
-    repos["CRAN"] <- "https://mirrors.tuna.tsinghua.edu.cn/CRAN/"
+    repos["CRAN"] <- "https://mirrors.cernet.edu.cn/CRAN/"
     options(repos = repos)
 
     if (.Platform$OS.type == "windows") {

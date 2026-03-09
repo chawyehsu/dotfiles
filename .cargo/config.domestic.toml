@@ -1,0 +1,15 @@
+[build]
+rustc-wrapper = 'sccache'
+
+[source.crates-io]
+replace-with = 'cernet'
+
+[source.tuna]
+registry = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+[registries.tuna]
+index = "sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+
+[source.cernet]
+registry = "sparse+https://mirrors.cernet.edu.cn/crates.io-index/"
+[registries.cernet]
+index = "sparse+https://mirrors.cernet.edu.cn/crates.io-index/"

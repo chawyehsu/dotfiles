@@ -42,10 +42,14 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
-  export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git"
+  # Homebrew
+  export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.zju.edu.cn/git/homebrew/brew.git"
+  export HOMEBREW_API_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles/api"
+  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles"
+  export HOMEBREW_INSTALL_FROM_API=1
   # Rustup
-  export RUSTUP_DIST_SERVER="https://mirrors.ustc.edu.cn/rust-static"
-  export RUSTUP_UPDATE_ROOT="https://mirrors.ustc.edu.cn/rust-static/rustup"
+  export RUSTUP_DIST_SERVER="https://mirrors.cernet.edu.cn/rustup/"
+  export RUSTUP_UPDATE_ROOT="https://mirrors.cernet.edu.cn/rustup/rustup"
 fi
 # PATH updates -
 case "$OSTYPE" in

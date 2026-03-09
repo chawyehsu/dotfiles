@@ -238,7 +238,6 @@ Set-SymbolicLink -Target '.bash_logout'
 Set-SymbolicLink -Target '.bash_profile'
 Set-SymbolicLink -Target '.bashrc'
 Set-SymbolicLink -Target '.config/bat'
-Set-SymbolicLink -Target '.cargo/config.toml'
 Set-SymbolicLink -Target '.config/.bunfig.toml'
 Set-SymbolicLink -Target '.config/conda'
 Set-SymbolicLink -Target '.config/fastfetch/config.jsonc'
@@ -265,9 +264,12 @@ Set-SymbolicLink -Target '.config/zed'
 Set-SymbolicLink -Target '.local/bin/omg.ps1' -Path '.local/bin/omg.ps1'
 # dotfiles with domestic variant
 if ($NoDomestic) {
+    Set-SymbolicLink -Target '.cargo/config.toml'
     Set-SymbolicLink -Target '.config/pixi/config.toml'
 } else {
     Set-SymbolicLink -Target '.gradle/gradle.properties'
+    Set-SymbolicLink -Target '.cargo/config.domestic.toml' `
+        -Path '.cargo/config.toml'
     Set-SymbolicLink -Target '.config/pixi/config.domestic.toml' `
         -Path '.config/pixi/config.toml'
 }

@@ -2,8 +2,8 @@ channels:
   - conda-forge
   - bioconda
 custom_channels:
-  conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-  bioconda: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  conda-forge: https://mirrors.cernet.edu.cn/anaconda/cloud
+  bioconda: https://mirrors.cernet.edu.cn/anaconda/cloud
 envs_dirs:
   - ~/.conda/envs
 pkgs_dirs:
