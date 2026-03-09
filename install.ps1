@@ -202,12 +202,17 @@ if (-not (Test-IsWindows)) {
     }
 }
 
+
+# non-domestic mark
+$cacheDir = Join-Path $DSTROOT '.cache'
+$nodomesticMarker = Join-Path $cacheDir '.nodomestic'
 if ($NoDomestic) {
-    # non-domestic mark
-    $cacheDir = Join-Path $DSTROOT '.cache'
-    $markPath = Join-Path $cacheDir '.nodomestic'
     New-Item -ItemType Directory -Path $cacheDir -Force -ErrorAction Ignore | Out-Null
-    New-Item -ItemType File -Path $markPath -Force -ErrorAction Ignore | Out-Null
+    New-Item -ItemType File -Path $nodomesticMarker -Force -ErrorAction Ignore | Out-Null
+} else {
+    if (Test-Path $nodomesticMarker) {
+        Remove-Item -Path $nodomesticMarker -Force
+    }
 }
 
 # WSL
