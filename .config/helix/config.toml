@@ -1,10 +1,15 @@
 theme = "chawyehsu"
 
 [editor]
+cursorline = true
 bufferline = "multiple"
 default-line-ending = "lf"
 gutters = ["line-numbers", "spacer", "diff"]
 rulers = [80, 120]
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
 
 # nano bindings
 [keys.insert]
