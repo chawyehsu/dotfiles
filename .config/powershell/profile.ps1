@@ -656,6 +656,16 @@ Remove-Item -Force 'Alias:ni' -ErrorAction SilentlyContinue
 function Invoke-PixiRun { & pixi run @args }
 Set-Alias -Name 'px' -Value Invoke-PixiRun -Option AllScope
 Set-Alias -Name 'oc' -Value 'opencode' -Option AllScope
+function Invoke-ViewCondaFeedstock {
+    param([string]$package)
+    if (-not $package) {
+        Write-Host "Jump to a conda-forge feedstock GitHub repository"
+        Write-Host "Usage: cffs <package-name>"
+        return
+    }
+    & gh rvw conda-forge/$package-feedstock
+}
+Set-Alias -Name 'cffs' -Value Invoke-ViewCondaFeedstock -Option AllScope
 
 #-------------------------------#
 #   Platform-specific Settings  #
