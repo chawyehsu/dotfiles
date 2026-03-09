@@ -32,6 +32,11 @@ fd = ["show", "--no-patch", "-T", "description"]
 l = ["log"]
 lr = ["log", "-r"]
 lg = ["log", "-r", "all()"]
+## sync by merging instead of rebasing
+# merge from Y
+mf = ["new", "nearest_non_trunk_bookmark", "-r"]
+# merge trunk
+mt = ["mf", "trunk()"]
 n = ["new"]
 ol = ["op", "log"]
 # rebase
@@ -92,6 +97,7 @@ _ = "@"
 # handy revsets from https://github.com/jj-vcs/jj/discussions/2425#discussioncomment-13347028
 'nearest_bookmark(to)' = 'heads(::to & bookmarks())'
 'nearest_nonempty(to)' = 'heads(::to ~ empty())'
+'nearest_non_trunk_bookmark' = 'heads(nearest_bookmark(@) & ~trunk())'
 
 [templates]
 commit_trailers = '''
