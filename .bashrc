@@ -26,31 +26,20 @@ shtype="bash"
 [ "$TERM" = "xterm" ] && export TERM=xterm-256color
 export LANG=en_US.UTF-8
 export TZ=UTC-8
-export PYTHONUTF8=1
-# default editor
 export EDITOR=nano
-# Always display git dirty state
-export GIT_PS1_SHOWDIRTYSTATE=1
-export HOMEBREW_INSTALL_FROM_API=1
-# Enable Node.js (chalk) color
-export FORCE_COLOR=1
 # XDG environment variables
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+# Always display git dirty state
+export GIT_PS1_SHOWDIRTYSTATE=1
+# Enable Node.js (chalk) color
+export FORCE_COLOR=1
+export PYTHONUTF8=1
 # XDG compliance
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
-  # Homebrew
-  export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.nju.edu.cn/git/homebrew/brew.git"
-  export HOMEBREW_API_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles/api"
-  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles"
-  # Rustup
-  export RUSTUP_DIST_SERVER="https://mirrors.cernet.edu.cn/rustup/"
-  export RUSTUP_UPDATE_ROOT="https://mirrors.cernet.edu.cn/rustup/rustup"
-fi
 # PATH updates -
 case "$OSTYPE" in
   darwin*)
@@ -132,6 +121,19 @@ fi
 _localbin="$HOME/.local/bin"
 if [[ -d "$_localbin" && ":$PATH:" != *":$_localbin:"* ]]; then
   export PATH="$_localbin:$PATH"
+fi
+if [ ! -f "$XDG_CACHE_HOME/.nodomestic" ]; then
+  # Homebrew
+  if [ -x "$(command -v brew)" ]; then
+    export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.nju.edu.cn/git/homebrew/brew.git"
+    export HOMEBREW_API_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles/api"
+    export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.cernet.edu.cn/homebrew-bottles"
+  fi
+  # Rustup
+  if [ -x "$(command -v rustup)" ]; then
+    export RUSTUP_DIST_SERVER="https://mirrors.cernet.edu.cn/rustup/"
+    export RUSTUP_UPDATE_ROOT="https://mirrors.cernet.edu.cn/rustup/rustup"
+  fi
 fi
 
 #------------------#
