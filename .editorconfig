@@ -14,12 +14,9 @@ trim_trailing_whitespace = false
 [*.sh]
 indent_size = 2
 
-[.vscode/{settings,extensions}.json]
+[*.json]
 end_of_line = lf
 indent_size = 2
 
 [containers.conf]
-indent_size = 2
-
-[links.json]
 indent_size = 2
