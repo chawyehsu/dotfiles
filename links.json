@@ -2,6 +2,7 @@
   { "path": ".bash_logout" },
   { "path": ".bash_profile" },
   { "path": ".bashrc" },
+  { "path": ".codex/.env", "domestic": ".codex/.domestic.env" },
   { "path": ".config/bat" },
   { "path": ".config/.bunfig.toml" },
   { "path": ".config/conda", "replace": [".condarc"] },
