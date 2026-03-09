@@ -1,7 +1,4 @@
-.wslconfig linguist-language=ini
 .condarc linguist-language=yaml
-.minttyrc linguist-language=ini
-.rprofile linguist-language=r
 .config/bat/config linguist-language=ini
 .config/ghostty/config linguist-language=ini
 .config/ghostty/themes/* linguist-language=ini
@@ -9,10 +6,13 @@
 .config/git/config* linguist-language=gitconfig
 .config/git/ignore linguist-language=gitignore
 .config/htop/htoprc linguist-language=ini
+.config/mintty/config linguist-language=ini
 .config/npm/npmrc linguist-language=ini
 .config/pnpm/rc linguist-language=ini
 .config/zed/keymap.json linguist-language=jsonc
 .config/zed/settings.json linguist-language=jsonc
-wsl.conf linguist-language=ini
-tmux.conf linguist-language=sh
+.rprofile linguist-language=r
+.wslconfig linguist-language=ini
 containers.conf linguist-language=toml
+tmux.conf linguist-language=sh
+wsl.conf linguist-language=ini

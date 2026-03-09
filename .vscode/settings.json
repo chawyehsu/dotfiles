@@ -3,8 +3,19 @@
   "editor.formatOnSave": false,
   "powershell.codeFormatting.useCorrectCasing": true,
   "files.associations": {
-    "nanorc": "ini",
+    ".condarc": "yaml",
+    ".wslconfig": "ini",
     "*.nanorc": "ini",
-    ".wslconfig": "ini"
+    "**/.config/bat/config": "ini",
+    "**/.config/ghostty/config": "ini",
+    "**/.config/ghostty/themes/*": "ini",
+    "**/.config/htop/htoprc": "ini",
+    "**/.config/mintty/config": "ini",
+    "**/.config/npm/npmrc": "ini",
+    "**/.config/pnpm/rc": "ini",
+    "**/.config/readline/inputrc": "properties",
+    "**/.config/screen/screenrc": "ini",
+    "**/.config/wget/wgetrc": "ini",
+    "nanorc": "shellcheckrc"
   }
 }
