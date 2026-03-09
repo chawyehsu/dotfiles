@@ -851,6 +851,11 @@ if (Test-IsNotWindows) {
 if (Test-Command 'bat') {
     $env:BAT_CONFIG_PATH = Get-NormalizedPath "$Script:UNI_HOME/.config/bat/config"
     Set-Alias -Name 'cat' -Value 'bat' -Option AllScope
+
+    # brew integration on macOS
+    if ($IsMacOS -and (Test-Command 'brew')) {
+        $env:HOMEBREW_BAT='1'
+    }
 }
 
 if (Test-Command 'zoxide') {

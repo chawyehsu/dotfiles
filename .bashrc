@@ -274,6 +274,11 @@ fi
 if [ -x "$(command -v bat)" ]; then
   export BAT_CONFIG_PATH="$XDG_CONFIG_HOME/bat/config"
   alias cat="bat"
+
+  # brew integration on macOS
+  if [[ "$OSTYPE" = "darwin"* ]] && [ -x "$(command -v brew)" ]; then
+    export HOMEBREW_BAT='1'
+  fi
 fi
 # Ruby rbenv
 [ -x "$(command -v rbenv)" ] && eval "$(rbenv init -)"
