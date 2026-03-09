@@ -11,6 +11,9 @@ rulers = [80, 120]
 insert = "bar"
 select = "underline"
 
+[editor.file-picker]
+hidden = false
+
 # nano bindings
 [keys.insert]
 "A-b" = "move_prev_word_start"
