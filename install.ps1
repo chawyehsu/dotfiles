@@ -114,8 +114,10 @@ function Set-SymbolicLink([String]$Target, [String]$Path) {
         (Join-Path $DSTROOT $Path)
     }
 
-    Write-Host "Linked $($DestPath.ToString()) -> $($src.ToString())"
     New-Item -Type SymbolicLink -Path $DestPath -Target $src -Force | Out-Null
+    Write-Host "Linked" -ForegroundColor Green -NoNewline
+    Write-Host " $($DestPath.ToString())" -NoNewline
+    Write-Host " -> $($Target.ToString())" -ForegroundColor DarkGray
 }
 
 #--------------#
