@@ -1,6 +1,7 @@
 version: "1"
 editor: nano
 aliases:
+    home: browse
     si: search issues
     sp: search prs
     sr: search repos
