@@ -6,15 +6,15 @@
 
 ![License][license-badge] ![Powered by PowerShell][powershell-badge] ![repo][repo-badge]
 
-## Bootstrap
+## Getting Started
 
 Prerequisites: PowerShell
 
-```powershell
-$ git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
-$ cd ~/.dotfiles
-$ pwsh -noprofile ./install.ps1
-# Here we go!
+```sh
+git clone https://github.com/chawyehsu/dotfiles ~/.dotfiles
+# Check available options
+# pwsh -nop ~/.dotfiles/install.ps1 -?
+pwsh -nop ~/.dotfiles/install.ps1
 ```
 
 ## License
