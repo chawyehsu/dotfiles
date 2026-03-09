@@ -48,7 +48,16 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 #
-# ============
+# NOTE(macOS): the PATH value Ghostty uses to find the direct command is
+#
+#   /usr/bin:/bin:/usr/sbin:/sbin:/Applications/Ghostty.app/Contents/MacOS
+#
+# therefore, pwsh has to be in one of these PATHs to be accessible. I link
+# it to Ghostty's contents directory as SIP makes system PATHs read-only.
+#
+# refs:
+# - https://ghostty.org/docs/help/macos-login-shells
+# - https://github.com/ghostty-org/ghostty/discussions/7931
 command = direct:pwsh -l -i -nol
 
 # Keybindings
