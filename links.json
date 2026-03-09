@@ -68,5 +68,5 @@
   { "path": "$env:APPDATA/vivid", "target": ".config/vivid", "os": ["windows"] },
   { "path": "$env:APPDATA/Zed", "target": ".config/zed", "os": ["windows"] },
   { "path": "$env:LOCALAPPDATA/Microsoft/Windows Terminal/settings.json", "target": "scoop/persist/windows-terminal/settings/settings.json", "os": ["windows"] },
-  { "path": "$PROFILE.CurrentUserAllHosts", "target": ".config/powershell/profile.ps1", "os": ["windows"] }
+  { "path": "$($PROFILE.CurrentUserAllHosts)", "target": ".config/powershell/profile.ps1", "os": ["windows"] }
 ]
