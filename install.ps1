@@ -198,6 +198,7 @@ if (-not $NoBackup) {
         '.gnupg/gpg.conf',
         '.gradle/gradle.properties',
         '.pip',
+        '.profile',
         '.rprofile',
         '.screenrc',
         '.volta',
@@ -355,6 +356,7 @@ if (Test-IsWindows) {
         Set-SymbolicLink -Target '.zshrc'
     } else {
         # Linux
+        Set-SymbolicLink -Target '.profile'
         Set-SymbolicLink -Target '.config/git/config.linux.conf' `
             -Path '.config/git/config.local'
         # gpg
