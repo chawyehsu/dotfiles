@@ -565,7 +565,7 @@ $env:GIT_PS1_SHOWDIRTYSTATE = 1
         Add-ToPath $moonbitBinPath
     }
     # bun
-    if (Test-Command 'bun') {
+    if (-not (Test-Command 'bun')) {
         $env:BUN_INSTALL = Get-NormalizedPath "$Script:UNI_HOME/.bun"
         $bunBinPath = Get-NormalizedPath "$env:BUN_INSTALL/bin"
         if (Test-Path $bunBinPath) {

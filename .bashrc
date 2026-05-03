@@ -104,7 +104,7 @@ if [[ -d "$_cargobin" && ":$PATH:" != *":$_cargobin:"* ]]; then
   export PATH="$_cargobin:$PATH"
 fi
 # PATH updates - bun bin:
-if [ -x "$(command -v bun)" ]; then
+if [ ! -x "$(command -v bun)" ]; then
   export BUN_INSTALL="$HOME/.bun"
   _bunbin="$BUN_INSTALL/bin"
   if [[ -d "$_bunbin" && ":$PATH:" != *":$_bunbin:"* ]]; then
