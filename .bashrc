@@ -40,6 +40,12 @@ export PYTHONUTF8=1
 # XDG compliance
 export INPUTRC="$XDG_CONFIG_HOME/readline/inputrc"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+# Telemetry
+export POWERSHELL_TELEMETRY_OPTOUT=1
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export VCPKG_DISABLE_METRICS=1
+export VSCMD_SKIP_SENDTELEMETRY=1
+export MSEDGEDRIVER_TELEMETRY_OPTOUT=1
 # PATH updates -
 case "$OSTYPE" in
   darwin*)
