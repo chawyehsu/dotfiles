@@ -120,4 +120,7 @@ format_signed_off_by_trailer(self)'''
 
 [merge-tools.weave]
 program = "weave-driver"
-merge-args = ["$base", "$left", "$right", "-o", "$output", "-p", "$path"]
+merge-args = ["$base", "$left", "$right", "-o", "$output", "-l", "$marker_length", "-p", "$path"]
+merge-conflict-exit-codes = [1]
+merge-tool-edits-conflict-markers = true
+conflict-marker-style = "git"
