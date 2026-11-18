@@ -117,3 +117,7 @@ _ = "@"
 [templates]
 commit_trailers = '''
 format_signed_off_by_trailer(self)'''
+
+[merge-tools.weave]
+program = "weave-driver"
+merge-args = ["$base", "$left", "$right", "-o", "$output", "-p", "$path"]
