@@ -1,6 +1,5 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "providers": {},
   "permissions": [
     { "action": "external_directory", "resource": "*", "effect": "ask" }
   ],
